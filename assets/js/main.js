@@ -50,8 +50,6 @@
   });
 
   const themeToggle = document.querySelector('.theme-toggle');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-
   function storedTheme() {
     try {
       return window.localStorage.getItem('rbc68-theme');
@@ -70,15 +68,16 @@
 
   function applyTheme(dark) {
     document.body.classList.toggle('dark-mode', dark);
+    document.documentElement.dataset.themePreference = dark ? 'dark' : 'light';
     if (themeToggle) {
-      themeToggle.textContent = dark ? '☀️' : '🌓';
-      themeToggle.setAttribute('aria-label', dark ? 'Basculer vers le mode clair' : 'Basculer vers le mode sombre');
-      themeToggle.title = dark ? 'Mode clair' : 'Mode sombre';
+      themeToggle.setAttribute('aria-checked', String(dark));
+      themeToggle.setAttribute('aria-label', dark ? 'Mode sombre actif. Passer au mode clair' : 'Mode clair actif. Passer au mode sombre');
+      themeToggle.title = dark ? 'Passer au mode clair' : 'Passer au mode sombre';
     }
   }
 
   const savedTheme = storedTheme();
-  applyTheme(savedTheme ? savedTheme === 'dark' : prefersDark.matches);
+  applyTheme(savedTheme ? savedTheme === 'dark' : true);
 
   if (themeToggle) {
     themeToggle.addEventListener('click', function () {
@@ -87,12 +86,6 @@
       saveTheme(dark ? 'dark' : 'light');
     });
   }
-
-  prefersDark.addEventListener('change', function (event) {
-    if (!storedTheme()) {
-      applyTheme(event.matches);
-    }
-  });
 
   const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
   const lightbox = document.getElementById('lightbox');
@@ -160,13 +153,29 @@
     return String(value).replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/,/g, '\\,').replace(/;/g, '\\;');
   }
 
+  function compactDate(date) {
+    return String(date || '').replace(/-/g, '');
+  }
+
+  function nextDate(date) {
+    const parts = String(date).split('-').map(Number);
+    const value = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2]));
+    value.setUTCDate(value.getUTCDate() + 1);
+    return value.toISOString().slice(0, 10);
+  }
+
   function downloadEvent(item, index) {
     const title = item.dataset.title;
-    const start = item.dataset.start;
-    const end = item.dataset.end;
-    if (!title || !start || !end) return;
+    const startDate = item.dataset.startDate;
+    const endDate = item.dataset.endDate || startDate;
+    const startTime = item.dataset.startTime;
+    const endTime = item.dataset.endTime;
+    if (!title || !startDate) return;
 
     const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
+    const timed = Boolean(startTime);
+    const start = timed ? 'DTSTART;TZID=Europe/Paris:' + compactDate(startDate) + 'T' + startTime.replace(':', '') + '00' : 'DTSTART;VALUE=DATE:' + compactDate(startDate);
+    const end = timed ? 'DTEND;TZID=Europe/Paris:' + compactDate(endDate) + 'T' + (endTime || startTime).replace(':', '') + '00' : 'DTEND;VALUE=DATE:' + compactDate(nextDate(endDate));
     const ics = [
       'BEGIN:VCALENDAR',
       'VERSION:2.0',
@@ -175,11 +184,11 @@
       'BEGIN:VEVENT',
       'UID:rbc68-' + index + '-' + stamp + '@rbc68.fr',
       'DTSTAMP:' + stamp,
-      'DTSTART;VALUE=DATE:' + start,
-      'DTEND;VALUE=DATE:' + end,
+      start,
+      end,
       'SUMMARY:' + escapeIcs(title),
-      'DESCRIPTION:Événement du Riedisheim Badminton Club (RBC68)',
-      'LOCATION:Complexe sportif C.M.C.A.S\\, chemin de Brunstatt\\, 68170 Rixheim',
+      'DESCRIPTION:' + escapeIcs(item.dataset.details || 'Événement du Riedisheim Badminton Club (RBC68)'),
+      'LOCATION:' + escapeIcs(item.dataset.location || ''),
       'END:VEVENT',
       'END:VCALENDAR',
       ''
@@ -195,14 +204,8 @@
     URL.revokeObjectURL(blobUrl);
   }
 
-  document.querySelectorAll('.event-item').forEach(function (item, index) {
+  document.querySelectorAll('.event-calendar-button').forEach(function (item, index) {
     item.addEventListener('click', function () { downloadEvent(item, index); });
-    item.addEventListener('keydown', function (event) {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        downloadEvent(item, index);
-      }
-    });
   });
 
   const animatedItems = document.querySelectorAll('.gallery-item, .blog-card');
@@ -253,4 +256,3 @@
     });
   }
 })();
-

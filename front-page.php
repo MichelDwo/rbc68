@@ -6,31 +6,135 @@
  */
 get_header();
 $rbc68_contact_status = isset( $_GET['contact'] ) ? sanitize_key( wp_unslash( $_GET['contact'] ) ) : '';
+$rbc68_hero_image_id  = absint( get_theme_mod( 'rbc68_hero_image' ) );
+$rbc68_club_image_id  = absint( get_theme_mod( 'rbc68_club_image' ) );
 ?>
 <main id="contenu">
-<!-- Hero Section -->
-  <section id="accueil" class="hero">
-    <h1><?php echo esc_html( rbc68_mod( 'rbc68_hero_title', 'Riedisheim Badminton Club' ) ); ?></h1>
-    <p><?php echo esc_html( rbc68_mod( 'rbc68_hero_text', 'Découvrez la passion du badminton dans une ambiance conviviale et sportive. Ouvert à tous les niveaux, du débutant au compétiteur.' ) ); ?></p>
-    <a href="#inscription" class="cta-button">Rejoindre le club</a>
+<!-- Introduction compacte -->
+  <section id="accueil" class="hero<?php echo $rbc68_hero_image_id ? ' hero-has-image' : ''; ?>">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <h1><?php echo esc_html( rbc68_mod( 'rbc68_hero_title', 'Riedisheim Badminton Club' ) ); ?></h1>
+        <p><?php echo esc_html( rbc68_mod( 'rbc68_hero_text', 'Badminton loisir et compétition pour les adultes, les jeunes et le mini-bad, au complexe sportif C.M.C.A.S de Rixheim.' ) ); ?></p>
+        <div class="hero-actions">
+          <a href="#inscription" class="cta-button">Nous rejoindre</a>
+          <a href="#horaires" class="cta-button cta-button-secondary">Voir les créneaux</a>
+        </div>
+      </div>
+      <?php if ( $rbc68_hero_image_id ) : ?>
+        <figure class="hero-visual">
+          <?php echo wp_get_attachment_image( $rbc68_hero_image_id, 'large', false, array( 'class' => 'hero-photo' ) ); ?>
+        </figure>
+      <?php endif; ?>
+    </div>
   </section>
 
+  <!-- Les informations recherchées le plus souvent -->
+  <section id="essentiel" class="essentials" aria-labelledby="essentiel-title">
+    <div class="section-heading-inline">
+      <div>
+        <p class="eyebrow">L’essentiel en un coup d’œil</p>
+        <h2 id="essentiel-title">Les informations pratiques</h2>
+      </div>
+    </div>
+    <div class="essentials-grid">
+      <article class="essential-card essential-location">
+        <span class="essential-icon" aria-hidden="true">⌖</span>
+        <div>
+          <h3>Où jouer ?</h3>
+          <p><?php echo esc_html( rbc68_mod( 'rbc68_address', 'Complexe sportif C.M.C.A.S, chemin de Brunstatt, 68170 Rixheim' ) ); ?></p>
+          <p><a href="#contact">Voir la carte de la salle →</a></p>
+          <div class="essential-links"><a href="<?php echo esc_url( rbc68_mod( 'rbc68_map_link', 'https://www.google.com/maps/dir/?api=1&destination=47.7331928%2C7.3777678' ) ); ?>" target="_blank" rel="noopener">Itinéraire</a><a href="<?php echo esc_url( rbc68_mod( 'rbc68_room_info', '#club' ) ); ?>">Infos sur la salle</a></div>
+        </div>
+      </article>
+      <article class="essential-card">
+        <span class="essential-icon" aria-hidden="true">◷</span>
+        <div><h3>Quand ?</h3><dl class="essential-groups"><div><dt>Adultes <?php if ( rbc68_availability_label( 'adults' ) ) : ?><span class="availability availability-full">Complet</span><?php endif; ?></dt><dd><?php echo esc_html( rbc68_mod( 'rbc68_when_adults', 'Mardi, mercredi, vendredi et dimanche' ) ); ?></dd></div><div><dt>Jeunes <?php if ( rbc68_availability_label( 'youth' ) ) : ?><span class="availability availability-full">Complet</span><?php endif; ?></dt><dd><?php echo esc_html( rbc68_mod( 'rbc68_when_youth', 'Mardi, vendredi et dimanche' ) ); ?></dd></div><div><dt>Mini-bad <?php if ( rbc68_availability_label( 'mini' ) ) : ?><span class="availability availability-full">Complet</span><?php endif; ?></dt><dd><?php echo esc_html( rbc68_mod( 'rbc68_when_mini', 'Vendredi et dimanche' ) ); ?></dd></div></dl><a href="#horaires">Tous les horaires</a></div>
+      </article>
+      <article class="essential-card">
+        <span class="essential-icon" aria-hidden="true">€</span>
+        <div><h3>Combien ?</h3><dl class="essential-prices"><div><dt>Mini-bad</dt><dd><?php echo esc_html( rbc68_mod( 'rbc68_price_mini', '70 €' ) ); ?></dd></div><div><dt>Jeunes</dt><dd><?php echo esc_html( rbc68_mod( 'rbc68_price_youth', '85 €' ) ); ?></dd></div><div><dt>Adultes</dt><dd><?php echo esc_html( rbc68_mod( 'rbc68_price_adults', '105 €' ) ); ?></dd></div></dl><a href="#inscription">Tarifs et documents</a></div>
+      </article>
+      <article class="essential-card essential-card-accent">
+        <span class="essential-icon" aria-hidden="true">✓</span>
+        <div><h3>Envie de jouer ?</h3><p><?php echo esc_html( rbc68_mod( 'rbc68_join_text', 'Nouvelles inscriptions sur place, auprès du responsable de salle. Reprise le 1er septembre 2026.' ) ); ?></p><a href="#inscription">Nous rejoindre</a></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Signalétique pour les visiteurs réguliers et occasionnels -->
+  <section id="en-ce-moment" class="spotlight" aria-labelledby="spotlight-title">
+    <div class="spotlight-label"><span></span><h2 id="spotlight-title">En ce moment</h2></div>
+    <div class="spotlight-grid">
+      <article class="spotlight-panel spotlight-events">
+        <div class="spotlight-panel-heading"><span class="spotlight-type">Prochains événements</span><a href="#calendrier">Tout le calendrier →</a></div>
+        <div class="spotlight-event-list">
+          <?php $rbc68_upcoming = rbc68_get_upcoming_events( 3 ); ?>
+          <?php if ( $rbc68_upcoming ) : ?>
+            <?php foreach ( $rbc68_upcoming as $rbc68_event ) : ?>
+              <?php $rbc68_event_date = get_post_meta( $rbc68_event->ID, 'rbc68_event_date', true ); ?>
+              <a href="<?php echo esc_url( rbc68_event_article_url( $rbc68_event->ID ) ); ?>" class="spotlight-event-row"><time datetime="<?php echo esc_attr( $rbc68_event_date ); ?>"><?php echo esc_html( rbc68_event_when_label( $rbc68_event->ID ) ); ?></time><strong><?php echo esc_html( get_the_title( $rbc68_event ) ); ?> <span class="event-category-inline event-category-<?php echo esc_attr( rbc68_event_kind( $rbc68_event->ID ) ); ?>"><?php echo esc_html( rbc68_event_kind_label( $rbc68_event->ID ) ); ?></span></strong><span aria-hidden="true">→</span></a>
+            <?php endforeach; ?>
+          <?php else : ?>
+            <p class="spotlight-empty">Les prochains événements seront annoncés ici.</p>
+          <?php endif; ?>
+        </div>
+      </article>
+      <?php
+      $rbc68_latest = new WP_Query(
+        array(
+          'post_type'           => 'post',
+          'post_status'         => 'publish',
+          'posts_per_page'      => 1,
+          'ignore_sticky_posts' => true,
+        )
+      );
+      ?>
+      <?php if ( $rbc68_latest->have_posts() ) : $rbc68_latest->the_post(); ?>
+        <article class="spotlight-panel spotlight-news">
+          <span class="spotlight-type">Dernière actualité</span>
+          <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+          <p><?php echo esc_html( wp_trim_words( get_the_excerpt(), 24, '…' ) ); ?></p>
+          <a class="spotlight-news-link" href="<?php the_permalink(); ?>"><?php echo esc_html( get_the_date() ); ?> · Lire l’article →</a>
+        </article>
+        <?php wp_reset_postdata(); ?>
+      <?php else : ?>
+        <article class="spotlight-panel spotlight-news">
+          <span class="spotlight-type">Actualités du club</span>
+          <h3>Les nouvelles du RBC68 paraîtront ici</h3>
+          <p>Résultats, rendez-vous et vie du club : retrouvez ici les dernières nouvelles.</p>
+          <a class="spotlight-news-link" href="#actualites">Consulter les actualités →</a>
+        </article>
+      <?php endif; ?>
+    </div>
+  </section>
+
+  <?php ob_start(); ?>
   <!-- Le Club -->
   <section id="club">
     <h2 class="section-title">Le Club</h2>
-    <div style="background: var(--card-bg); padding: 2rem; border-radius: 0.75rem; box-shadow: var(--shadow); text-align: center; color: var(--text-color);">
-      <p style="font-size: 1.1rem; line-height: 1.8; max-width: 800px; margin: 0 auto;">
-        Le <strong>Riedisheim Badminton Club (RBC68)</strong> a été créé le 3 mars 2016 suite à la restructuration de l'ASCAR.
-        L'association est affiliée à la <strong>Fédération Française de Badminton</strong>, à la Ligue Régionale et au Comité Départemental.
-      </p>
-      <p style="margin-top: 1.5rem; font-size: 1.1rem;">
-        <strong>Lieu de pratique :</strong> <a href="https://www.google.com/maps/place/47.7331928,7.3777678" target="_blank" style="color: var(--primary); text-decoration: none;">Complexe sportif C.M.C.A.S, chemin de Brunstatt, 68170 Rixheim</a>
-      </p>
+    <div class="club-card">
+      <div class="club-intro<?php echo $rbc68_club_image_id ? ' club-intro-has-image' : ''; ?>">
+        <div class="club-copy">
+          <p>
+            Le <strong>Riedisheim Badminton Club (RBC68)</strong> a été créé le 3 mars 2016 suite à la restructuration de l'ASCAR.
+            L'association est affiliée à la <strong>Fédération Française de Badminton</strong>, à la Ligue Régionale et au Comité Départemental.
+          </p>
+          <p>
+            <strong>Lieu de pratique :</strong> <a href="https://www.google.com/maps/place/47.7331928,7.3777678" target="_blank" rel="noopener noreferrer">Complexe sportif C.M.C.A.S, chemin de Brunstatt, 68170 Rixheim</a>
+          </p>
+        </div>
+        <?php if ( $rbc68_club_image_id ) : ?>
+          <figure class="club-visual">
+            <?php echo wp_get_attachment_image( $rbc68_club_image_id, 'large', false, array( 'class' => 'club-photo' ) ); ?>
+          </figure>
+        <?php endif; ?>
+      </div>
       
       <!-- Organigramme -->
-      <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #e5e7eb;">
-        <h3 style="color: var(--primary); margin-bottom: 1rem;">Organigramme</h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; text-align: left;">
+      <div class="club-organization">
+        <h3>Organigramme</h3>
+        <div class="club-organization-grid">
           <div class="organigramme-card" style="padding: 1rem;">
             <strong>Président :</strong> Julien GEIGER
           </div>
@@ -51,16 +155,17 @@ $rbc68_contact_status = isset( $_GET['contact'] ) ? sanitize_key( wp_unslash( $_
     </div>
   </section>
 
+  <?php $rbc68_section_club = ob_get_clean(); ob_start(); ?>
   <!-- ======================================== -->
   <!-- INSCRIPTION - Modalités d'inscription -->
   <!-- ======================================== -->
   <section id="inscription">
-    <h2 class="section-title">Modalités d'inscription</h2>
+    <h2 class="section-title">Nous rejoindre</h2>
     
     <div class="inscription-container">
       <!-- Informations générales -->
       <div class="inscription-info">
-        <h3>Comment s'inscrire ?</h3>
+        <h3>Comment nous rejoindre ?</h3>
         <p>
           <strong>Nouvelles inscriptions :</strong> Les inscriptions ont lieu <strong>sur place auprès du responsable de salle</strong>, 
           au début ou à la fin de chaque entraînement.
@@ -75,6 +180,7 @@ $rbc68_contact_status = isset( $_GET['contact'] ) ? sanitize_key( wp_unslash( $_
         <p style="margin-top: 1rem;">
           <strong>Reprise des entraînements :</strong> 1er septembre 2026
         </p>
+        <p class="trial-highlight" style="margin-top: 1rem;"><strong>Deux séances d’essai gratuites</strong> sont proposées avant de finaliser votre inscription.</p>
       </div>
       
       <!-- Tarifs -->
@@ -83,6 +189,7 @@ $rbc68_contact_status = isset( $_GET['contact'] ) ? sanitize_key( wp_unslash( $_
         <div class="tarifs-grid">
           <div class="tarif-card">
             <h4>Section Mini-Bad</h4>
+            <?php if ( rbc68_availability_label( 'mini' ) ) : ?><p class="availability availability-full">Complet</p><?php endif; ?>
             <p class="tarif-price">70 €</p>
             <p class="tarif-payment">
               Par chèque à l'ordre du <strong>Riedisheim Badminton Club</strong> 
@@ -92,6 +199,7 @@ $rbc68_contact_status = isset( $_GET['contact'] ) ? sanitize_key( wp_unslash( $_
           </div>
           <div class="tarif-card">
             <h4>Section Jeune</h4>
+            <?php if ( rbc68_availability_label( 'youth' ) ) : ?><p class="availability availability-full">Complet</p><?php endif; ?>
             <p class="tarif-price">85 €</p>
             <p class="tarif-payment">
               Par chèque à l'ordre du <strong>Riedisheim Badminton Club</strong> 
@@ -101,6 +209,7 @@ $rbc68_contact_status = isset( $_GET['contact'] ) ? sanitize_key( wp_unslash( $_
           </div>
           <div class="tarif-card">
             <h4>Section Adulte</h4>
+            <?php if ( rbc68_availability_label( 'adults' ) ) : ?><p class="availability availability-full">Complet</p><?php endif; ?>
             <p class="tarif-price">105 €</p>
             <p class="tarif-payment">
               Par chèque à l'ordre du <strong>Riedisheim Badminton Club</strong> 
@@ -127,6 +236,7 @@ $rbc68_contact_status = isset( $_GET['contact'] ) ? sanitize_key( wp_unslash( $_
     </div>
   </section>
 
+  <?php $rbc68_section_join = ob_get_clean(); ob_start(); ?>
   <!-- Horaires -->
   <section id="horaires">
     <h2 class="section-title">Nos Horaires</h2>
@@ -217,76 +327,93 @@ $rbc68_contact_status = isset( $_GET['contact'] ) ? sanitize_key( wp_unslash( $_
     </div>
   </section>
 
+  <?php $rbc68_section_schedule = ob_get_clean(); ob_start(); ?>
   <!-- ======================================== -->
   <!-- CALENDRIER - Événements de la saison -->
   <!-- ======================================== -->
   <section id="calendrier">
-    <h2 class="section-title">Évènements saison 2026-2027</h2>
+    <h2 class="section-title">Évènements</h2>
     <div style="background: var(--card-bg); padding: 2rem; border-radius: 0.75rem; box-shadow: var(--shadow); color: var(--text-color);">
       <div class="events-list">
-          <div class="event-item" role="button" tabindex="0" data-title="Démarrage de la saison (section jeune et adulte)" data-start="20260901" data-end="20260902" aria-label="Télécharger cet événement au format calendrier">
-            <div class="event-date">📅 1er septembre 2026</div>
-            <div class="event-title">Démarrage de la saison (section jeune et adulte)</div>
-          </div>
-          <div class="event-item" role="button" tabindex="0" data-title="Démarrage de la saison (section adulte compétiteurs)" data-start="20260902" data-end="20260903" aria-label="Télécharger cet événement au format calendrier">
-            <div class="event-date">📅 2 septembre 2026</div>
-            <div class="event-title">Démarrage de la saison (section adulte compétiteurs)</div>
-          </div>
-          <div class="event-item" role="button" tabindex="0" data-title="Réunion de rentrée avec section jeune et mini-bad + Démarrage mini-bad" data-start="20260904" data-end="20260905" aria-label="Télécharger cet événement au format calendrier">
-            <div class="event-date">📅 4 septembre 2026</div>
-            <div class="event-title">Réunion de rentrée avec section jeune et mini-bad + Démarrage mini-bad</div>
-          </div>
-          <div class="event-item" role="button" tabindex="0" data-title="Journées d'Automne et des Associations" data-start="20260905" data-end="20260907" aria-label="Télécharger cet événement au format calendrier">
-            <div class="event-date">📅 5-6 septembre 2026</div>
-            <div class="event-title">Journées d'Automne et des Associations</div>
-          </div>
-          <div class="event-item" role="button" tabindex="0" data-title="Octobre rose" data-start="20261002" data-end="20261003" aria-label="Télécharger cet événement au format calendrier">
-            <div class="event-date">📅 2 octobre 2026</div>
-            <div class="event-title">Octobre rose</div>
-          </div>
-          <div class="event-item" role="button" tabindex="0" data-title="Halloween" data-start="20261031" data-end="20261101" aria-label="Télécharger cet événement au format calendrier">
-            <div class="event-date">📅 31 octobre 2026</div>
-            <div class="event-title">Halloween</div>
-          </div>
-          <div class="event-item" role="button" tabindex="0" data-title="Assemblée Générale (date à définir)" data-start="20261115" data-end="20261202" aria-label="Télécharger cet événement au format calendrier">
-            <div class="event-date">📅 Mi-novembre à début décembre 2026</div>
-            <div class="event-title">Assemblée Générale (date à définir)</div>
-          </div>
-          <div class="event-item" role="button" tabindex="0" data-title="Fête/rassemblement de fin d'année" data-start="20261218" data-end="20261219" aria-label="Télécharger cet événement au format calendrier">
-            <div class="event-date">📅 18 décembre 2026</div>
-            <div class="event-title">Fête/rassemblement de fin d'année</div>
-          </div>
-          <div class="event-item" role="button" tabindex="0" data-title="Stage Club" data-start="20270207" data-end="20270208" aria-label="Télécharger cet événement au format calendrier">
-            <div class="event-date">📅 7 février 2027</div>
-            <div class="event-title">Stage Club</div>
-          </div>
-          <div class="event-item" role="button" tabindex="0" data-title="Bad brunch" data-start="20270321" data-end="20270322" aria-label="Télécharger cet événement au format calendrier">
-            <div class="event-date">📅 21 mars 2027</div>
-            <div class="event-title">Bad brunch</div>
-          </div>
-          <div class="event-item" role="button" tabindex="0" data-title="Événement parents/jeunes" data-start="20270605" data-end="20270606" aria-label="Télécharger cet événement au format calendrier">
-            <div class="event-date">📅 5 juin 2027</div>
-            <div class="event-title">Événement parents/jeunes</div>
-          </div>
-          <div class="event-item" role="button" tabindex="0" data-title="Fête de fin de saison" data-start="20270627" data-end="20270628" aria-label="Télécharger cet événement au format calendrier">
-            <div class="event-date">📅 27 juin 2027</div>
-            <div class="event-title">Fête de fin de saison</div>
-          </div>
+        <?php
+        $rbc68_calendar = new WP_Query(
+          array(
+            'post_type'      => 'rbc68_event',
+            'post_status'    => 'publish',
+            'posts_per_page' => -1,
+            'meta_key'       => 'rbc68_event_date',
+            'orderby'        => 'meta_value',
+            'order'          => 'ASC',
+          )
+        );
+        $rbc68_groups = array( 'upcoming' => 'À venir', 'past' => 'Passés — saison en cours' );
+        $rbc68_archives = array();
+        foreach ( $rbc68_calendar->posts as $event ) {
+          $group = rbc68_event_archive_group( $event->ID );
+          if ( is_numeric( $group ) ) {
+            $rbc68_archives[$group] = $group . '–' . ( (int) $group + 1 );
+          }
+        }
+        krsort( $rbc68_archives );
+        $rbc68_groups += $rbc68_archives;
+        $rbc68_selected = isset( $_GET['evenements'] ) && is_string( $_GET['evenements'] ) ? sanitize_key( wp_unslash( $_GET['evenements'] ) ) : 'upcoming';
+        if ( ! isset( $rbc68_groups[$rbc68_selected] ) ) { $rbc68_selected = 'upcoming'; }
+        $rbc68_shown = 0;
+        ?>
+        <nav class="event-archive-tabs" aria-label="Période des événements">
+          <?php foreach ( $rbc68_groups as $group => $label ) : ?>
+            <a href="<?php echo esc_url( add_query_arg( 'evenements', $group, home_url( '/' ) ) . '#calendrier' ); ?>"<?php if ( (string) $group === $rbc68_selected ) : ?> aria-current="page"<?php endif; ?>><?php echo esc_html( $label ); ?></a>
+          <?php endforeach; ?>
+        </nav>
+        <?php if ( $rbc68_calendar->have_posts() ) : ?>
+          <?php while ( $rbc68_calendar->have_posts() ) : $rbc68_calendar->the_post(); ?>
+            <?php
+            $rbc68_event_id = get_the_ID();
+            if ( rbc68_event_archive_group( $rbc68_event_id ) !== $rbc68_selected ) { continue; }
+            ++$rbc68_shown;
+            $rbc68_start    = get_post_meta( $rbc68_event_id, 'rbc68_event_date', true );
+            $rbc68_end      = get_post_meta( $rbc68_event_id, 'rbc68_event_end_date', true );
+            $rbc68_kind     = get_post_meta( $rbc68_event_id, 'rbc68_event_kind', true );
+            $rbc68_team     = get_post_meta( $rbc68_event_id, 'rbc68_event_team', true );
+            $rbc68_location = get_post_meta( $rbc68_event_id, 'rbc68_event_location', true );
+            $rbc68_details  = get_post_meta( $rbc68_event_id, 'rbc68_event_details', true );
+            $rbc68_map      = rbc68_event_map_embed_url( $rbc68_event_id );
+            $rbc68_map_link = rbc68_event_map_link( $rbc68_event_id );
+            $rbc68_past     = rbc68_event_is_past( $rbc68_event_id );
+            ?>
+            <article class="event-item<?php echo $rbc68_past ? ' event-past' : ''; ?>">
+              <div class="event-main">
+                <div class="event-date">📅 <?php echo esc_html( rbc68_event_when_label( $rbc68_event_id ) ); ?></div>
+                <h3 class="event-title"><?php the_title(); ?></h3>
+                <p class="event-category event-category-<?php echo esc_attr( rbc68_event_kind( $rbc68_event_id ) ); ?>"><?php echo esc_html( rbc68_event_kind_label( $rbc68_event_id ) ); ?><?php echo $rbc68_team && 'interclub' === rbc68_event_kind( $rbc68_event_id ) ? ' · Équipe ' . esc_html( $rbc68_team ) : ''; ?></p>
+                <?php if ( $rbc68_location ) : ?><p class="event-location"><strong>Lieu :</strong> <?php echo esc_html( $rbc68_location ); ?></p><?php endif; ?>
+                <?php if ( $rbc68_details ) : ?><p class="event-details"><?php echo esc_html( $rbc68_details ); ?></p><?php endif; ?>
+                <div class="event-actions">
+                  <?php if ( $rbc68_map_link ) : ?><a href="<?php echo esc_url( $rbc68_map_link ); ?>" target="_blank" rel="noopener">Itinéraire →</a><?php endif; ?>
+                  <?php if ( get_post_meta( $rbc68_event_id, 'rbc68_event_article_url', true ) ) : ?><a href="<?php echo esc_url( rbc68_event_article_url( $rbc68_event_id ) ); ?>">Article dédié →</a><?php endif; ?>
+                  <?php if ( ! $rbc68_past ) : ?><button class="event-calendar-button" type="button" data-title="<?php echo esc_attr( get_the_title() ); ?>" data-start-date="<?php echo esc_attr( $rbc68_start ); ?>" data-end-date="<?php echo esc_attr( $rbc68_end ?: $rbc68_start ); ?>" data-start-time="<?php echo esc_attr( get_post_meta( $rbc68_event_id, 'rbc68_event_start_time', true ) ); ?>" data-end-time="<?php echo esc_attr( get_post_meta( $rbc68_event_id, 'rbc68_event_end_time', true ) ); ?>" data-location="<?php echo esc_attr( $rbc68_location ); ?>" data-details="<?php echo esc_attr( $rbc68_details ); ?>">Ajouter au calendrier</button><?php endif; ?>
+                </div>
+              </div>
+              <?php if ( $rbc68_map ) : ?><div class="event-map"><iframe title="Carte du lieu de <?php echo esc_attr( get_the_title() ); ?>" loading="lazy" src="<?php echo esc_url( $rbc68_map ); ?>"></iframe></div><?php endif; ?>
+            </article>
+          <?php endwhile; wp_reset_postdata(); ?>
+        <?php endif; ?>
+        <?php if ( ! $rbc68_shown ) : ?><p>Aucun événement dans cette période.</p><?php endif; ?>
         </div>
       </div>
-    </div>
   </section>
 
+  <?php $rbc68_section_calendar = ob_get_clean(); ob_start(); ?>
   <!-- Galerie Photo -->
   <section id="galerie">
     <h2 class="section-title">Galerie Photo</h2>
     <div class="gallery">
       <div class="gallery-item" data-index="0">
-        <img src="<?php echo esc_attr( rbc68_gallery_image( 1, rbc68_placeholder_image( 'Terrains de badminton', '#e0f2fe', '#0284c7', 400, 300 ) ) ); ?>" alt="Terrains de badminton" class="gallery-img">
+        <img src="<?php echo esc_attr( rbc68_gallery_image( 1, rbc68_placeholder_image( 'Terrains de badminton', '#182d52', '#fefefe', 400, 300 ) ) ); ?>" alt="Terrains de badminton" class="gallery-img">
         <div class="gallery-overlay">Voir la photo</div>
       </div>
      <div class="gallery-item" data-index="1">
-        <img src="<?php echo esc_attr( rbc68_gallery_image( 2, rbc68_placeholder_image( 'Équipements', '#f3e8ff', '#7c3aed', 400, 300 ) ) ); ?>" alt="Équipements" class="gallery-img">
+        <img src="<?php echo esc_attr( rbc68_gallery_image( 2, rbc68_placeholder_image( 'Équipements', '#5f708c', '#fefefe', 400, 300 ) ) ); ?>" alt="Équipements" class="gallery-img">
         <div class="gallery-overlay">Voir la photo</div>
       </div>
     </div>
@@ -302,6 +429,7 @@ $rbc68_contact_status = isset( $_GET['contact'] ) ? sanitize_key( wp_unslash( $_
     <button class="lightbox-nav next" id="lightbox-next" aria-label="Photo suivante">&#10095;</button>
   </div>
 
+  <?php $rbc68_section_gallery = ob_get_clean(); ob_start(); ?>
   <!-- ======================================== -->
   <!-- Actualités / Blog -->
   <section id="actualites">
@@ -324,7 +452,7 @@ $rbc68_contact_status = isset( $_GET['contact'] ) ? sanitize_key( wp_unslash( $_
               <?php if ( has_post_thumbnail() ) : ?>
                 <?php the_post_thumbnail( 'large', array( 'class' => 'blog-img' ) ); ?>
               <?php else : ?>
-                <img src="<?php echo esc_attr( rbc68_placeholder_image( get_the_title(), '#e0f2fe', '#0284c7', 400, 200 ) ); ?>" alt="" class="blog-img">
+                <img src="<?php echo esc_attr( rbc68_placeholder_image( get_the_title(), '#182d52', '#fefefe', 400, 200 ) ); ?>" alt="" class="blog-img">
               <?php endif; ?>
             </a>
             <div class="blog-content">
@@ -342,6 +470,7 @@ $rbc68_contact_status = isset( $_GET['contact'] ) ? sanitize_key( wp_unslash( $_
     </div>
   </section>
 
+  <?php $rbc68_section_news = ob_get_clean(); ob_start(); ?>
   <!-- ======================================== -->
   <!-- CONTACT - Section avec formulaire fonctionnel -->
   <!-- ======================================== -->
@@ -354,20 +483,9 @@ $rbc68_contact_status = isset( $_GET['contact'] ) ? sanitize_key( wp_unslash( $_
         <p><strong>Adresse :</strong></p>
         <p><?php echo esc_html( rbc68_mod( 'rbc68_address', 'Complexe sportif C.M.C.A.S, chemin de Brunstatt, 68170 Rixheim' ) ); ?></p>
         
-        <!-- Mini-carte OpenStreetMap -->
-        <div class="map-container" style="margin-top: 1rem; border-radius: 0.5rem; box-shadow: var(--shadow);">
-          <iframe
-            title="Carte du Complexe sportif C.M.C.A.S"
-            width="100%" 
-            height="200" 
-            style="border: none; border-radius: 0.5rem;" 
-            loading="lazy" 
-            referrerpolicy="no-referrer-when-downgrade" 
-            src="https://www.openstreetmap.org/export/embed.html?bbox=7.37,47.73,7.38,47.74&layer=mapnik&marker=47.7331928,7.3777678">
-          </iframe>
-          <a href="https://www.openstreetmap.org/#map=17/47.7331928/7.3777678" style="display: block; text-align: right; font-size: 0.8rem; color: var(--gray); text-decoration: none; padding: 0.3rem 0.5rem; background: rgba(0,0,0,0.05);">
-            © OpenStreetMap contributors
-          </a>
+        <p><a href="<?php echo esc_url( rbc68_mod( 'rbc68_map_link', 'https://www.google.com/maps/dir/?api=1&destination=47.7331928%2C7.3777678' ) ); ?>" target="_blank" rel="noopener">Calculer un itinéraire →</a></p>
+        <div class="contact-location-map">
+          <iframe title="Localiser la salle du RBC68" loading="lazy" src="<?php echo esc_url( rbc68_mod( 'rbc68_map_embed', 'https://www.openstreetmap.org/export/embed.html?bbox=7.3705%2C47.7295%2C7.3850%2C47.7370&layer=mapnik&marker=47.7331928%2C7.3777678' ) ); ?>"></iframe>
         </div>
         
         <p style="margin-top: 1rem;"><strong>Email :</strong> <a href="mailto:<?php echo esc_attr( rbc68_mod( 'rbc68_email', 'contact@rbc68.fr' ) ); ?>" style="color: var(--primary); text-decoration: none;"><?php echo esc_html( rbc68_mod( 'rbc68_email', 'contact@rbc68.fr' ) ); ?></a></p>
@@ -378,13 +496,7 @@ $rbc68_contact_status = isset( $_GET['contact'] ) ? sanitize_key( wp_unslash( $_
             Facebook
           </a>
           <a href="<?php echo esc_url( rbc68_mod( 'rbc68_instagram', 'https://instagram.com/rbc68/' ) ); ?>" class="social-link" target="_blank" rel="noopener noreferrer">
-            <svg class="social-icon" viewBox="0 0 24 24" width="24" height="24"><defs><linearGradient id="instagramGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-<stop offset="0%" style="stop-color:#F09438;stop-opacity:1" />
-<stop offset="25%" style="stop-color:#E65C81;stop-opacity:1" />
-<stop offset="50%" style="stop-color:#C42799;stop-opacity:1" />
-<stop offset="75%" style="stop-color:#8E44AD;stop-opacity:1" />
-<stop offset="100%" style="stop-color:#4B79A1;stop-opacity:1" />
-</linearGradient></defs><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163m0-2.163C8.74 0 8.333.011 7.053.069 2.695.287.287 2.695.069 7.053.011 8.333 0 8.74 0 12s.011 3.667.069 4.947c.228 4.358 2.636 7.88 6.983 8.108 1.234.058 1.624.069 4.947.069s3.713-.011 4.947-.069c4.347-.228 7.87-.636 8.108-6.983.058-1.28.069-1.687.069-4.947s-.011-3.667-.069-4.947C21.713 2.695 18.287.287 13.947.069 12.667.011 12.26 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z" fill="url(#instagramGradient)"/></svg>
+            <svg class="social-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163m0-2.163C8.74 0 8.333.011 7.053.069 2.695.287.287 2.695.069 7.053.011 8.333 0 8.74 0 12s.011 3.667.069 4.947c.228 4.358 2.636 7.88 6.983 8.108 1.234.058 1.624.069 4.947.069s3.713-.011 4.947-.069c4.347-.228 7.87-.636 8.108-6.983.058-1.28.069-1.687.069-4.947s-.011-3.667-.069-4.947C21.713 2.695 18.287.287 13.947.069 12.667.011 12.26 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z"/></svg>
             Instagram
           </a>
         </div>
@@ -426,7 +538,7 @@ $rbc68_contact_status = isset( $_GET['contact'] ) ? sanitize_key( wp_unslash( $_
             <label for="subject">Sujet *</label>
             <select id="subject" name="subject" required>
               <option value="" disabled selected>Sélectionnez un sujet</option>
-              <option value="inscription">Inscription au club</option>
+              <option value="inscription">Nous rejoindre</option>
               <option value="renseignement">Demande de renseignement</option>
               <option value="tournoi">Information sur les tournois</option>
               <option value="autre">Autre</option>
@@ -469,6 +581,16 @@ $rbc68_contact_status = isset( $_GET['contact'] ) ? sanitize_key( wp_unslash( $_
     </div>
   </section>
 
+  <?php
+  $rbc68_section_contact = ob_get_clean();
+  echo $rbc68_section_schedule; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+  echo $rbc68_section_calendar; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+  echo $rbc68_section_news; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+  echo $rbc68_section_club; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+  echo $rbc68_section_contact; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+  echo $rbc68_section_join; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+  echo $rbc68_section_gallery; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+  ?>
   <!-- Footer -->
 </main>
 <?php get_footer(); ?>
