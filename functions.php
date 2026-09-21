@@ -7,7 +7,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'RBC68_VERSION', '1.5.0' );
+define( 'RBC68_VERSION', '1.6.0' );
+
+require_once get_template_directory() . '/inc/committee.php';
 
 /** Saison sportive de septembre à août. */
 function rbc68_season_start( $date ) {
