@@ -1,16 +1,17 @@
-RBC68 — thème WordPress 1.5.0
+RBC68 — thème WordPress 1.6.0
 ================================
 
 INSTALLATION
 
 1. Dans WordPress : Apparence > Thèmes > Ajouter un thème > Téléverser un thème.
-2. Sélectionner le fichier rbc68-wordpress-theme-1.5.0.zip.
+2. Sélectionner le fichier rbc68-wordpress-theme-1.6.0.zip.
 3. Cliquer sur Installer maintenant, puis Activer.
 
 Le thème utilise automatiquement front-page.php pour afficher le one-page à la racine du site.
 
 PERSONNALISATION
 
+Nouveautés 1.6.0 :
 GESTION DES ÉVÉNEMENTS
 
 - Administration : tri par date de début puis heure, du plus ancien au plus récent. La colonne « Date de l’événement » permet d’inverser le tri ; les brouillons sans date restent visibles en fin de liste.
@@ -19,6 +20,19 @@ GESTION DES ÉVÉNEMENTS
 - Action « Dupliquer » sur chaque ligne : crée un brouillon intitulé « Titre — dupliqué », avec les dates, heures, catégorie, adresse, carte, équipe, précisions et lien existants. Changer les dates avant publication.
 - Heures saisies en HH:MM sur 24 h, par exemple 09:00 ou 19:30, sans AM/PM.
 - Vérifications automatisées : php tests/event-admin.php. Vérifier aussi la liste, le filtre Archives, la duplication et les horaires dans WordPress après installation.
+
+- « Organigramme » devient « Comité », alimenté uniquement par les membres publiés dans WordPress.
+- Menu Comité > Ajouter un membre : nom de famille dans le titre, prénom et rôle libre dans les informations du membre.
+- Liste d'administration classée par nom par défaut ; affichage public par nom puis prénom, sur une, deux ou trois colonnes selon la largeur.
+- À la première visite de l'administration par un administrateur, les cinq membres de l'ancien thème sont importés une seule fois. Les modifier, les dépublier ou les supprimer ne les recrée pas. Une liste vide masque le bloc Comité.
+AJOUT AU CALENDRIER
+- « Ajouter au calendrier » ouvre une URL WordPress publique servant un fichier .ics, sans JavaScript ni lien blob temporaire. Disponible dans la liste et sur la fiche de l’événement.
+- Les horaires suivent le fuseau défini dans Réglages > Général (Europe/Paris pour le club), puis sont exportés en UTC avec prise en compte de l’heure d’été. Les journées entières gardent leurs dates locales.
+- Une fin absente ou antérieure/égale au début est omise pour les événements avec horaires. L’identifiant reste stable entre deux exports. Les brouillons, événements privés et protégés par mot de passe ne sont pas exportés.
+- Après déploiement, purger le cache de page éventuel. Vérifier sur iPhone réel : Safari puis Firefox, clic depuis la page (pas depuis Fichiers), aperçu/import et horaires. L’ouverture dépend du navigateur et de l’application calendrier ; le téléchargement seul ne garantit pas l’import sur tous les téléphones Android.
+- Test du générateur : php tests/calendar.php (sans installation WordPress).
+Mini-carte « Où jouer » : aperçu OpenStreetMap cliquable rétabli, responsive et chargé en différé. Le clic ouvre l’itinéraire. Les liens se règlent dans Apparence > Personnaliser > Informations pratiques. La grande carte reste disponible dans Contact.
+
 
 Nouveautés 1.5.0 :
 - Événements à venir par défaut, lien « Passés — saison en cours », puis archives par saison (septembre à août). Les onglets rechargent la page et fonctionnent sans JavaScript. Aucun événement n’est supprimé.
@@ -43,7 +57,7 @@ Le formulaire envoie un e-mail à l’adresse réglée dans « Page d’accueil 
 
 CONTENU FIXE
 
-Les tableaux détaillés des horaires et les dirigeants restent inclus dans front-page.php. Les résumés de la zone « Informations pratiques », les tarifs, la bannière et les événements sont modifiables depuis WordPress.
+Les tableaux détaillés des horaires restent inclus dans front-page.php. Les résumés de la zone « Informations pratiques », les tarifs, la bannière, les événements et les membres du comité sont modifiables depuis WordPress.
 
 NOUVEAUTÉS 1.1.0
 
