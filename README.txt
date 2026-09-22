@@ -1,16 +1,21 @@
-RBC68 — thème WordPress 1.5.0
+RBC68 — thème WordPress 1.6.0
 ================================
 
 INSTALLATION
 
 1. Dans WordPress : Apparence > Thèmes > Ajouter un thème > Téléverser un thème.
-2. Sélectionner le fichier rbc68-wordpress-theme-1.5.0.zip.
+2. Sélectionner le fichier rbc68-wordpress-theme-1.6.0.zip.
 3. Cliquer sur Installer maintenant, puis Activer.
 
 Le thème utilise automatiquement front-page.php pour afficher le one-page à la racine du site.
 
 PERSONNALISATION
 
+Nouveautés 1.6.0 :
+- « Organigramme » devient « Comité », alimenté uniquement par les membres publiés dans WordPress.
+- Menu Comité > Ajouter un membre : nom de famille dans le titre, prénom et rôle libre dans les informations du membre.
+- Liste d'administration classée par nom par défaut ; affichage public par nom puis prénom, sur une, deux ou trois colonnes selon la largeur.
+- À la première visite de l'administration par un administrateur, les cinq membres de l'ancien thème sont importés une seule fois. Les modifier, les dépublier ou les supprimer ne les recrée pas. Une liste vide masque le bloc Comité.
 AJOUT AU CALENDRIER
 
 - « Ajouter au calendrier » ouvre une URL WordPress publique servant un fichier .ics, sans JavaScript ni lien blob temporaire. Disponible dans la liste et sur la fiche de l’événement.
@@ -42,7 +47,7 @@ Le formulaire envoie un e-mail à l’adresse réglée dans « Page d’accueil 
 
 CONTENU FIXE
 
-Les tableaux détaillés des horaires et les dirigeants restent inclus dans front-page.php. Les résumés de la zone « Informations pratiques », les tarifs, la bannière et les événements sont modifiables depuis WordPress.
+Les tableaux détaillés des horaires restent inclus dans front-page.php. Les résumés de la zone « Informations pratiques », les tarifs, la bannière, les événements et les membres du comité sont modifiables depuis WordPress.
 
 NOUVEAUTÉS 1.1.0
 

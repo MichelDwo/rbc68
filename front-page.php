@@ -131,27 +131,23 @@ $rbc68_club_image_id  = absint( get_theme_mod( 'rbc68_club_image' ) );
         <?php endif; ?>
       </div>
       
-      <!-- Organigramme -->
-      <div class="club-organization">
-        <h3>Organigramme</h3>
-        <div class="club-organization-grid">
-          <div class="organigramme-card" style="padding: 1rem;">
-            <strong>Président :</strong> Julien GEIGER
-          </div>
-          <div class="organigramme-card" style="padding: 1rem;">
-            <strong>Vice-Président :</strong> Yves WALTER
-          </div>
-          <div class="organigramme-card" style="padding: 1rem;">
-            <strong>Secrétaire :</strong> Rachel BAUMANN
-          </div>
-          <div class="organigramme-card" style="padding: 1rem;">
-            <strong>Trésorier :</strong> Jean-Christophe DENNI
-          </div>
-          <div class="organigramme-card" style="padding: 1rem;">
-            <strong>Directeur Technique :</strong> Pierre NOTTER
-          </div>
-        </div>
+      <?php $rbc68_members = rbc68_get_committee(); ?>
+      <?php if ( $rbc68_members ) : ?>
+      <div class="club-committee">
+        <h3>Comité</h3>
+        <ul class="club-committee-grid">
+          <?php foreach ( $rbc68_members as $rbc68_member ) : ?>
+            <?php $rbc68_member_role = get_post_meta( $rbc68_member->ID, 'rbc68_member_role', true ); ?>
+            <li class="committee-card">
+              <strong><?php echo esc_html( trim( get_post_meta( $rbc68_member->ID, 'rbc68_member_first_name', true ) . ' ' . $rbc68_member->post_title ) ); ?></strong>
+              <?php if ( '' !== $rbc68_member_role ) : ?>
+                <span><?php echo esc_html( $rbc68_member_role ); ?></span>
+              <?php endif; ?>
+            </li>
+          <?php endforeach; ?>
+        </ul>
       </div>
+      <?php endif; ?>
     </div>
   </section>
 
