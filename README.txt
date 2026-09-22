@@ -11,6 +11,15 @@ Le thème utilise automatiquement front-page.php pour afficher le one-page à la
 
 PERSONNALISATION
 
+GESTION DES ÉVÉNEMENTS
+
+- Administration : tri par date de début puis heure, du plus ancien au plus récent. La colonne « Date de l’événement » permet d’inverser le tri ; les brouillons sans date restent visibles en fin de liste.
+- Statut « Archivé » et filtre « Archives » : les événements publiés passent automatiquement en archives après leur fin, dans le fuseau WordPress. Sans heure de fin, ils restent publiés jusqu’à la fin du dernier jour. Les brouillons ne sont pas archivés.
+- Vérification horaire via WP-Cron (déclenché par les visites), à l’ouverture de la liste d’administration et à la sauvegarde. Une nouvelle date future republie un événement archivé. Les archives restent consultables sur le site dans les saisons passées.
+- Action « Dupliquer » sur chaque ligne : crée un brouillon intitulé « Titre — dupliqué », avec les dates, heures, catégorie, adresse, carte, équipe, précisions et lien existants. Changer les dates avant publication.
+- Heures saisies en HH:MM sur 24 h, par exemple 09:00 ou 19:30, sans AM/PM.
+- Vérifications automatisées : php tests/event-admin.php. Vérifier aussi la liste, le filtre Archives, la duplication et les horaires dans WordPress après installation.
+
 Nouveautés 1.5.0 :
 - Événements à venir par défaut, lien « Passés — saison en cours », puis archives par saison (septembre à août). Les onglets rechargent la page et fonctionnent sans JavaScript. Aucun événement n’est supprimé.
 - Sélection des horaires dorée et lisible dans les deux modes.
