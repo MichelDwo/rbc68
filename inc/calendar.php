@@ -85,8 +85,11 @@ function rbc68_serve_calendar() {
 	}
 	status_header( 200 );
 	nocache_headers();
+	$title = html_entity_decode( wp_strip_all_tags( get_post( $id )->post_title ), ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+	$name = sanitize_file_name( $title ) ?: 'evenement';
+	$ascii_name = trim( preg_replace( '/[^A-Za-z0-9._-]+/', '-', remove_accents( $name ) ), '.-' ) ?: 'evenement';
 	header( 'Content-Type: text/calendar; charset=utf-8' );
-	header( 'Content-Disposition: inline; filename="rbc68-event-' . $id . '.ics"' );
+	header( 'Content-Disposition: inline; filename="' . $ascii_name . '.ics"; filename*=UTF-8\'\'' . rawurlencode( $name . '.ics' ) );
 	header( 'X-Content-Type-Options: nosniff' );
 	echo $ics; // Texte iCalendar échappé, pas de HTML.
 	exit;
