@@ -9,6 +9,8 @@ defined( 'ABSPATH' ) || exit;
 
 define( 'RBC68_VERSION', '1.5.0' );
 
+require_once get_template_directory() . '/inc/calendar.php';
+
 /** Saison sportive de septembre à août. */
 function rbc68_season_start( $date ) {
 	$year = (int) substr( $date, 0, 4 );
@@ -44,7 +46,7 @@ add_action( 'after_setup_theme', 'rbc68_setup' );
 
 function rbc68_assets() {
 	wp_enqueue_style( 'rbc68-style', get_stylesheet_uri(), array(), RBC68_VERSION );
-	wp_enqueue_script( 'rbc68-main', get_template_directory_uri() . '/assets/js/main.js', array(), RBC68_VERSION, true );
+	wp_enqueue_script( 'rbc68-main', get_template_directory_uri() . '/assets/js/main.js', array(), (string) filemtime( get_template_directory() . '/assets/js/main.js' ), true );
 }
 add_action( 'wp_enqueue_scripts', 'rbc68_assets' );
 

@@ -391,7 +391,7 @@ $rbc68_club_image_id  = absint( get_theme_mod( 'rbc68_club_image' ) );
                 <div class="event-actions">
                   <?php if ( $rbc68_map_link ) : ?><a href="<?php echo esc_url( $rbc68_map_link ); ?>" target="_blank" rel="noopener">Itinéraire →</a><?php endif; ?>
                   <?php if ( get_post_meta( $rbc68_event_id, 'rbc68_event_article_url', true ) ) : ?><a href="<?php echo esc_url( rbc68_event_article_url( $rbc68_event_id ) ); ?>">Article dédié →</a><?php endif; ?>
-                  <?php if ( ! $rbc68_past ) : ?><button class="event-calendar-button" type="button" data-title="<?php echo esc_attr( get_the_title() ); ?>" data-start-date="<?php echo esc_attr( $rbc68_start ); ?>" data-end-date="<?php echo esc_attr( $rbc68_end ?: $rbc68_start ); ?>" data-start-time="<?php echo esc_attr( get_post_meta( $rbc68_event_id, 'rbc68_event_start_time', true ) ); ?>" data-end-time="<?php echo esc_attr( get_post_meta( $rbc68_event_id, 'rbc68_event_end_time', true ) ); ?>" data-location="<?php echo esc_attr( $rbc68_location ); ?>" data-details="<?php echo esc_attr( $rbc68_details ); ?>">Ajouter au calendrier</button><?php endif; ?>
+                  <?php if ( ! $rbc68_past ) : ?><a class="event-calendar-link" href="<?php echo esc_url( rbc68_calendar_url( $rbc68_event_id ) ); ?>">Ajouter au calendrier</a><?php endif; ?>
                 </div>
               </div>
               <?php if ( $rbc68_map ) : ?><div class="event-map"><iframe title="Carte du lieu de <?php echo esc_attr( get_the_title() ); ?>" loading="lazy" src="<?php echo esc_url( $rbc68_map ); ?>"></iframe></div><?php endif; ?>
