@@ -11,6 +11,14 @@ Le thème utilise automatiquement front-page.php pour afficher le one-page à la
 
 PERSONNALISATION
 
+AJOUT AU CALENDRIER
+
+- « Ajouter au calendrier » ouvre une URL WordPress publique servant un fichier .ics, sans JavaScript ni lien blob temporaire. Disponible dans la liste et sur la fiche de l’événement.
+- Les horaires suivent le fuseau défini dans Réglages > Général (Europe/Paris pour le club), puis sont exportés en UTC avec prise en compte de l’heure d’été. Les journées entières gardent leurs dates locales.
+- Une fin absente ou antérieure/égale au début est omise pour les événements avec horaires. L’identifiant reste stable entre deux exports. Les brouillons, événements privés et protégés par mot de passe ne sont pas exportés.
+- Après déploiement, purger le cache de page éventuel. Vérifier sur iPhone réel : Safari puis Firefox, clic depuis la page (pas depuis Fichiers), aperçu/import et horaires. L’ouverture dépend du navigateur et de l’application calendrier ; le téléchargement seul ne garantit pas l’import sur tous les téléphones Android.
+- Test du générateur : php tests/calendar.php (sans installation WordPress).
+
 Nouveautés 1.5.0 :
 - Événements à venir par défaut, lien « Passés — saison en cours », puis archives par saison (septembre à août). Les onglets rechargent la page et fonctionnent sans JavaScript. Aucun événement n’est supprimé.
 - Sélection des horaires dorée et lisible dans les deux modes.

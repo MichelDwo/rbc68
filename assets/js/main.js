@@ -149,65 +149,6 @@
     if (event.key === 'ArrowLeft') moveLightbox(-1);
   });
 
-  function escapeIcs(value) {
-    return String(value).replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/,/g, '\\,').replace(/;/g, '\\;');
-  }
-
-  function compactDate(date) {
-    return String(date || '').replace(/-/g, '');
-  }
-
-  function nextDate(date) {
-    const parts = String(date).split('-').map(Number);
-    const value = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2]));
-    value.setUTCDate(value.getUTCDate() + 1);
-    return value.toISOString().slice(0, 10);
-  }
-
-  function downloadEvent(item, index) {
-    const title = item.dataset.title;
-    const startDate = item.dataset.startDate;
-    const endDate = item.dataset.endDate || startDate;
-    const startTime = item.dataset.startTime;
-    const endTime = item.dataset.endTime;
-    if (!title || !startDate) return;
-
-    const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
-    const timed = Boolean(startTime);
-    const start = timed ? 'DTSTART;TZID=Europe/Paris:' + compactDate(startDate) + 'T' + startTime.replace(':', '') + '00' : 'DTSTART;VALUE=DATE:' + compactDate(startDate);
-    const end = timed ? 'DTEND;TZID=Europe/Paris:' + compactDate(endDate) + 'T' + (endTime || startTime).replace(':', '') + '00' : 'DTEND;VALUE=DATE:' + compactDate(nextDate(endDate));
-    const ics = [
-      'BEGIN:VCALENDAR',
-      'VERSION:2.0',
-      'PRODID:-//RBC68//Riedisheim Badminton Club//FR',
-      'CALSCALE:GREGORIAN',
-      'BEGIN:VEVENT',
-      'UID:rbc68-' + index + '-' + stamp + '@rbc68.fr',
-      'DTSTAMP:' + stamp,
-      start,
-      end,
-      'SUMMARY:' + escapeIcs(title),
-      'DESCRIPTION:' + escapeIcs(item.dataset.details || 'Événement du Riedisheim Badminton Club (RBC68)'),
-      'LOCATION:' + escapeIcs(item.dataset.location || ''),
-      'END:VEVENT',
-      'END:VCALENDAR',
-      ''
-    ].join('\r\n');
-
-    const blobUrl = URL.createObjectURL(new Blob([ics], { type: 'text/calendar;charset=utf-8' }));
-    const link = document.createElement('a');
-    link.href = blobUrl;
-    link.download = 'rbc68-' + title.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '').toLowerCase() + '.ics';
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    URL.revokeObjectURL(blobUrl);
-  }
-
-  document.querySelectorAll('.event-calendar-button').forEach(function (item, index) {
-    item.addEventListener('click', function () { downloadEvent(item, index); });
-  });
-
   const animatedItems = document.querySelectorAll('.gallery-item, .blog-card');
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
     animatedItems.forEach(function (item) {
