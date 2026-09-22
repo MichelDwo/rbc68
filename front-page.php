@@ -43,7 +43,10 @@ $rbc68_club_image_id  = absint( get_theme_mod( 'rbc68_club_image' ) );
         <div>
           <h3>Où jouer ?</h3>
           <p><?php echo esc_html( rbc68_mod( 'rbc68_address', 'Complexe sportif C.M.C.A.S, chemin de Brunstatt, 68170 Rixheim' ) ); ?></p>
-          <p><a href="#contact">Voir la carte de la salle →</a></p>
+          <div class="essential-mini-map">
+            <iframe title="Aperçu de la localisation de la salle du RBC68" loading="lazy" tabindex="-1" aria-hidden="true" src="<?php echo esc_url( rbc68_mod( 'rbc68_map_embed', 'https://www.openstreetmap.org/export/embed.html?bbox=7.3705%2C47.7295%2C7.3850%2C47.7370&layer=mapnik&marker=47.7331928%2C7.3777678' ) ); ?>"></iframe>
+            <a href="<?php echo esc_url( rbc68_mod( 'rbc68_map_link', 'https://www.google.com/maps/dir/?api=1&destination=47.7331928%2C7.3777678' ) ); ?>" target="_blank" rel="noopener noreferrer" aria-label="Ouvrir l’itinéraire vers la salle du RBC68 (nouvel onglet)"></a>
+          </div>
           <div class="essential-links"><a href="<?php echo esc_url( rbc68_mod( 'rbc68_map_link', 'https://www.google.com/maps/dir/?api=1&destination=47.7331928%2C7.3777678' ) ); ?>" target="_blank" rel="noopener">Itinéraire</a><a href="<?php echo esc_url( rbc68_mod( 'rbc68_room_info', '#club' ) ); ?>">Infos sur la salle</a></div>
         </div>
       </article>

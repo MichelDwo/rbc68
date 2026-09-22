@@ -11,6 +11,8 @@ Le thème utilise automatiquement front-page.php pour afficher le one-page à la
 
 PERSONNALISATION
 
+Mini-carte « Où jouer » : aperçu OpenStreetMap cliquable rétabli, responsive et chargé en différé. Le clic ouvre l’itinéraire. Les liens se règlent dans Apparence > Personnaliser > Informations pratiques. La grande carte reste disponible dans Contact.
+
 Nouveautés 1.5.0 :
 - Événements à venir par défaut, lien « Passés — saison en cours », puis archives par saison (septembre à août). Les onglets rechargent la page et fonctionnent sans JavaScript. Aucun événement n’est supprimé.
 - Sélection des horaires dorée et lisible dans les deux modes.
