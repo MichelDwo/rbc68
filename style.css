@@ -3,7 +3,7 @@ Theme Name: RBC68
 Theme URI: https://rbc68.fr/
 Author: Riedisheim Badminton Club
 Description: Thème one-page responsive du Riedisheim Badminton Club, avec actualités WordPress et formulaire de contact intégré.
-Version: 1.5.0
+Version: 1.6.0
 Requires at least: 6.0
 Requires PHP: 7.4
 Text Domain: rbc68
@@ -676,7 +676,7 @@ body.admin-bar header {
     }
 
     .tarif-card,
-    .organigramme-card {
+    .committee-card {
       background: var(--light);
       padding: 1.5rem;
       border-radius: 0.5rem;
@@ -685,7 +685,7 @@ body.admin-bar header {
     }
 
     .dark-mode .tarif-card,
-    .dark-mode .organigramme-card {
+    .dark-mode .committee-card {
       background: var(--card-bg);
       border-color: var(--border-color);
     }
@@ -1519,22 +1519,47 @@ body.admin-bar header {
   height: 230px;
 }
 
-.club-organization {
+.club-committee {
   margin-top: 2rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--border-color);
 }
 
-.club-organization h3 {
+.club-committee h3 {
   margin-bottom: 1rem;
   color: var(--primary);
 }
 
-.club-organization-grid {
+.club-committee-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 1rem;
   text-align: left;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.committee-card {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.committee-card strong,
+.committee-card span {
+  display: block;
+}
+
+.committee-card span {
+  margin-top: .35rem;
+}
+
+@media (min-width: 600px) {
+  .club-committee-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1000px) {
+  .club-committee-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 @media (max-width: 1050px) {
@@ -2067,7 +2092,7 @@ body.admin-bar header {
 .dark-mode .inscription-info h3,
 .dark-mode .inscription-tarifs h3,
 .dark-mode .inscription-documents h3,
-.dark-mode .club-organization h3 {
+.dark-mode .club-committee h3 {
   color: var(--accent) !important;
 }
 

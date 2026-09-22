@@ -21,6 +21,7 @@ get_header();
 			<p class="event-category event-category-<?php echo esc_attr( rbc68_event_kind( $event_id ) ); ?>"><?php echo esc_html( rbc68_event_kind_label( $event_id ) ); ?></p>
 			<h1><?php the_title(); ?></h1>
 			<p class="event-page-when"><strong><?php echo esc_html( rbc68_event_when_label( $event_id ) ); ?></strong></p>
+			<?php if ( ! rbc68_event_is_past( $event_id ) ) : ?><p><a class="event-action" href="<?php echo esc_url( rbc68_calendar_url( $event_id ) ); ?>">Ajouter au calendrier</a></p><?php endif; ?>
 			<?php if ( $team ) : ?><p><strong>Équipe concernée :</strong> <?php echo esc_html( $team ); ?></p><?php endif; ?>
 			<?php if ( $location ) : ?><p><strong>Lieu :</strong> <?php echo esc_html( $location ); ?></p><?php endif; ?>
 			<?php if ( $details ) : ?><p class="event-page-details"><?php echo esc_html( $details ); ?></p><?php endif; ?>
