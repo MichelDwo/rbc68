@@ -338,7 +338,7 @@ $rbc68_club_image_id  = absint( get_theme_mod( 'rbc68_club_image' ) );
         $rbc68_calendar = new WP_Query(
           array(
             'post_type'      => 'rbc68_event',
-            'post_status'    => 'publish',
+            'post_status'    => array( 'publish', 'rbc68_archived' ),
             'posts_per_page' => -1,
             'meta_key'       => 'rbc68_event_date',
             'orderby'        => 'meta_value',

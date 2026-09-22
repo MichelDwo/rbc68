@@ -13,6 +13,8 @@ require_once get_template_directory() . '/inc/committee.php';
 
 require_once get_template_directory() . '/inc/calendar.php';
 
+require_once get_template_directory() . '/inc/event-admin.php';
+
 /** Saison sportive de septembre à août. */
 function rbc68_season_start( $date ) {
 	$year = (int) substr( $date, 0, 4 );
@@ -117,10 +119,12 @@ function rbc68_format_event_time( $time ) {
 function rbc68_event_is_past( $post_id ) {
 	$start_date = get_post_meta( $post_id, 'rbc68_event_date', true );
 	$end_date   = get_post_meta( $post_id, 'rbc68_event_end_date', true ) ?: $start_date;
-	$end_time   = get_post_meta( $post_id, 'rbc68_event_end_time', true ) ?: '23:59';
-	$end        = date_create_immutable_from_format( '!Y-m-d H:i', $end_date . ' ' . $end_time, wp_timezone() );
+	$end_time   = get_post_meta( $post_id, 'rbc68_event_end_time', true );
+	$value      = $end_date . ' ' . ( $end_time ? $end_time . ':00' : '23:59:59' );
+	$end        = date_create_immutable_from_format( '!Y-m-d H:i:s', $value, wp_timezone() );
+	$start      = date_create_immutable_from_format( '!Y-m-d', $start_date, wp_timezone() );
 
-	return $end ? $end < new DateTimeImmutable( 'now', wp_timezone() ) : false;
+	return $start && $start->format( 'Y-m-d' ) === $start_date && $end && $end->format( 'Y-m-d H:i:s' ) === $value && $end >= $start && $end < new DateTimeImmutable( 'now', wp_timezone() );
 }
 
 function rbc68_event_map_embed_url( $post_id ) {
@@ -287,8 +291,8 @@ function rbc68_event_meta_box_html( $post ) {
 		<p><label for="rbc68_event_team"><strong>Équipe concernée</strong> (interclubs)</label><br><input class="widefat" type="text" id="rbc68_event_team" name="rbc68_event_team" value="<?php echo esc_attr( $fields['rbc68_event_team'] ); ?>"></p>
 		<p><label for="rbc68_event_date"><strong>Date de début</strong></label><br><input type="date" id="rbc68_event_date" name="rbc68_event_date" value="<?php echo esc_attr( $start ); ?>" required></p>
 		<p><label for="rbc68_event_end_date"><strong>Date de fin</strong> (facultative)</label><br><input type="date" id="rbc68_event_end_date" name="rbc68_event_end_date" value="<?php echo esc_attr( $end ); ?>"></p>
-		<p><label for="rbc68_event_start_time"><strong>Heure de début</strong></label><br><input type="time" id="rbc68_event_start_time" name="rbc68_event_start_time" value="<?php echo esc_attr( $fields['rbc68_event_start_time'] ); ?>"></p>
-		<p><label for="rbc68_event_end_time"><strong>Heure de fin</strong></label><br><input type="time" id="rbc68_event_end_time" name="rbc68_event_end_time" value="<?php echo esc_attr( $fields['rbc68_event_end_time'] ); ?>"></p>
+		<p><label for="rbc68_event_start_time"><strong>Heure de début</strong></label><br><input type="text" inputmode="text" placeholder="19:30" pattern="([01][0-9]|2[0-3]):[0-5][0-9]" maxlength="5" size="5" title="Heure au format 24 h : HH:MM (exemple : 19:30)" id="rbc68_event_start_time" name="rbc68_event_start_time" value="<?php echo esc_attr( $fields['rbc68_event_start_time'] ); ?>"></p>
+		<p><label for="rbc68_event_end_time"><strong>Heure de fin</strong></label><br><input type="text" inputmode="text" placeholder="19:30" pattern="([01][0-9]|2[0-3]):[0-5][0-9]" maxlength="5" size="5" title="Heure au format 24 h : HH:MM (exemple : 19:30)" id="rbc68_event_end_time" name="rbc68_event_end_time" value="<?php echo esc_attr( $fields['rbc68_event_end_time'] ); ?>"></p>
 	</div>
 	<p><label for="rbc68_event_location"><strong>Lieu / adresse affichée</strong></label><br><input class="widefat" type="text" id="rbc68_event_location" name="rbc68_event_location" value="<?php echo esc_attr( $fields['rbc68_event_location'] ); ?>"></p>
 	<div class="rbc68-event-admin-grid"><p><label for="rbc68_event_latitude"><strong>Latitude</strong></label><br><input type="number" step="any" id="rbc68_event_latitude" name="rbc68_event_latitude" value="<?php echo esc_attr( $fields['rbc68_event_latitude'] ); ?>"></p><p><label for="rbc68_event_longitude"><strong>Longitude</strong></label><br><input type="number" step="any" id="rbc68_event_longitude" name="rbc68_event_longitude" value="<?php echo esc_attr( $fields['rbc68_event_longitude'] ); ?>"></p></div>
