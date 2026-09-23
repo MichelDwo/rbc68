@@ -2194,7 +2194,7 @@ body.admin-bar header {
 .event-title a { color: inherit; }
 
 /* Actions de l’affiche : alignées, puis retour à la ligne sur petit écran. */
-.event-share .event-action { display: inline-flex; align-items: center; min-height: 44px; }
+.event-share .event-action { display: inline-flex; align-items: center; min-height: 44px; font-weight: 400; }
 .event-share .event-action[hidden], [data-copy-fallback][hidden] { display: none; }
 .event-share-status:empty { display: none; }
 [data-copy-url] { width: 100%; max-width: 100%; box-sizing: border-box; }

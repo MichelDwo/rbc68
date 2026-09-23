@@ -3,7 +3,7 @@
 defined( 'ABSPATH' ) || exit;
 
 function rbc68_event_content_labels() {
-	return array( 'program' => 'Programme', 'price' => 'Tarif', 'registration' => 'Modalités d’inscription', 'refreshments' => 'Repas, boissons et buvette' );
+	return array( 'program' => 'Programme', 'price' => 'Tarif', 'registration' => 'Modalités d’inscription', 'refreshments' => 'Restauration' );
 }
 
 /** Retrouve aussi les brouillons et les articles à la corbeille. */
@@ -38,7 +38,7 @@ function rbc68_event_content_fields( $post ) {
 	<p class="description">Toutes les informations sont présentées sur la fiche de l’événement. Une actualité n’est utile que pour le bilan.</p>
 
 	<p><label for="rbc68_event_registration_url"><strong>Lien d’inscription</strong> (facultatif)</label><input class="widefat" type="url" id="rbc68_event_registration_url" name="rbc68_event_registration_url" value="<?php echo esc_attr( get_post_meta( $post->ID, 'rbc68_event_registration_url', true ) ); ?>"></p>
-	<h3>Affiche / flyer</h3>
+	<h3>Affiche</h3>
 	<?php $poster = absint( get_post_meta( $post->ID, 'rbc68_event_poster_id', true ) ); ?>
 	<input type="hidden" id="rbc68_event_poster_id" name="rbc68_event_poster_id" value="<?php echo esc_attr( $poster ); ?>">
 	<p id="rbc68-poster-name"><?php echo esc_html( $poster ? get_the_title( $poster ) : 'Aucune affiche' ); ?></p>
@@ -184,7 +184,7 @@ function rbc68_event_content_display( $id ) {
 	$poster = absint( get_post_meta( $id, 'rbc68_event_poster_id', true ) );
 	$has_poster = $poster && rbc68_event_valid_poster( $poster );
 	if ( $has_poster ) : $file_url = wp_get_attachment_url( $poster ); ?>
-		<section class="event-section event-poster"><h2>Affiche / flyer</h2>
+		<section class="event-section event-poster"><h2>Affiche</h2>
 		<?php if ( wp_attachment_is_image( $poster ) ) : ?>
 			<a href="<?php echo esc_url( $file_url ); ?>"><?php echo wp_get_attachment_image( $poster, 'large', false, array( 'alt' => 'Affiche — ' . get_the_title( $id ) ) ); ?></a>
 		<?php else : ?>
@@ -204,7 +204,6 @@ function rbc68_event_share_controls( $id, $file_url = '' ) {
 	<div class="event-share" data-event-url="<?php echo esc_url( $url ); ?>" data-event-title="<?php echo esc_attr( $title ); ?>">
 		<button type="button" class="event-action" data-share-event hidden>Partager l’événement</button>
 		<?php if ( $file_url ) : ?><a class="event-action" href="<?php echo esc_url( $file_url ); ?>" download>Télécharger l’affiche</a><?php endif; ?>
-		<button type="button" class="event-action" data-copy-event hidden>Copier le lien</button>
 	</div><p class="event-share-status" role="status"></p>
 	<p data-copy-fallback hidden><label>Lien à copier <input type="text" readonly value="<?php echo esc_url( $url ); ?>" data-copy-url></label></p>
 	<noscript><p>Lien de l’événement : <a href="<?php echo esc_url( $url ); ?>"><?php echo esc_html( $url ); ?></a></p></noscript>

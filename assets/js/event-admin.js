@@ -6,7 +6,7 @@
   let frame;
   select.addEventListener('click', () => {
     if (!frame) {
-      frame = wp.media({title: 'Affiche / flyer', library: {type: ['image', 'application/pdf']}, multiple: false, button: {text: 'Utiliser cette affiche'}});
+      frame = wp.media({title: 'Affiche', library: {type: ['image', 'application/pdf']}, multiple: false, button: {text: 'Utiliser cette affiche'}});
       frame.on('select', () => {
         const file = frame.state().get('selection').first().toJSON();
         id.value = file.id;
