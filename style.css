@@ -3,7 +3,7 @@ Theme Name: RBC68
 Theme URI: https://rbc68.fr/
 Author: Riedisheim Badminton Club
 Description: Thème one-page responsive du Riedisheim Badminton Club, avec actualités WordPress et formulaire de contact intégré.
-Version: 1.6.0
+Version: 1.6.1
 Requires at least: 6.0
 Requires PHP: 7.4
 Text Domain: rbc68
@@ -2176,3 +2176,25 @@ body.admin-bar header {
     outline-offset: 2px;
   }
 }
+
+/* Inscription : deux parcours, tarifs et pièces communes. */
+.join-section .inscription-container { gap: 1.25rem; }
+.join-paths { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+.join-section .inscription-info,
+.join-section .inscription-tarifs,
+.join-section .inscription-documents { padding: clamp(1rem, 3vw, 2rem); min-width: 0; }
+.join-section p { line-height: 1.6; white-space: normal; }
+.join-section a { text-underline-offset: .2em; }
+.join-action { display: inline-block; padding: .7rem 0; font-weight: 700; }
+.join-prices { margin: 0 0 1.25rem; }
+.join-prices > div { display: flex; justify-content: space-between; gap: 1rem; padding: .7rem 0; border-bottom: 1px solid var(--border-color); }
+.join-prices dt { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
+.join-prices dd { margin: 0; font-weight: 700; flex-shrink: 0; }
+.join-reference { margin-top: .75rem; }
+.join-section .join-documents li { padding: .6rem 0; color: var(--text-color); }
+.join-section .join-documents li::before { content: none; }
+.join-documents a { display: inline-block; padding: .4rem 0; font-weight: 600; }
+.join-document-note { display: block; font-size: .95rem; }
+.join-section { overflow-wrap: anywhere; }
+.join-section a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+@media (max-width: 640px) { .join-paths { grid-template-columns: 1fr; } }

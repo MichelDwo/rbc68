@@ -7,9 +7,10 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'RBC68_VERSION', '1.6.0' );
+define( 'RBC68_VERSION', '1.6.1' );
 
 require_once get_template_directory() . '/inc/committee.php';
+require_once get_template_directory() . '/inc/join.php';
 
 require_once get_template_directory() . '/inc/calendar.php';
 
@@ -512,7 +513,7 @@ function rbc68_customizer( $customizer ) {
 		'rbc68_price_mini' => array( 'Tarif Mini-bad', '70 €', 'text', 'sanitize_text_field' ),
 		'rbc68_price_youth' => array( 'Tarif Jeunes', '85 €', 'text', 'sanitize_text_field' ),
 		'rbc68_price_adults' => array( 'Tarif Adultes', '105 €', 'text', 'sanitize_text_field' ),
-		'rbc68_join_text' => array( 'Résumé « Nous rejoindre »', 'Nouvelles inscriptions sur place, auprès du responsable de salle. Reprise le 1er septembre 2026.', 'textarea', 'sanitize_textarea_field' ),
+		'rbc68_join_text' => array( 'Résumé « Nous rejoindre »', 'Première inscription ou renouvellement : retrouvez les démarches et documents ci-dessous.', 'textarea', 'sanitize_textarea_field' ),
 	);
 
 	foreach ( $essential_settings as $setting => $details ) {

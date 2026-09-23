@@ -1,13 +1,24 @@
-RBC68 — thème WordPress 1.6.0
+RBC68 — thème WordPress 1.6.1
 ================================
 
 INSTALLATION
 
 1. Dans WordPress : Apparence > Thèmes > Ajouter un thème > Téléverser un thème.
-2. Sélectionner le fichier rbc68-wordpress-theme-1.6.0.zip.
+2. Sélectionner le fichier rbc68-wordpress-theme-1.6.1.zip.
 3. Cliquer sur Installer maintenant, puis Activer.
 
 Le thème utilise automatiquement front-page.php pour afficher le one-page à la racine du site.
+
+NOUS REJOINDRE — INSCRIPTION SUR L’ACCUEIL
+
+- Apparence > Personnaliser > Nous rejoindre — inscriptions : saison, introduction, démarches de première inscription et renouvellement, dates, lien fédéral et paiement.
+- Informations pratiques : tarifs et disponibilités partagés entre le résumé et le bloc d’inscription ; le résumé « Nous rejoindre » reste éditable ici.
+- Jusqu’à huit documents sélectionnés dans la médiathèque, avec nom et consigne (ex. « Mineurs uniquement »). Aucun lien fictif : les documents non sélectionnés ou supprimés sont masqués. Ajouter les documents du club après installation.
+- Le libellé de virement accepte {saison}, remplacé par la saison renseignée. Mettre les dates utiles à jour séparément, ou vider le champ pour les masquer.
+- L’ancienne page au slug nous-rejoindre renvoie temporairement vers /#inscription. Son contenu reste conservé et éditable ; les prévisualisations ne sont pas redirigées.
+- La page fournie renvoyait « Page introuvable » et l’API publique ne la trouvait pas lors de la préparation : les textes initiaux reprennent le thème, sans prétendre importer le mail ni ses pièces jointes. Vérifier dates, montants et consignes avant publication.
+- Les documents restent à télécharger. Un PDF remplissable pourra être sélectionné de la même façon ; aucun formulaire ni dépôt de dossier en ligne n’est ajouté.
+- Vérification : php tests/join.php. Dans WordPress, modifier saison/tarifs, ajouter/remplacer/retirer une pièce, publier les réglages et vérifier l’accueil sur téléphone.
 
 PERSONNALISATION
 

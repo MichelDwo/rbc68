@@ -60,7 +60,7 @@ $rbc68_club_image_id  = absint( get_theme_mod( 'rbc68_club_image' ) );
       </article>
       <article class="essential-card essential-card-accent">
         <span class="essential-icon" aria-hidden="true">✓</span>
-        <div><h3>Envie de jouer ?</h3><p><?php echo esc_html( rbc68_mod( 'rbc68_join_text', 'Nouvelles inscriptions sur place, auprès du responsable de salle. Reprise le 1er septembre 2026.' ) ); ?></p><a href="#inscription">Nous rejoindre</a></div>
+        <div><h3>Envie de jouer ?</h3><p><?php echo esc_html( rbc68_mod( 'rbc68_join_text', 'Première inscription ou renouvellement : retrouvez les démarches et documents ci-dessous.' ) ); ?></p><a href="#inscription">Nous rejoindre</a></div>
       </article>
     </div>
   </section>
@@ -156,84 +156,7 @@ $rbc68_club_image_id  = absint( get_theme_mod( 'rbc68_club_image' ) );
 
   <?php $rbc68_section_club = ob_get_clean(); ob_start(); ?>
   <!-- ======================================== -->
-  <!-- INSCRIPTION - Modalités d'inscription -->
-  <!-- ======================================== -->
-  <section id="inscription">
-    <h2 class="section-title">Nous rejoindre</h2>
-    
-    <div class="inscription-container">
-      <!-- Informations générales -->
-      <div class="inscription-info">
-        <h3>Comment nous rejoindre ?</h3>
-        <p>
-          <strong>Nouvelles inscriptions :</strong> Les inscriptions ont lieu <strong>sur place auprès du responsable de salle</strong>, 
-          au début ou à la fin de chaque entraînement.
-        </p>
-        <p style="margin-top: 1rem;">
-          <strong>Réinscription :</strong> Les personnes déjà inscrites la saison précédente peuvent se réinscrire directement 
-          via la <a href="https://licence.ffbad.org/" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 600;">plateforme en ligne de la Fédération Française de Badminton</a>.
-        </p>
-        <p style="margin-top: 1rem;">
-          <strong>Date limite :</strong> 25 septembre 2026
-        </p>
-        <p style="margin-top: 1rem;">
-          <strong>Reprise des entraînements :</strong> 1er septembre 2026
-        </p>
-        <p class="trial-highlight" style="margin-top: 1rem;"><strong>Deux séances d’essai gratuites</strong> sont proposées avant de finaliser votre inscription.</p>
-      </div>
-      
-      <!-- Tarifs -->
-      <div class="inscription-tarifs">
-        <h3>Tarifs Saison 2026-2027</h3>
-        <div class="tarifs-grid">
-          <div class="tarif-card">
-            <h4>Section Mini-Bad</h4>
-            <?php if ( rbc68_availability_label( 'mini' ) ) : ?><p class="availability availability-full">Complet</p><?php endif; ?>
-            <p class="tarif-price">70 €</p>
-            <p class="tarif-payment">
-              Par chèque à l'ordre du <strong>Riedisheim Badminton Club</strong> 
-              ou par virement bancaire avec l'intitulé :
-            </p>
-            <p class="tarif-reference">"Inscription 2026-2027 + Nom Prénom de l'Enfant"</p>
-          </div>
-          <div class="tarif-card">
-            <h4>Section Jeune</h4>
-            <?php if ( rbc68_availability_label( 'youth' ) ) : ?><p class="availability availability-full">Complet</p><?php endif; ?>
-            <p class="tarif-price">85 €</p>
-            <p class="tarif-payment">
-              Par chèque à l'ordre du <strong>Riedisheim Badminton Club</strong> 
-              ou par virement bancaire avec l'intitulé :
-            </p>
-            <p class="tarif-reference">"Inscription 2026-2027 + Nom Prénom de l'Enfant"</p>
-          </div>
-          <div class="tarif-card">
-            <h4>Section Adulte</h4>
-            <?php if ( rbc68_availability_label( 'adults' ) ) : ?><p class="availability availability-full">Complet</p><?php endif; ?>
-            <p class="tarif-price">105 €</p>
-            <p class="tarif-payment">
-              Par chèque à l'ordre du <strong>Riedisheim Badminton Club</strong> 
-              ou par virement bancaire avec l'intitulé :
-            </p>
-            <p class="tarif-reference">"Inscription saison 2026-2027 + votre Nom Prénom"</p>
-          </div>
-        </div>
-        <p style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--gray);">
-          <strong>Note :</strong> Le RIB est disponible sur demande auprès des responsables du club.
-        </p>
-      </div>
-      
-      <!-- Documents à fournir -->
-      <div class="inscription-documents">
-        <h3>Documents à fournir</h3>
-        <ul>
-          <li>Fiche d'inscription complétée (disponible sur place)</li>
-          <li>Certificat médical de non-contre-indication à la pratique du badminton</li>
-          <li>Pour les mineurs : autorisation parentale</li>
-          <li>Règlement de la cotisation (chèque ou justificatif de virement)</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+  <?php get_template_part( 'template-parts/join' ); ?>
 
   <?php $rbc68_section_join = ob_get_clean(); ob_start(); ?>
   <!-- Horaires -->
