@@ -8,6 +8,7 @@ get_header();
 ?>
 <main class="rbc68-content">
 	<?php while ( have_posts() ) : the_post(); ?>
+		<?php if ( post_password_required() ) { echo get_the_password_form(); continue; } ?>
 		<?php
 		$event_id = get_the_ID();
 		$kind     = get_post_meta( $event_id, 'rbc68_event_kind', true );
@@ -25,6 +26,7 @@ get_header();
 			<?php if ( $team ) : ?><p><strong>Équipe concernée :</strong> <?php echo esc_html( $team ); ?></p><?php endif; ?>
 			<?php if ( $location ) : ?><p><strong>Lieu :</strong> <?php echo esc_html( $location ); ?></p><?php endif; ?>
 			<?php if ( $details ) : ?><p class="event-page-details"><?php echo esc_html( $details ); ?></p><?php endif; ?>
+			<?php rbc68_event_content_display( $event_id ); ?>
 			<?php if ( $map ) : ?>
 				<div class="event-map"><iframe title="Carte du lieu de l’événement" loading="lazy" src="<?php echo esc_url( $map ); ?>"></iframe></div>
 			<?php endif; ?>

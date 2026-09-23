@@ -3,7 +3,7 @@ Theme Name: RBC68
 Theme URI: https://rbc68.fr/
 Author: Riedisheim Badminton Club
 Description: Thème one-page responsive du Riedisheim Badminton Club, avec actualités WordPress et formulaire de contact intégré.
-Version: 1.6.0
+Version: 1.7.0
 Requires at least: 6.0
 Requires PHP: 7.4
 Text Domain: rbc68
@@ -2176,3 +2176,14 @@ body.admin-bar header {
     outline-offset: 2px;
   }
 }
+
+/* Fiche événement et partage. */
+.event-section { margin: 2rem 0; }
+.event-section h2 { font-size: 1.35rem; }
+.event-poster img { display: block; width: auto; max-width: 100%; max-height: 850px; height: auto; margin: 1rem auto; }
+.event-poster object { width: 100%; height: 65vh; min-height: 320px; }
+.event-share { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem 1rem; margin: 1rem 0; }
+.event-share button { font: inherit; cursor: pointer; }
+.event-page-details { white-space: pre-line; }
+.event-report { padding: 1rem; border: 1px solid currentColor; border-radius: .5rem; }
+.event-title a { color: inherit; }

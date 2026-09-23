@@ -7,13 +7,14 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'RBC68_VERSION', '1.6.0' );
+define( 'RBC68_VERSION', '1.7.0' );
 
 require_once get_template_directory() . '/inc/committee.php';
 
 require_once get_template_directory() . '/inc/calendar.php';
 
 require_once get_template_directory() . '/inc/event-admin.php';
+require_once get_template_directory() . '/inc/event-content.php';
 
 /** Saison sportive de septembre à août. */
 function rbc68_season_start( $date ) {
@@ -157,8 +158,7 @@ function rbc68_event_map_link( $post_id ) {
 }
 
 function rbc68_event_article_url( $post_id ) {
-	$url = get_post_meta( $post_id, 'rbc68_event_article_url', true );
-	return $url ? $url : get_permalink( $post_id );
+	return get_permalink( $post_id );
 }
 
 function rbc68_event_when_label( $post_id ) {
@@ -297,8 +297,8 @@ function rbc68_event_meta_box_html( $post ) {
 	<p><label for="rbc68_event_location"><strong>Lieu / adresse affichée</strong></label><br><input class="widefat" type="text" id="rbc68_event_location" name="rbc68_event_location" value="<?php echo esc_attr( $fields['rbc68_event_location'] ); ?>"></p>
 	<div class="rbc68-event-admin-grid"><p><label for="rbc68_event_latitude"><strong>Latitude</strong></label><br><input type="number" step="any" id="rbc68_event_latitude" name="rbc68_event_latitude" value="<?php echo esc_attr( $fields['rbc68_event_latitude'] ); ?>"></p><p><label for="rbc68_event_longitude"><strong>Longitude</strong></label><br><input type="number" step="any" id="rbc68_event_longitude" name="rbc68_event_longitude" value="<?php echo esc_attr( $fields['rbc68_event_longitude'] ); ?>"></p></div>
 	<p class="description">Les coordonnées placent le repère sur la mini-carte OpenStreetMap. Pour la salle habituelle : 47.7331928 / 7.3777678.</p>
-	<p><label for="rbc68_event_details"><strong>Précisions utiles</strong> (un court paragraphe)</label><br><textarea class="widefat" rows="4" id="rbc68_event_details" name="rbc68_event_details"><?php echo esc_textarea( $fields['rbc68_event_details'] ); ?></textarea></p>
-	<p><label for="rbc68_event_article_url"><strong>Lien vers un article dédié</strong> (facultatif)</label><br><input class="widefat" type="url" id="rbc68_event_article_url" name="rbc68_event_article_url" value="<?php echo esc_attr( $fields['rbc68_event_article_url'] ); ?>" placeholder="https://..."></p>
+	<p><label for="rbc68_event_details"><strong>Annonce — description courte</strong> (affichée dans la liste et sur la fiche)</label><br><textarea class="widefat" rows="4" id="rbc68_event_details" name="rbc68_event_details"><?php echo esc_textarea( $fields['rbc68_event_details'] ); ?></textarea></p>
+	<?php rbc68_event_content_fields( $post ); ?>
 	<style>.rbc68-event-admin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:0 1rem}.rbc68-event-admin-grid input,.rbc68-event-admin-grid select{max-width:100%}</style>
 	<?php
 }
@@ -339,8 +339,7 @@ function rbc68_save_event_meta( $post_id ) {
 	}
 	$details = isset( $_POST['rbc68_event_details'] ) ? sanitize_textarea_field( wp_unslash( $_POST['rbc68_event_details'] ) ) : '';
 	$details ? update_post_meta( $post_id, 'rbc68_event_details', $details ) : delete_post_meta( $post_id, 'rbc68_event_details' );
-	$url = isset( $_POST['rbc68_event_article_url'] ) ? esc_url_raw( wp_unslash( $_POST['rbc68_event_article_url'] ) ) : '';
-	$url ? update_post_meta( $post_id, 'rbc68_event_article_url', $url ) : delete_post_meta( $post_id, 'rbc68_event_article_url' );
+	rbc68_save_event_content( $post_id );
 	foreach ( array( 'rbc68_event_latitude' => 90, 'rbc68_event_longitude' => 180 ) as $key => $limit ) {
 		$value = isset( $_POST[ $key ] ) ? (float) wp_unslash( $_POST[ $key ] ) : 0;
 		( $value >= -$limit && $value <= $limit && 0.0 !== $value ) ? update_post_meta( $post_id, $key, (string) $value ) : delete_post_meta( $post_id, $key );

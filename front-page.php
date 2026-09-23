@@ -383,13 +383,14 @@ $rbc68_club_image_id  = absint( get_theme_mod( 'rbc68_club_image' ) );
             <article class="event-item<?php echo $rbc68_past ? ' event-past' : ''; ?>">
               <div class="event-main">
                 <div class="event-date">📅 <?php echo esc_html( rbc68_event_when_label( $rbc68_event_id ) ); ?></div>
-                <h3 class="event-title"><?php the_title(); ?></h3>
+                <h3 class="event-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
                 <p class="event-category event-category-<?php echo esc_attr( rbc68_event_kind( $rbc68_event_id ) ); ?>"><?php echo esc_html( rbc68_event_kind_label( $rbc68_event_id ) ); ?><?php echo $rbc68_team && 'interclub' === rbc68_event_kind( $rbc68_event_id ) ? ' · Équipe ' . esc_html( $rbc68_team ) : ''; ?></p>
                 <?php if ( $rbc68_location ) : ?><p class="event-location"><strong>Lieu :</strong> <?php echo esc_html( $rbc68_location ); ?></p><?php endif; ?>
                 <?php if ( $rbc68_details ) : ?><p class="event-details"><?php echo esc_html( $rbc68_details ); ?></p><?php endif; ?>
                 <div class="event-actions">
                   <?php if ( $rbc68_map_link ) : ?><a href="<?php echo esc_url( $rbc68_map_link ); ?>" target="_blank" rel="noopener">Itinéraire →</a><?php endif; ?>
-                  <?php if ( get_post_meta( $rbc68_event_id, 'rbc68_event_article_url', true ) ) : ?><a href="<?php echo esc_url( rbc68_event_article_url( $rbc68_event_id ) ); ?>">Article dédié →</a><?php endif; ?>
+                  <a href="<?php the_permalink(); ?>">Programme et informations →</a>
+                  <?php if ( $rbc68_report_url = rbc68_event_report_url( $rbc68_event_id ) ) : ?><a href="<?php echo esc_url( $rbc68_report_url ); ?>">Bilan →</a><?php endif; ?>
                   <?php if ( ! $rbc68_past ) : ?><a class="event-calendar-link" href="<?php echo esc_url( rbc68_calendar_url( $rbc68_event_id ) ); ?>">Ajouter au calendrier</a><?php endif; ?>
                 </div>
               </div>
