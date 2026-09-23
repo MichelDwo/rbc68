@@ -169,8 +169,6 @@ function rbc68_event_content_display( $id ) {
 			<object type="application/pdf" data="<?php echo esc_url( $file_url ); ?>"><p><a href="<?php echo esc_url( $file_url ); ?>">Ouvrir l’affiche PDF</a></p></object>
 		<?php endif; ?>
 		<p><a class="event-action" href="<?php echo esc_url( $file_url ); ?>" download>Télécharger l’affiche</a></p>
-		<button type="button" class="event-action" data-share-file="<?php echo esc_url( $file_url ); ?>" data-file-name="<?php echo esc_attr( wp_basename( get_attached_file( $poster ) ) ); ?>" data-file-type="<?php echo esc_attr( get_post_mime_type( $poster ) ); ?>" hidden>Partager le fichier de l’affiche</button>
-		<p class="event-file-status" role="status"></p>
 		</section>
 	<?php endif;
 	$report_url = rbc68_event_report_url( $id );
@@ -178,12 +176,12 @@ function rbc68_event_content_display( $id ) {
 	$url = get_permalink( $id ); $title = get_the_title( $id ); ?>
 	<section class="event-section"><h2>Partager l’événement</h2>
 	<div class="event-share" data-event-url="<?php echo esc_url( $url ); ?>" data-event-title="<?php echo esc_attr( $title ); ?>">
-		<a href="<?php echo esc_url( 'https://www.facebook.com/sharer/sharer.php?u=' . rawurlencode( $url ) ); ?>" target="_blank" rel="noopener noreferrer">Facebook</a>
-		<a href="<?php echo esc_url( 'https://wa.me/?text=' . rawurlencode( $title . ' ' . $url ) ); ?>" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-		<a href="<?php echo esc_url( 'https://t.me/share/url?url=' . rawurlencode( $url ) . '&text=' . rawurlencode( $title ) ); ?>" target="_blank" rel="noopener noreferrer">Telegram</a>
-		<button type="button" class="event-action" data-share-event hidden>Autres applications…</button>
+		<button type="button" class="event-action" data-share-event hidden>Partager l’événement</button>
 		<button type="button" class="event-action" data-copy-event hidden>Copier le lien</button>
-	</div><p class="event-share-status" role="status"></p></section>
+	</div><p class="event-share-status" role="status"></p>
+	<p data-copy-fallback hidden><label>Lien à copier <input type="text" readonly value="<?php echo esc_url( $url ); ?>" data-copy-url></label></p>
+	<noscript><p>Lien de l’événement : <a href="<?php echo esc_url( $url ); ?>"><?php echo esc_html( $url ); ?></a></p></noscript>
+	</section>
 	<?php
 }
 
@@ -196,7 +194,7 @@ function rbc68_report_event_link( $id ) {
 }
 
 function rbc68_event_share_assets() {
-	if ( is_singular( 'rbc68_event' ) ) { wp_enqueue_script( 'rbc68-event-share', get_template_directory_uri() . '/assets/js/event-share.js', array(), RBC68_VERSION, true ); }
+	if ( is_singular( 'rbc68_event' ) ) { wp_enqueue_script( 'rbc68-event-share', get_template_directory_uri() . '/assets/js/event-share.js', array(), RBC68_VERSION . '.' . filemtime( get_template_directory() . '/assets/js/event-share.js' ), true ); }
 }
 add_action( 'wp_enqueue_scripts', 'rbc68_event_share_assets' );
 
