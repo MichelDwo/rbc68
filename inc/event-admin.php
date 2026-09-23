@@ -94,7 +94,7 @@ function rbc68_duplicate_event() {
 	}
 	$meta = array();
 	foreach ( get_post_meta( $id ) as $key => $values ) {
-		if ( 0 === strpos( $key, 'rbc68_event_' ) ) { $meta[ $key ] = get_post_meta( $id, $key, true ); }
+		if ( 0 === strpos( $key, 'rbc68_event_' ) && ! in_array( $key, array( 'rbc68_event_report_id', 'rbc68_event_article_url' ), true ) ) { $meta[ $key ] = get_post_meta( $id, $key, true ); }
 	}
 	$copy = wp_insert_post( wp_slash( array(
 		'post_type' => 'rbc68_event', 'post_status' => 'draft', 'post_author' => get_current_user_id(),

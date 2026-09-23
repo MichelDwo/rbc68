@@ -12,6 +12,7 @@ get_header();
 			<h1><?php the_title(); ?></h1>
 			<p class="rbc68-article-meta"><?php echo esc_html( get_the_date() ); ?></p>
 			<?php if ( has_post_thumbnail() ) : ?><?php the_post_thumbnail( 'large' ); ?><?php endif; ?>
+			<?php rbc68_report_event_link( get_the_ID() ); ?>
 			<div class="rbc68-article-content"><?php the_content(); ?></div>
 		</article>
 	<?php endwhile; ?>

@@ -56,9 +56,12 @@ $GLOBALS['posts'][1]->post_status = 'rbc68_archived';
 $GLOBALS['meta'][1]['rbc68_event_location'] = 'Salle, Rixheim';
 $GLOBALS['meta'][1]['rbc68_event_details'] = "L’équipe \\ test";
 $GLOBALS['meta'][1]['_edit_lock'] = 'ne pas copier';
+$GLOBALS['meta'][1]['rbc68_event_report_id'] = 20;
+$GLOBALS['meta'][1]['rbc68_event_article_url'] = 'https://example.org/bilan';
 $_GET['post'] = '1'; $GLOBALS['nonce'] = true; $GLOBALS['allowed'] = true;
 try { rbc68_duplicate_event(); } catch ( RuntimeException $e ) { check( 'edit-99' === $e->getMessage(), 'Redirection copie' ); }
 $copy = $GLOBALS['insert'];
+check( ! isset( $copy['meta_input']['rbc68_event_report_id'] ) && ! isset( $copy['meta_input']['rbc68_event_article_url'] ), 'Bilan non copié' );
 check( 'draft' === $copy['post_status'] && false !== strpos( $copy['post_title'], 'dupliqué' ), 'Copie en brouillon nommée' );
 check( ! isset( $copy['meta_input']['_edit_lock'] ) && $copy['meta_input']['rbc68_event_location'] === 'Salle, Rixheim', 'Champs utiles seuls copiés' );
 check( stripslashes( $copy['meta_input']['rbc68_event_details'] ) === $GLOBALS['meta'][1]['rbc68_event_details'], 'Texte préservé' );

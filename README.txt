@@ -1,15 +1,29 @@
-RBC68 — thème WordPress 1.6.0
+RBC68 — thème WordPress 1.7.0
 ================================
 
 INSTALLATION
 
 1. Dans WordPress : Apparence > Thèmes > Ajouter un thème > Téléverser un thème.
-2. Sélectionner le fichier rbc68-wordpress-theme-1.6.0.zip.
+2. Sélectionner le fichier rbc68-wordpress-theme-1.7.0.zip.
 3. Cliquer sur Installer maintenant, puis Activer.
 
 Le thème utilise automatiquement front-page.php pour afficher le one-page à la racine du site.
 
 PERSONNALISATION
+
+Nouveautés 1.7.0 :
+ÉVÉNEMENT COMPLET, BILAN FACULTATIF
+
+- Textes de l’événement : éditeurs visuels WordPress pour le programme, le tarif, les modalités d’inscription et la restauration. Gras, italique, souligné, titres, listes, alignements, liens et photos via « Ajouter un média ». Sans plugin supplémentaire. Les textes existants sont conservés ; l’annonce courte reste en texte simple. Le HTML est filtré à l’enregistrement et à l’affichage.
+- Événements > Modifier : titre, annonce courte, dates/heures, lieu, programme, tarif, inscription (texte et lien), repas/boissons/buvette et affiche image ou PDF.
+- Les liens de l’accueil ouvrent la fiche complète. Les champs vides ne s’affichent pas. Les anciens textes et liens sont conservés.
+- Sur la fiche, le lieu est directement un lien d’itinéraire Google Maps (coordonnées en priorité, sinon adresse), ouvert dans l’application si le système le permet, sinon sur le Web. Le lien séparé en bas de page est supprimé.
+- L’affiche est visible et téléchargeable. « Partager l’événement » et « Télécharger l’affiche » sont côte à côte sous l’affiche, avec retour à la ligne sur petit écran. Sans affiche, le partage reste disponible après le contenu. « Partager l’événement » ouvre le menu natif si le navigateur le permet, sinon copie le lien. Un échec du partage natif propose également la copie ; une annulation ne déclenche rien. Si la copie automatique échoue ou n’est pas prise en charge, le lien est affiché et sélectionné pour copie manuelle. Sans JavaScript, un lien reste affiché. Aucun bouton propre à une plateforme ni partage direct du fichier : télécharger l’affiche pour la joindre à un message. L’aperçu social utilise l’affiche image ; un PDF seul n’assure pas cet aperçu.
+- « Enregistrer et créer le brouillon du bilan » enregistre l’événement et crée une actualité portant son titre. Le bouton devient « Modifier le bilan ». Possibilité de choisir un article existant à la place.
+- Un bilan lié est réutilisé, quel que soit son statut, y compris la corbeille. Verrou en base contre les requêtes simultanées. Un article supprimé définitivement peut être recréé. Les titres seuls ne servent pas à identifier les bilans : deux éditions peuvent porter le même nom.
+- Le lien public vers le bilan apparaît après publication, avec un retour vers l’événement depuis l’article. La duplication d’un événement ne copie jamais son lien de bilan.
+- Tests : php tests/event-content.php ; php tests/event-admin.php ; php tests/calendar.php.
+- À vérifier dans WordPress : enregistrer tous les champs, choisir image/PDF, créer puis rouvrir le bilan, le publier et le mettre à la corbeille, dupliquer l’événement. Tester les téléchargements et le partage sur téléphone réel.
 
 Nouveautés 1.6.0 :
 GESTION DES ÉVÉNEMENTS
@@ -17,7 +31,7 @@ GESTION DES ÉVÉNEMENTS
 - Administration : tri par date de début puis heure, du plus ancien au plus récent. La colonne « Date de l’événement » permet d’inverser le tri ; les brouillons sans date restent visibles en fin de liste.
 - Statut « Archivé » et filtre « Archives » : les événements publiés passent automatiquement en archives après leur fin, dans le fuseau WordPress. Sans heure de fin, ils restent publiés jusqu’à la fin du dernier jour. Les brouillons ne sont pas archivés.
 - Vérification horaire via WP-Cron (déclenché par les visites), à l’ouverture de la liste d’administration et à la sauvegarde. Une nouvelle date future republie un événement archivé. Les archives restent consultables sur le site dans les saisons passées.
-- Action « Dupliquer » sur chaque ligne : crée un brouillon intitulé « Titre — dupliqué », avec les dates, heures, catégorie, adresse, carte, équipe, précisions et lien existants. Changer les dates avant publication.
+- Action « Dupliquer » sur chaque ligne : crée un brouillon intitulé « Titre — dupliqué », avec les dates, heures, catégorie, adresse, carte, équipe et précisions existants (le lien de bilan est exclu depuis la version 1.7.0). Changer les dates avant publication.
 - Heures saisies en HH:MM sur 24 h, par exemple 09:00 ou 19:30, sans AM/PM.
 - Vérifications automatisées : php tests/event-admin.php. Vérifier aussi la liste, le filtre Archives, la duplication et les horaires dans WordPress après installation.
 
@@ -47,7 +61,7 @@ Nouveautés 1.5.0 :
 - Les emplacements « Photo horizontale du bandeau d’accueil » et « Photo d’illustration de la section Le club » restent invisibles tant qu’aucune image n’est choisie. Une image horizontale, idéalement au format 16:9, est recommandée.
 - Apparence > Personnaliser > Informations pratiques : lieu, liens cartographiques, résumés des créneaux, tarifs, disponibilités des trois sections et texte « Nous rejoindre ».
 - Apparence > Personnaliser > Bannière d’information : message temporaire et lien facultatif. Un message vide masque la bannière.
-- Événements : renseignez catégorie, dates, heures, adresse, coordonnées OpenStreetMap, précisions, équipe et éventuel article dédié. Les trois prochains événements (hors entraînements) alimentent automatiquement le bloc « En ce moment ».
+- Événements : renseignez catégorie, dates, heures, adresse, coordonnées OpenStreetMap, annonce, équipe et contenu complet. Le bilan est facultatif. Les trois prochains événements (hors entraînements) alimentent automatiquement le bloc « En ce moment ».
 - Articles : les trois derniers articles publiés alimentent automatiquement la section Actualités. Ajoutez une image mise en avant pour chaque article.
 - Réglages > Général : vérifiez le titre du site et l’adresse e-mail d’administration.
 
