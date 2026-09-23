@@ -14,6 +14,7 @@ PERSONNALISATION
 Nouveautés 1.7.0 :
 ÉVÉNEMENT COMPLET, BILAN FACULTATIF
 
+- Textes de l’événement : éditeurs visuels WordPress pour le programme, le tarif, les modalités d’inscription et la buvette. Gras, italique, souligné, titres, listes, alignements, liens et photos via « Ajouter un média ». Sans plugin supplémentaire. Les textes existants sont conservés ; l’annonce courte reste en texte simple. Le HTML est filtré à l’enregistrement et à l’affichage.
 - Événements > Modifier : titre, annonce courte, dates/heures, lieu, programme, tarif, inscription (texte et lien), repas/boissons/buvette et affiche image ou PDF.
 - Les liens de l’accueil ouvrent la fiche complète. Les champs vides ne s’affichent pas. Les anciens textes et liens sont conservés.
 - Sur la fiche, le lieu est directement un lien d’itinéraire Google Maps (coordonnées en priorité, sinon adresse), ouvert dans l’application si le système le permet, sinon sur le Web. Le lien séparé en bas de page est supprimé.

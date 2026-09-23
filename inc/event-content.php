@@ -36,9 +36,7 @@ function rbc68_event_report_url( $id ) {
 function rbc68_event_content_fields( $post ) {
 	?>
 	<p class="description">Toutes les informations sont présentées sur la fiche de l’événement. Une actualité n’est utile que pour le bilan.</p>
-	<?php foreach ( rbc68_event_content_labels() as $key => $label ) : $name = 'rbc68_event_' . $key; ?>
-		<p><label for="<?php echo esc_attr( $name ); ?>"><strong><?php echo esc_html( $label ); ?></strong></label><br><textarea class="widefat" rows="4" id="<?php echo esc_attr( $name ); ?>" name="<?php echo esc_attr( $name ); ?>"><?php echo esc_textarea( get_post_meta( $post->ID, $name, true ) ); ?></textarea></p>
-	<?php endforeach; ?>
+
 	<p><label for="rbc68_event_registration_url"><strong>Lien d’inscription</strong> (facultatif)</label><input class="widefat" type="url" id="rbc68_event_registration_url" name="rbc68_event_registration_url" value="<?php echo esc_attr( get_post_meta( $post->ID, 'rbc68_event_registration_url', true ) ); ?>"></p>
 	<h3>Affiche / flyer</h3>
 	<?php $poster = absint( get_post_meta( $post->ID, 'rbc68_event_poster_id', true ) ); ?>
@@ -64,10 +62,33 @@ function rbc68_event_content_fields( $post ) {
 	<?php endif;
 }
 
+/** Éditeurs hors des boîtes déplaçables : TinyMCE doit rester fixe dans le DOM. */
+function rbc68_event_rich_editors( $post ) {
+	if ( 'rbc68_event' !== $post->post_type ) { return; }
+	echo '<div class="rbc68-event-editors"><h2>Textes de l’événement</h2><p>Utilisez « Ajouter un média » pour insérer des photos. L’annonce courte reste en texte simple.</p>';
+	foreach ( rbc68_event_content_labels() as $key => $label ) {
+		$name = 'rbc68_event_' . $key;
+		echo '<h3><label for="' . esc_attr( $name ) . '">' . esc_html( $label ) . '</label></h3>';
+		wp_editor( get_post_meta( $post->ID, $name, true ), $name, array(
+			'textarea_name' => $name,
+			'media_buttons' => current_user_can( 'upload_files' ),
+			'editor_height' => 'program' === $key ? 300 : 180,
+			'quicktags' => true,
+			'tinymce' => array(
+				'toolbar1' => 'formatselect,bold,italic,underline,bullist,numlist,alignleft,aligncenter,alignright,link,unlink,undo,redo,removeformat',
+				'toolbar2' => '',
+				'block_formats' => 'Paragraphe=p;Titre 3=h3;Titre 4=h4;Titre 5=h5',
+			),
+		) );
+	}
+	echo '</div>';
+}
+add_action( 'edit_form_advanced', 'rbc68_event_rich_editors' );
+
 function rbc68_save_event_content( $id ) {
 	foreach ( rbc68_event_content_labels() as $key => $label ) {
 		$name = 'rbc68_event_' . $key;
-		if ( isset( $_POST[ $name ] ) && is_string( $_POST[ $name ] ) ) { update_post_meta( $id, $name, sanitize_textarea_field( wp_unslash( $_POST[ $name ] ) ) ); }
+		if ( isset( $_POST[ $name ] ) && is_string( $_POST[ $name ] ) ) { update_post_meta( $id, $name, wp_slash( wp_kses_post( wp_unslash( $_POST[ $name ] ) ) ) ); }
 	}
 	if ( isset( $_POST['rbc68_event_registration_url'] ) && is_string( $_POST['rbc68_event_registration_url'] ) ) {
 		update_post_meta( $id, 'rbc68_event_registration_url', esc_url_raw( wp_unslash( $_POST['rbc68_event_registration_url'] ), array( 'https', 'http' ) ) );
@@ -156,7 +177,7 @@ add_action( 'admin_enqueue_scripts', 'rbc68_event_content_assets' );
 function rbc68_event_content_display( $id ) {
 	foreach ( rbc68_event_content_labels() as $key => $label ) {
 		$value = get_post_meta( $id, 'rbc68_event_' . $key, true );
-		if ( $value ) { echo '<section class="event-section"><h2>' . esc_html( $label ) . '</h2>' . wpautop( esc_html( $value ) ) . '</section>'; }
+		if ( $value ) { echo '<section class="event-section"><h2>' . esc_html( $label ) . '</h2>' . '<div class="event-rich-text">' . wpautop( wp_kses_post( $value ) ) . '</div></section>'; }
 	}
 	$url = get_post_meta( $id, 'rbc68_event_registration_url', true );
 	if ( $url && ! rbc68_event_is_past( $id ) ) { echo '<p><a class="event-action" href="' . esc_url( $url ) . '">S’inscrire →</a></p>'; }

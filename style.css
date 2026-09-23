@@ -2198,3 +2198,19 @@ body.admin-bar header {
 .event-share .event-action[hidden], [data-copy-fallback][hidden] { display: none; }
 .event-share-status:empty { display: none; }
 [data-copy-url] { width: 100%; max-width: 100%; box-sizing: border-box; }
+
+/* Contenu enrichi des événements : images fluides et alignements de l’éditeur. */
+.event-rich-text { display: flow-root; overflow-wrap: anywhere; }
+.event-rich-text > :first-child { margin-top: 0; }
+.event-rich-text > :last-child { margin-bottom: 0; }
+.event-rich-text h3, .event-rich-text h4, .event-rich-text h5 { margin: 1rem 0 .4rem; }
+.event-rich-text ul, .event-rich-text ol { padding-left: 1.5rem; margin: .5rem 0; }
+.event-rich-text img { max-width: 100%; height: auto; }
+.event-rich-text .wp-caption { max-width: 100%; }
+.event-rich-text .aligncenter { display: block; margin: .75rem auto; }
+.event-rich-text .alignleft { float: left; margin: .4rem 1rem .75rem 0; }
+.event-rich-text .alignright { float: right; margin: .4rem 0 .75rem 1rem; }
+.event-rich-text a { text-decoration: underline; text-underline-offset: .15em; }
+@media (max-width: 600px) {
+  .event-rich-text .alignleft, .event-rich-text .alignright { float: none; display: block; margin: .75rem auto; }
+}
