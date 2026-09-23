@@ -2221,3 +2221,42 @@ body.admin-bar header {
 @media (max-width: 600px) {
   .event-rich-text .alignleft, .event-rich-text .alignright { float: none; display: block; margin: .75rem auto; }
 }
+
+/* Inscription : parcours natifs dépliables, sans dépendance JavaScript. */
+.join-flow { overflow-wrap: anywhere; }
+.join-flow-intro { margin: 1.25rem 0; }
+.join-flow .trial-highlight a { margin-left: .5rem; }
+.join-paths { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); align-items: start; gap: 1.25rem; }
+.join-choice { min-width: 0; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: .75rem; }
+.join-flow summary { cursor: pointer; padding: 1.15rem; line-height: 1.5; }
+.join-choice > summary { color: var(--accent); }
+[data-theme-preference="light"] .join-choice > summary { color: var(--primary); }
+.join-flow summary > span { vertical-align: top; }
+.join-choice > summary > span { display: inline-block; max-width: calc(100% - 1.5rem); }
+.join-hint { display: block; font-size: .9rem; font-weight: 400; color: var(--text-color); }
+.join-choice-body { padding: 0 1.15rem 1.15rem; }
+.join-flow p { line-height: 1.6; }
+.join-flow p + p { margin-top: .7rem; }
+.join-primary { display: inline-block; padding: .7rem 0; font-weight: 700; }
+.join-flow a { color: var(--accent); text-decoration: underline; text-underline-offset: .2em; }
+[data-theme-preference="light"] .join-flow a { color: var(--primary); }
+.join-groups { display: grid; gap: .75rem; margin-top: 1rem; }
+.join-group { border: 1px solid var(--border-color); border-radius: .5rem; }
+.join-group > summary { display: flex; gap: .75rem; align-items: center; padding: .9rem; }
+.join-group > summary::before { content: '+'; font-size: 1.2rem; flex-shrink: 0; }
+.join-group[open] > summary::before { content: '−'; }
+.join-group > summary::-webkit-details-marker { display: none; }
+.join-group > summary > span:first-of-type { flex: 1; min-width: 0; }
+.join-price { font-weight: 700; white-space: nowrap; }
+.join-group-body { padding: 0 .9rem 1rem; }
+.join-flow h3 { font-size: 1.05rem; margin: 1.15rem 0 .5rem; }
+.join-doc-links { list-style: none; margin: .75rem 0; padding: 0; }
+.join-doc-links a { display: inline-block; padding: .5rem 0; }
+.join-help { margin-top: 1rem; border-top: 1px solid var(--border-color); }
+.join-help summary { padding: .75rem 0; }
+.join-help ol { padding-left: 1.5rem; }
+.join-help li { margin: .5rem 0; }
+.join-deadline { margin-top: 1rem; }
+.join-contact { margin-top: 1.25rem; }
+.join-flow :is(a, summary):focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+@media (max-width: 800px) { .join-paths { grid-template-columns: minmax(0, 1fr); } }

@@ -10,6 +10,7 @@ defined( 'ABSPATH' ) || exit;
 define( 'RBC68_VERSION', '1.7.0' );
 
 require_once get_template_directory() . '/inc/committee.php';
+require_once get_template_directory() . '/inc/join.php';
 
 require_once get_template_directory() . '/inc/calendar.php';
 
@@ -496,7 +497,7 @@ function rbc68_customizer( $customizer ) {
 		'rbc68_essentials',
 		array(
 			'title'       => __( 'Informations pratiques', 'rbc68' ),
-			'description' => __( 'Contenu des quatre cartes affichées sous le bandeau.', 'rbc68' ),
+			'description' => __( 'Contenu des cartes sous le bandeau. Les tarifs et le résumé d’inscription se règlent dans Apparence > Nous rejoindre.', 'rbc68' ),
 			'priority'    => 31,
 		)
 	);
@@ -508,10 +509,6 @@ function rbc68_customizer( $customizer ) {
 		'rbc68_when_adults' => array( 'Créneaux Adultes (résumé)', 'Mardi, mercredi, vendredi et dimanche', 'text', 'sanitize_text_field' ),
 		'rbc68_when_youth' => array( 'Créneaux Jeunes (résumé)', 'Mardi, vendredi et dimanche', 'text', 'sanitize_text_field' ),
 		'rbc68_when_mini' => array( 'Créneaux Mini-bad (résumé)', 'Vendredi et dimanche', 'text', 'sanitize_text_field' ),
-		'rbc68_price_mini' => array( 'Tarif Mini-bad', '70 €', 'text', 'sanitize_text_field' ),
-		'rbc68_price_youth' => array( 'Tarif Jeunes', '85 €', 'text', 'sanitize_text_field' ),
-		'rbc68_price_adults' => array( 'Tarif Adultes', '105 €', 'text', 'sanitize_text_field' ),
-		'rbc68_join_text' => array( 'Résumé « Nous rejoindre »', 'Nouvelles inscriptions sur place, auprès du responsable de salle. Reprise le 1er septembre 2026.', 'textarea', 'sanitize_textarea_field' ),
 	);
 
 	foreach ( $essential_settings as $setting => $details ) {

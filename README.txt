@@ -16,6 +16,18 @@ MINI-CARTE DES INFORMATIONS ESSENTIELLES
 - Source : tuiles standard OpenStreetMap, zoom 15, centre 47.7331928 / 7.3777678, aperçu produit le 23 septembre 2026. © OpenStreetMap contributors, https://www.openstreetmap.org/copyright.
 - Si la salle déménage, remplacer assets/images/salle-map.webp et mettre à jour l’adresse et le lien d’itinéraire. Le réglage de carte intégrée ne modifie pas cette image statique.
 
+NOUS REJOINDRE — PARCOURS D’INSCRIPTION
+
+- Apparence > Nous rejoindre : saisons, années de naissance, tarifs, date limite, consignes, lien MyFFBaD et RIB. Les disponibilités restent dans Personnaliser > Informations pratiques.
+- Accueil : deux parcours dépliables (renouvellement / première inscription), puis trois groupes. Chaque nouveau membre suit documents → paiement → remise du dossier. Navigation clavier et mobile, sans JavaScript côté public.
+- Documents par parcours : Ajouter un document, saisir un nom et un lien ou choisir dans la médiathèque, puis Enregistrer. Retirer supprime le lien du parcours, pas le fichier de la médiathèque. Les documents des trois groupes sont indépendants ; les liens des deux groupes mineurs sont préremplis à l’identique. Les liens sans nom ou sans URL ne sont pas enregistrés.
+- Liens FFBaD, tarifs et consignes initiales fournis par le club pour 2026-2027. Date limite : mercredi 30 septembre 2026. RIB à sélectionner par l’administrateur ; sinon mention « disponible auprès du responsable ».
+- Au premier affichage, les tarifs existants sont repris. Après enregistrement, les tarifs et le résumé du bloc Infos pratiques utilisent cette même configuration. Les anciens réglages du thème ne sont pas supprimés.
+- Renouvellement entièrement en ligne via https://www.myffbad.fr/adherer/RBC68 ; aide pour retrouver le numéro de licence. Les consignes de dossier papier concernent uniquement les nouveaux membres.
+- À chaque saison : mettre à jour saisons, tranches d’âge, échéance et liens des formulaires. {saison} et {saison_courte} peuvent être utilisés dans le libellé du virement. Aucun changement automatique des années ou des règles médicales.
+- Les documents peuvent être des PDF remplissables, sans collecte des dossiers sur le site.
+- Vérifications : php tests/join.php. Dans WordPress, enregistrer les réglages, ajouter/remplacer/retirer un document dans chaque groupe, choisir le RIB et contrôler les deux parcours.
+
 PERSONNALISATION
 
 Nouveautés 1.7.0 :
@@ -66,7 +78,7 @@ Nouveautés 1.5.0 :
 - Apparence > Personnaliser > Identité du site : logo.
 - Apparence > Personnaliser > Page d’accueil RBC68 : titre, introduction, adresse, e-mail, réseaux sociaux et photos.
 - Les emplacements « Photo horizontale du bandeau d’accueil » et « Photo d’illustration de la section Le club » restent invisibles tant qu’aucune image n’est choisie. Une image horizontale, idéalement au format 16:9, est recommandée.
-- Apparence > Personnaliser > Informations pratiques : lieu, liens cartographiques, résumés des créneaux, tarifs, disponibilités des trois sections et texte « Nous rejoindre ».
+- Apparence > Personnaliser > Informations pratiques : lieu, liens cartographiques, résumés des créneaux et disponibilités des trois sections. Tarifs et inscription : Apparence > Nous rejoindre.
 - Apparence > Personnaliser > Bannière d’information : message temporaire et lien facultatif. Un message vide masque la bannière.
 - Événements : renseignez catégorie, dates, heures, adresse, coordonnées OpenStreetMap, annonce, équipe et contenu complet. Le bilan est facultatif. Les trois prochains événements (hors entraînements) alimentent automatiquement le bloc « En ce moment ».
 - Articles : les trois derniers articles publiés alimentent automatiquement la section Actualités. Ajoutez une image mise en avant pour chaque article.
