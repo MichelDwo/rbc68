@@ -161,27 +161,33 @@ function rbc68_event_content_display( $id ) {
 	$url = get_post_meta( $id, 'rbc68_event_registration_url', true );
 	if ( $url && ! rbc68_event_is_past( $id ) ) { echo '<p><a class="event-action" href="' . esc_url( $url ) . '">S’inscrire →</a></p>'; }
 	$poster = absint( get_post_meta( $id, 'rbc68_event_poster_id', true ) );
-	if ( $poster && rbc68_event_valid_poster( $poster ) ) : $file_url = wp_get_attachment_url( $poster ); ?>
+	$has_poster = $poster && rbc68_event_valid_poster( $poster );
+	if ( $has_poster ) : $file_url = wp_get_attachment_url( $poster ); ?>
 		<section class="event-section event-poster"><h2>Affiche / flyer</h2>
 		<?php if ( wp_attachment_is_image( $poster ) ) : ?>
 			<a href="<?php echo esc_url( $file_url ); ?>"><?php echo wp_get_attachment_image( $poster, 'large', false, array( 'alt' => 'Affiche — ' . get_the_title( $id ) ) ); ?></a>
 		<?php else : ?>
 			<object type="application/pdf" data="<?php echo esc_url( $file_url ); ?>"><p><a href="<?php echo esc_url( $file_url ); ?>">Ouvrir l’affiche PDF</a></p></object>
 		<?php endif; ?>
-		<p><a class="event-action" href="<?php echo esc_url( $file_url ); ?>" download>Télécharger l’affiche</a></p>
+		<?php rbc68_event_share_controls( $id, $file_url ); ?>
 		</section>
 	<?php endif;
 	$report_url = rbc68_event_report_url( $id );
 	if ( $report_url ) { echo '<p class="event-report"><a href="' . esc_url( $report_url ) . '">Voir le bilan et les photos →</a></p>'; }
+	if ( ! $has_poster ) { rbc68_event_share_controls( $id ); }
+}
+
+function rbc68_event_share_controls( $id, $file_url = '' ) {
 	$url = get_permalink( $id ); $title = get_the_title( $id ); ?>
-	<section class="event-section"><h2>Partager l’événement</h2>
+	<div data-event-actions>
 	<div class="event-share" data-event-url="<?php echo esc_url( $url ); ?>" data-event-title="<?php echo esc_attr( $title ); ?>">
 		<button type="button" class="event-action" data-share-event hidden>Partager l’événement</button>
+		<?php if ( $file_url ) : ?><a class="event-action" href="<?php echo esc_url( $file_url ); ?>" download>Télécharger l’affiche</a><?php endif; ?>
 		<button type="button" class="event-action" data-copy-event hidden>Copier le lien</button>
 	</div><p class="event-share-status" role="status"></p>
 	<p data-copy-fallback hidden><label>Lien à copier <input type="text" readonly value="<?php echo esc_url( $url ); ?>" data-copy-url></label></p>
 	<noscript><p>Lien de l’événement : <a href="<?php echo esc_url( $url ); ?>"><?php echo esc_html( $url ); ?></a></p></noscript>
-	</section>
+	</div>
 	<?php
 }
 
@@ -208,3 +214,14 @@ function rbc68_event_social_meta() {
 	foreach ( $meta as $property => $value ) { if ( $value ) { echo '<meta property="' . esc_attr( $property ) . '" content="' . esc_attr( wp_strip_all_tags( $value ) ) . '">' . "\n"; } }
 }
 add_action( 'wp_head', 'rbc68_event_social_meta' );
+
+/** Lien d’itinéraire : coordonnées en priorité, sinon adresse. */
+function rbc68_event_directions_url( $id ) {
+	$lat = get_post_meta( $id, 'rbc68_event_latitude', true );
+	$lon = get_post_meta( $id, 'rbc68_event_longitude', true );
+	$destination = get_post_meta( $id, 'rbc68_event_location', true );
+	if ( is_numeric( $lat ) && is_numeric( $lon ) && abs( (float) $lat ) <= 90 && abs( (float) $lon ) <= 180 ) {
+		$destination = (float) $lat . ',' . (float) $lon;
+	}
+	return $destination ? 'https://www.google.com/maps/dir/?api=1&destination=' . rawurlencode( $destination ) : '';
+}

@@ -1,7 +1,7 @@
 (() => {
   const box = document.querySelector('[data-event-url]');
   if (!box) return;
-  const section = box.closest('section');
+  const section = box.closest('[data-event-actions]');
   const data = {title: box.dataset.eventTitle, url: box.dataset.eventUrl};
   const status = section.querySelector('.event-share-status');
   const share = box.querySelector('[data-share-event]');
@@ -10,8 +10,8 @@
     try { canShare = navigator.canShare(data); }
     catch (_) { canShare = false; }
   }
+  share.hidden = false;
   if (canShare) {
-    share.hidden = false;
     share.addEventListener('click', async () => {
       status.textContent = '';
       share.disabled = true;
@@ -25,7 +25,7 @@
   const fallback = section.querySelector('[data-copy-fallback]');
   const input = section.querySelector('[data-copy-url]');
   copy.hidden = false;
-  copy.addEventListener('click', async () => {
+  const copyLink = async () => {
     status.textContent = '';
     if (navigator.clipboard && window.isSecureContext) {
       try {
@@ -40,5 +40,7 @@
     input.select();
     input.setSelectionRange(0, input.value.length);
     status.textContent = 'Copiez le lien sélectionné avec le menu de votre appareil ou Ctrl+C / ⌘C.';
-  });
+  };
+  copy.addEventListener('click', copyLink);
+  if (!canShare) share.addEventListener('click', copyLink);
 })();
