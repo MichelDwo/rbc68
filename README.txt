@@ -9,6 +9,13 @@ INSTALLATION
 
 Le thème utilise automatiquement front-page.php pour afficher le one-page à la racine du site.
 
+MINI-CARTE DES INFORMATIONS ESSENTIELLES
+
+- Aperçu statique local (WebP 800 × 400) avec repère sur la salle, largeur fluide et proportions conservées. Le clic utilise le lien d’itinéraire réglé dans Informations pratiques.
+- Attribution OpenStreetMap sous l’image. Aucun chargement externe pour cette miniature ; la grande carte Contact reste interactive.
+- Source : tuiles standard OpenStreetMap, zoom 15, centre 47.7331928 / 7.3777678, aperçu produit le 23 septembre 2026. © OpenStreetMap contributors, https://www.openstreetmap.org/copyright.
+- Si la salle déménage, remplacer assets/images/salle-map.webp et mettre à jour l’adresse et le lien d’itinéraire. Le réglage de carte intégrée ne modifie pas cette image statique.
+
 PERSONNALISATION
 
 Nouveautés 1.6.0 :

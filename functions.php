@@ -49,7 +49,7 @@ function rbc68_setup() {
 add_action( 'after_setup_theme', 'rbc68_setup' );
 
 function rbc68_assets() {
-	wp_enqueue_style( 'rbc68-style', get_stylesheet_uri(), array(), RBC68_VERSION );
+	wp_enqueue_style( 'rbc68-style', get_stylesheet_uri(), array(), RBC68_VERSION . '.' . filemtime( get_stylesheet_directory() . '/style.css' ) );
 	wp_enqueue_script( 'rbc68-main', get_template_directory_uri() . '/assets/js/main.js', array(), (string) filemtime( get_template_directory() . '/assets/js/main.js' ), true );
 }
 add_action( 'wp_enqueue_scripts', 'rbc68_assets' );

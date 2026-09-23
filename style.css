@@ -1685,30 +1685,37 @@ body.admin-bar header {
 }
 
 .essential-mini-map {
-  position: relative;
-  height: 96px;
-  margin: .7rem 0 .55rem;
+  margin: .7rem 0 .25rem;
   overflow: hidden;
   border: 1px solid var(--border-color);
   border-radius: .5rem;
   background: var(--light);
 }
 
-.essential-mini-map iframe {
+.essential-mini-map > a,
+.essential-mini-map img {
+  display: block;
   width: 100%;
-  height: 100%;
-  border: 0;
-  pointer-events: none;
 }
 
-.essential-mini-map > a {
-  position: absolute;
-  inset: 0;
+.essential-mini-map img {
+  height: auto;
 }
 
 .essential-mini-map > a:focus-visible {
   outline: 3px solid var(--accent);
   outline-offset: -3px;
+}
+
+.essential-card .essential-map-credit {
+  margin: 0 0 .55rem;
+  font-size: .7rem;
+  line-height: 1.4;
+}
+
+.essential-map-credit a {
+  font-size: inherit;
+  font-weight: normal;
 }
 
 .essential-links {
