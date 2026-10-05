@@ -9,6 +9,8 @@ defined( 'ABSPATH' ) || exit;
 
 define( 'RBC68_VERSION', '1.7.0' );
 
+require_once get_template_directory() . '/inc/presentation.php';
+
 require_once get_template_directory() . '/inc/committee.php';
 
 require_once get_template_directory() . '/inc/calendar.php';
@@ -91,7 +93,7 @@ function rbc68_event_kind( $post_id ) {
 
 function rbc68_event_kind_label( $post_id ) {
 	$labels = array(
-		'public'    => 'Public',
+		'public'    => 'Tout public',
 		'interclub' => 'Interclub',
 		'internal'  => 'Interne',
 		'training'  => 'Entraînement',
@@ -287,7 +289,7 @@ function rbc68_event_meta_box_html( $post ) {
 	);
 	?>
 	<div class="rbc68-event-admin-grid">
-		<p><label for="rbc68_event_kind"><strong>Catégorie</strong></label><br><select id="rbc68_event_kind" name="rbc68_event_kind"><option value="public" <?php selected( $kind, 'public' ); ?>>Public</option><option value="interclub" <?php selected( $kind, 'interclub' ); ?>>Interclub</option><option value="internal" <?php selected( $kind, 'internal' ); ?>>Interne</option><option value="training" <?php selected( $kind, 'training' ); ?>>Entraînement (masqué de l’accueil)</option></select></p>
+		<p><label for="rbc68_event_kind"><strong>Catégorie</strong></label><br><select id="rbc68_event_kind" name="rbc68_event_kind"><option value="public" <?php selected( $kind, 'public' ); ?>>Tout public</option><option value="interclub" <?php selected( $kind, 'interclub' ); ?>>Interclub</option><option value="internal" <?php selected( $kind, 'internal' ); ?>>Interne</option><option value="training" <?php selected( $kind, 'training' ); ?>>Entraînement (masqué de l’accueil)</option></select></p>
 		<p><label for="rbc68_event_team"><strong>Équipe concernée</strong> (interclubs)</label><br><input class="widefat" type="text" id="rbc68_event_team" name="rbc68_event_team" value="<?php echo esc_attr( $fields['rbc68_event_team'] ); ?>"></p>
 		<p><label for="rbc68_event_date"><strong>Date de début</strong></label><br><input type="date" id="rbc68_event_date" name="rbc68_event_date" value="<?php echo esc_attr( $start ); ?>" required></p>
 		<p><label for="rbc68_event_end_date"><strong>Date de fin</strong> (facultative)</label><br><input type="date" id="rbc68_event_end_date" name="rbc68_event_end_date" value="<?php echo esc_attr( $end ); ?>"></p>
@@ -511,7 +513,7 @@ function rbc68_customizer( $customizer ) {
 		'rbc68_price_mini' => array( 'Tarif Mini-bad', '70 €', 'text', 'sanitize_text_field' ),
 		'rbc68_price_youth' => array( 'Tarif Jeunes', '85 €', 'text', 'sanitize_text_field' ),
 		'rbc68_price_adults' => array( 'Tarif Adultes', '105 €', 'text', 'sanitize_text_field' ),
-		'rbc68_join_text' => array( 'Résumé « Nous rejoindre »', 'Nouvelles inscriptions sur place, auprès du responsable de salle. Reprise le 1er septembre 2026.', 'textarea', 'sanitize_textarea_field' ),
+		'rbc68_join_text' => array( 'Résumé « Nous rejoindre »', 'Venez essayer nos créneaux adultes, raquettes mises à disposition.', 'textarea', 'sanitize_textarea_field' ),
 	);
 
 	foreach ( $essential_settings as $setting => $details ) {

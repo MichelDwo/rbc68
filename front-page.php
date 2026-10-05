@@ -62,7 +62,7 @@ $rbc68_club_image_id  = absint( get_theme_mod( 'rbc68_club_image' ) );
       </article>
       <article class="essential-card essential-card-accent">
         <span class="essential-icon" aria-hidden="true">✓</span>
-        <div><h3>Envie de jouer ?</h3><p><?php echo esc_html( rbc68_mod( 'rbc68_join_text', 'Nouvelles inscriptions sur place, auprès du responsable de salle. Reprise le 1er septembre 2026.' ) ); ?></p><a href="#inscription">Nous rejoindre</a></div>
+        <div><h3>Envie de jouer ?</h3><p><?php echo esc_html( rbc68_mod( 'rbc68_join_text', 'Venez essayer nos créneaux adultes, raquettes mises à disposition.' ) ); ?></p><a href="#inscription">Nous rejoindre</a></div>
       </article>
     </div>
   </section>
@@ -491,17 +491,27 @@ $rbc68_club_image_id  = absint( get_theme_mod( 'rbc68_club_image' ) );
         </div>
         
         <p style="margin-top: 1rem;"><strong>Email :</strong> <a href="mailto:<?php echo esc_attr( rbc68_mod( 'rbc68_email', 'contact@rbc68.fr' ) ); ?>" style="color: var(--primary); text-decoration: none;"><?php echo esc_html( rbc68_mod( 'rbc68_email', 'contact@rbc68.fr' ) ); ?></a></p>
+        <?php
+        $rbc68_facebook = get_theme_mod( 'rbc68_show_facebook', true ) && trim( rbc68_mod( 'rbc68_facebook', 'https://facebook.com/p/Riedisheim-Badminton-Club-100024060309053/' ) );
+        $rbc68_instagram = get_theme_mod( 'rbc68_show_instagram', false ) && trim( rbc68_mod( 'rbc68_instagram', 'https://instagram.com/rbc68/' ) );
+        ?>
+        <?php if ( $rbc68_facebook || $rbc68_instagram ) : ?>
         <p style="margin-top: 1rem;"><strong>Réseaux sociaux :</strong></p>
         <div class="contact-social">
+          <?php if ( $rbc68_facebook ) : ?>
           <a href="<?php echo esc_url( rbc68_mod( 'rbc68_facebook', 'https://facebook.com/p/Riedisheim-Badminton-Club-100024060309053/' ) ); ?>" class="social-link" target="_blank" rel="noopener noreferrer">
             <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
             Facebook
           </a>
+          <?php endif; ?>
+          <?php if ( $rbc68_instagram ) : ?>
           <a href="<?php echo esc_url( rbc68_mod( 'rbc68_instagram', 'https://instagram.com/rbc68/' ) ); ?>" class="social-link" target="_blank" rel="noopener noreferrer">
             <svg class="social-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163m0-2.163C8.74 0 8.333.011 7.053.069 2.695.287.287 2.695.069 7.053.011 8.333 0 8.74 0 12s.011 3.667.069 4.947c.228 4.358 2.636 7.88 6.983 8.108 1.234.058 1.624.069 4.947.069s3.713-.011 4.947-.069c4.347-.228 7.87-.636 8.108-6.983.058-1.28.069-1.687.069-4.947s-.011-3.667-.069-4.947C21.713 2.695 18.287.287 13.947.069 12.667.011 12.26 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z"/></svg>
             Instagram
           </a>
+          <?php endif; ?>
         </div>
+        <?php endif; ?>
       </div>
       
       <!-- Formulaire de contact -->
@@ -589,9 +599,10 @@ $rbc68_club_image_id  = absint( get_theme_mod( 'rbc68_club_image' ) );
   echo $rbc68_section_calendar; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
   echo $rbc68_section_news; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
   echo $rbc68_section_club; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-  echo $rbc68_section_contact; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
   echo $rbc68_section_join; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
   echo $rbc68_section_gallery; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+  echo $rbc68_section_contact; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+  rbc68_render_sponsors();
   ?>
   <!-- Footer -->
 </main>

@@ -248,7 +248,8 @@ body.admin-bar header {
     /* Hero Section */
     .hero {
       background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      background-size: 200px;
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
       color: var(--white);
       text-align: center;
       padding: 6rem 2rem;
@@ -1842,9 +1843,9 @@ body.admin-bar header {
 }
 
 .spotlight-event-row time {
-  color: var(--gray);
-  font-size: .78rem;
-  font-weight: 700;
+  color: var(--text-color);
+  font-size: .94rem;
+  font-weight: 400;
 }
 
 .spotlight-event-row strong {
@@ -2040,7 +2041,7 @@ body.admin-bar header {
 
 .event-category-internal {
   color: #fefefe;
-  background: #a63832;
+  background: #136ebe;
 }
 
 .event-category-training {
@@ -2221,3 +2222,14 @@ body.admin-bar header {
 @media (max-width: 600px) {
   .event-rich-text .alignleft, .event-rich-text .alignright { float: none; display: block; margin: .75rem auto; }
 }
+
+/* 1.7.0 : contact et partenaires */
+.dark-mode .spotlight-event-row time { color: #fff; }
+.dark-mode .submit-button { color: #051021; background: #cda445; border: 2px solid #cda445; }
+.dark-mode .submit-button:hover:not(:disabled) { background: #e1bd68; border-color: #e1bd68; }
+.submit-button:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+.dark-mode .submit-button:disabled { background: var(--gray); border-color: var(--gray); opacity: .7; }
+.sponsor-logos { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 1.5rem; list-style: none; margin: 0; padding: 0; }
+.sponsor-logos li { display: grid; place-items: center; width: min(240px, 100%); padding: 1rem; background: #fff; border-radius: .6rem; }
+.sponsor-logos a { display: block; max-width: 100%; }
+.sponsor-logos img { display: block; width: auto; max-width: 100%; height: auto; max-height: 100px; object-fit: contain; }

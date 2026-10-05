@@ -1,6 +1,15 @@
 RBC68 — thème WordPress 1.7.0
 ================================
 
+AJUSTEMENTS VISUELS 1.7.0
+
+- Dégradé du bandeau continu dans les deux thèmes (aucune photo de fond).
+- Contact retiré des menus, placé après la galerie et avant les sponsors. Bouton d’envoi doré en mode sombre.
+- Apparence > Personnaliser > Page d’accueil RBC68 : cases Afficher Facebook / Afficher Instagram. Instagram masqué par défaut ; un lien vide masque aussi le réseau.
+- Apparence > Personnaliser > Sponsors : deux emplacements avec nom, logo et lien facultatif. Aucun bloc vide si les logos ne sont pas renseignés.
+- Tuile Envie de jouer actualisée ; les anciens textes par défaut enregistrés sont remplacés, les textes personnalisés sont conservés.
+- Catégorie Tout public ; badge Interne bleu #136ebe. Dates du bloc En ce moment de même taille que les titres, sans gras, blanches en mode sombre et contrastées en mode clair.
+
 INSTALLATION
 
 1. Dans WordPress : Apparence > Thèmes > Ajouter un thème > Téléverser un thème.

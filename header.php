@@ -26,7 +26,6 @@
 			<li><a href="<?php echo esc_url( home_url( '/#calendrier' ) ); ?>">Évènements<?php if ( $rbc68_header_events ) : ?> <span class="nav-notice">À venir</span><?php endif; ?></a></li>
 			<li><a href="<?php echo esc_url( home_url( '/#actualites' ) ); ?>">Actualités<?php if ( wp_count_posts()->publish > 0 ) : ?><span class="nav-dot"><span class="screen-reader-text"> — nouveau contenu</span></span><?php endif; ?></a></li>
 			<li><a href="<?php echo esc_url( home_url( '/#club' ) ); ?>">Le club</a></li>
-			<li><a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>">Contact</a></li>
 			<li><a href="<?php echo esc_url( home_url( '/#inscription' ) ); ?>" class="nav-cta">Nous rejoindre</a></li>
 		</ul>
 		<button class="hamburger" type="button" aria-expanded="false" aria-controls="mobile-menu"><span class="screen-reader-text">Ouvrir le menu</span>☰</button>
@@ -39,7 +38,6 @@
 			<li><a href="<?php echo esc_url( home_url( '/#calendrier' ) ); ?>">Évènements<?php echo $rbc68_header_events ? ' — à venir' : ''; ?></a></li>
 			<li><a href="<?php echo esc_url( home_url( '/#actualites' ) ); ?>">Actualités</a></li>
 			<li><a href="<?php echo esc_url( home_url( '/#club' ) ); ?>">Le club</a></li>
-			<li><a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>">Contact</a></li>
 			<li><a href="<?php echo esc_url( home_url( '/#inscription' ) ); ?>">Nous rejoindre</a></li>
 		</ul>
 	</nav>
