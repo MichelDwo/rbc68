@@ -14,7 +14,7 @@
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
-<?php $rbc68_header_events = rbc68_get_upcoming_events( 1 ); ?>
+<?php $rbc68_header_events = rbc68_menu_has_events(); $rbc68_header_news = rbc68_menu_has_news(); ?>
 <header class="site-header">
 	<div class="nav-container">
 		<a href="<?php echo esc_url( home_url( '/#accueil' ) ); ?>" class="logo-link" aria-label="<?php esc_attr_e( 'Accueil', 'rbc68' ); ?>">
@@ -24,7 +24,7 @@
 			<li><a href="<?php echo esc_url( home_url( '/#essentiel' ) ); ?>">Infos pratiques</a></li>
 			<li><a href="<?php echo esc_url( home_url( '/#horaires' ) ); ?>">Horaires</a></li>
 			<li><a href="<?php echo esc_url( home_url( '/#calendrier' ) ); ?>">Évènements<?php if ( $rbc68_header_events ) : ?> <span class="nav-notice">À venir</span><?php endif; ?></a></li>
-			<li><a href="<?php echo esc_url( home_url( '/#actualites' ) ); ?>">Actualités<?php if ( wp_count_posts()->publish > 0 ) : ?><span class="nav-dot"><span class="screen-reader-text"> — nouveau contenu</span></span><?php endif; ?></a></li>
+			<li><a href="<?php echo esc_url( home_url( '/#actualites' ) ); ?>">Actualités<?php if ( $rbc68_header_news ) { rbc68_news_notice(); } ?></a></li>
 			<li><a href="<?php echo esc_url( home_url( '/#club' ) ); ?>">Le club</a></li>
 			<li><a href="<?php echo esc_url( home_url( '/#inscription' ) ); ?>" class="nav-cta">Nous rejoindre</a></li>
 		</ul>
@@ -36,7 +36,7 @@
 			<li><a href="<?php echo esc_url( home_url( '/#essentiel' ) ); ?>">Infos pratiques</a></li>
 			<li><a href="<?php echo esc_url( home_url( '/#horaires' ) ); ?>">Horaires</a></li>
 			<li><a href="<?php echo esc_url( home_url( '/#calendrier' ) ); ?>">Évènements<?php echo $rbc68_header_events ? ' — à venir' : ''; ?></a></li>
-			<li><a href="<?php echo esc_url( home_url( '/#actualites' ) ); ?>">Actualités</a></li>
+			<li><a href="<?php echo esc_url( home_url( '/#actualites' ) ); ?>">Actualités<?php if ( $rbc68_header_news ) { rbc68_news_notice(); } ?></a></li>
 			<li><a href="<?php echo esc_url( home_url( '/#club' ) ); ?>">Le club</a></li>
 			<li><a href="<?php echo esc_url( home_url( '/#inscription' ) ); ?>">Nous rejoindre</a></li>
 		</ul>

@@ -2271,3 +2271,23 @@ body.admin-bar header {
 .sponsor-logos li { display: grid; place-items: center; width: min(240px, 100%); padding: 1rem; background: #fff; border-radius: .6rem; }
 .sponsor-logos a { display: block; max-width: 100%; }
 .sponsor-logos img { display: block; width: auto; max-width: 100%; height: auto; max-height: 100px; object-fit: contain; }
+
+/* Fonds photographiques continus, sans animation ni dépendance JavaScript. */
+.home-content { position: relative; isolation: isolate; }
+.home-content > section { position: relative; z-index: 1; }
+.home-backdrop { position: absolute; inset: 0; z-index: 0; display: flex; flex-direction: column; pointer-events: none; }
+.home-photo-band { flex: 1 1 0; min-height: 100vh; position: relative; }
+.home-photo-frame { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+.home-photo-frame img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.home-photo-frame::after { content: ''; position: absolute; inset: 0; background: rgba(5, 16, 33, .82); }
+[data-theme-preference="light"] .home-photo-frame::after { background: rgba(237, 240, 243, .88); }
+.has-home-background .hero { background: transparent; color: var(--text-color); }
+.has-home-background .hero .cta-button-secondary { color: var(--text-color); border-color: currentColor; background: var(--card-bg); }
+.section-title,
+.section-heading-inline h2 { font-size: clamp(1.65rem, 3vw, 2.1rem); font-weight: 700; line-height: 1.2; text-align: left; color: var(--text-color); padding: 0; }
+.section-title { margin-bottom: 1.25rem; }
+.section-title::after { display: none; }
+.spotlight-label h2.eyebrow { font-size: .78rem; font-weight: 800; line-height: 1.6; letter-spacing: .11em; text-transform: uppercase; margin-bottom: .15rem; color: var(--accent); }
+[data-theme-preference="light"] .spotlight-label h2.eyebrow { color: var(--primary); }
+.nav-shuttle { display: inline-flex; margin-left: .3rem; color: #cda445; vertical-align: middle; }
+.nav-shuttle svg { display: block; transform: rotate(35deg); }

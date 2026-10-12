@@ -87,69 +87,7 @@
     });
   }
 
-  const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImage = document.getElementById('lightbox-img');
-  let currentImage = 0;
-
-  function updateLightbox() {
-    const image = galleryItems[currentImage] && galleryItems[currentImage].querySelector('.gallery-img');
-    if (image && lightboxImage) {
-      lightboxImage.src = image.src;
-      lightboxImage.alt = image.alt;
-    }
-  }
-
-  function openLightbox(index) {
-    if (!lightbox || !galleryItems.length) return;
-    currentImage = index;
-    updateLightbox();
-    lightbox.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeLightbox() {
-    if (!lightbox) return;
-    lightbox.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-
-  function moveLightbox(direction) {
-    currentImage = (currentImage + direction + galleryItems.length) % galleryItems.length;
-    updateLightbox();
-  }
-
-  galleryItems.forEach(function (item, index) {
-    item.setAttribute('role', 'button');
-    item.setAttribute('tabindex', '0');
-    item.addEventListener('click', function () { openLightbox(index); });
-    item.addEventListener('keydown', function (event) {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        openLightbox(index);
-      }
-    });
-  });
-
-  const closeButton = document.getElementById('lightbox-close');
-  const previousButton = document.getElementById('lightbox-prev');
-  const nextButton = document.getElementById('lightbox-next');
-  if (closeButton) closeButton.addEventListener('click', closeLightbox);
-  if (previousButton) previousButton.addEventListener('click', function () { moveLightbox(-1); });
-  if (nextButton) nextButton.addEventListener('click', function () { moveLightbox(1); });
-  if (lightbox) {
-    lightbox.addEventListener('click', function (event) {
-      if (event.target === lightbox) closeLightbox();
-    });
-  }
-  document.addEventListener('keydown', function (event) {
-    if (!lightbox || !lightbox.classList.contains('active')) return;
-    if (event.key === 'Escape') closeLightbox();
-    if (event.key === 'ArrowRight') moveLightbox(1);
-    if (event.key === 'ArrowLeft') moveLightbox(-1);
-  });
-
-  const animatedItems = document.querySelectorAll('.gallery-item, .blog-card');
+  const animatedItems = document.querySelectorAll('.blog-card');
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
     animatedItems.forEach(function (item) {
       item.style.opacity = '0';
@@ -169,6 +107,19 @@
 
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
+    contactForm.addEventListener('invalid', function (event) {
+      const field = event.target;
+      if (field.validity.customError) return;
+      if (field.validity.valueMissing) field.setCustomValidity(field.type === 'checkbox' ? 'Veuillez accepter que nous vous recontactions.' : field.tagName === 'SELECT' ? 'Veuillez sélectionner un sujet.' : 'Veuillez remplir ce champ.');
+      else if (field.validity.typeMismatch) field.setCustomValidity('Veuillez saisir une adresse e-mail valide.');
+      else if (field.validity.tooShort) field.setCustomValidity('Le message doit contenir au moins 10 caractères.');
+      else field.setCustomValidity('Veuillez vérifier le contenu de ce champ.');
+    }, true);
+    ['input', 'change'].forEach(function (type) {
+      contactForm.addEventListener(type, function (event) {
+        if (event.target.setCustomValidity) event.target.setCustomValidity('');
+      });
+    });
     contactForm.addEventListener('submit', function (event) {
       const phone = contactForm.querySelector('#phone');
       const message = contactForm.querySelector('#message');

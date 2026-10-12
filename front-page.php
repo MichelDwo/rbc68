@@ -6,12 +6,12 @@
  */
 get_header();
 $rbc68_contact_status = isset( $_GET['contact'] ) ? sanitize_key( wp_unslash( $_GET['contact'] ) ) : '';
-$rbc68_hero_image_id  = absint( get_theme_mod( 'rbc68_hero_image' ) );
-$rbc68_club_image_id  = absint( get_theme_mod( 'rbc68_club_image' ) );
+$rbc68_backgrounds = rbc68_home_backgrounds();
 ?>
-<main id="contenu">
+<main id="contenu" class="home-content<?php echo $rbc68_backgrounds ? ' has-home-background' : ''; ?>">
+<?php rbc68_render_home_backgrounds( $rbc68_backgrounds ); ?>
 <!-- Introduction compacte -->
-  <section id="accueil" class="hero<?php echo $rbc68_hero_image_id ? ' hero-has-image' : ''; ?>">
+  <section id="accueil" class="hero">
     <div class="hero-inner">
       <div class="hero-copy">
         <h1><?php echo esc_html( rbc68_mod( 'rbc68_hero_title', 'Riedisheim Badminton Club' ) ); ?></h1>
@@ -21,11 +21,7 @@ $rbc68_club_image_id  = absint( get_theme_mod( 'rbc68_club_image' ) );
           <a href="#horaires" class="cta-button cta-button-secondary">Voir les créneaux</a>
         </div>
       </div>
-      <?php if ( $rbc68_hero_image_id ) : ?>
-        <figure class="hero-visual">
-          <?php echo wp_get_attachment_image( $rbc68_hero_image_id, 'large', false, array( 'class' => 'hero-photo' ) ); ?>
-        </figure>
-      <?php endif; ?>
+
     </div>
   </section>
 
@@ -34,7 +30,7 @@ $rbc68_club_image_id  = absint( get_theme_mod( 'rbc68_club_image' ) );
     <div class="section-heading-inline">
       <div>
         <p class="eyebrow">L’essentiel en un coup d’œil</p>
-        <h2 id="essentiel-title">Les informations pratiques</h2>
+        <h2 id="essentiel-title">Infos pratiques</h2>
       </div>
     </div>
     <div class="essentials-grid">
@@ -69,7 +65,7 @@ $rbc68_club_image_id  = absint( get_theme_mod( 'rbc68_club_image' ) );
 
   <!-- Signalétique pour les visiteurs réguliers et occasionnels -->
   <section id="en-ce-moment" class="spotlight" aria-labelledby="spotlight-title">
-    <div class="spotlight-label"><span></span><h2 id="spotlight-title">En ce moment</h2></div>
+    <div class="spotlight-label"><h2 id="spotlight-title" class="eyebrow">En ce moment</h2></div>
     <div class="spotlight-grid">
       <article class="spotlight-panel spotlight-events">
         <div class="spotlight-panel-heading"><span class="spotlight-type">Prochains événements</span><a href="#calendrier">Tout le calendrier →</a></div>
@@ -119,7 +115,7 @@ $rbc68_club_image_id  = absint( get_theme_mod( 'rbc68_club_image' ) );
   <section id="club">
     <h2 class="section-title">Le Club</h2>
     <div class="club-card">
-      <div class="club-intro<?php echo $rbc68_club_image_id ? ' club-intro-has-image' : ''; ?>">
+      <div class="club-intro">
         <div class="club-copy">
           <p>
             Le <strong>Riedisheim Badminton Club (RBC68)</strong> a été créé le 3 mars 2016 suite à la restructuration de l'ASCAR.
@@ -129,11 +125,7 @@ $rbc68_club_image_id  = absint( get_theme_mod( 'rbc68_club_image' ) );
             <strong>Lieu de pratique :</strong> <a href="https://www.google.com/maps/place/47.7331928,7.3777678" target="_blank" rel="noopener noreferrer">Complexe sportif C.M.C.A.S, chemin de Brunstatt, 68170 Rixheim</a>
           </p>
         </div>
-        <?php if ( $rbc68_club_image_id ) : ?>
-          <figure class="club-visual">
-            <?php echo wp_get_attachment_image( $rbc68_club_image_id, 'large', false, array( 'class' => 'club-photo' ) ); ?>
-          </figure>
-        <?php endif; ?>
+
       </div>
       
       <?php $rbc68_members = rbc68_get_committee(); ?>
@@ -329,32 +321,6 @@ $rbc68_club_image_id  = absint( get_theme_mod( 'rbc68_club_image' ) );
   </section>
 
   <?php $rbc68_section_calendar = ob_get_clean(); ob_start(); ?>
-  <!-- Galerie Photo -->
-  <section id="galerie">
-    <h2 class="section-title">Galerie Photo</h2>
-    <div class="gallery">
-      <div class="gallery-item" data-index="0">
-        <img src="<?php echo esc_attr( rbc68_gallery_image( 1, rbc68_placeholder_image( 'Terrains de badminton', '#182d52', '#fefefe', 400, 300 ) ) ); ?>" alt="Terrains de badminton" class="gallery-img">
-        <div class="gallery-overlay">Voir la photo</div>
-      </div>
-     <div class="gallery-item" data-index="1">
-        <img src="<?php echo esc_attr( rbc68_gallery_image( 2, rbc68_placeholder_image( 'Équipements', '#5f708c', '#fefefe', 400, 300 ) ) ); ?>" alt="Équipements" class="gallery-img">
-        <div class="gallery-overlay">Voir la photo</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Agrandissement de la photo">
-    <button class="lightbox-close" id="lightbox-close" aria-label="Fermer">&times;</button>
-    <button class="lightbox-nav prev" id="lightbox-prev" aria-label="Photo précédente">&#10094;</button>
-    <div class="lightbox-content">
-      <img src="" alt="" class="lightbox-img" id="lightbox-img">
-    </div>
-    <button class="lightbox-nav next" id="lightbox-next" aria-label="Photo suivante">&#10095;</button>
-  </div>
-
-  <?php $rbc68_section_gallery = ob_get_clean(); ob_start(); ?>
   <!-- ======================================== -->
   <!-- Actualités / Blog -->
   <section id="actualites">
@@ -473,10 +439,9 @@ $rbc68_club_image_id  = absint( get_theme_mod( 'rbc68_club_image' ) );
             <label for="subject">Sujet *</label>
             <select id="subject" name="subject" required>
               <option value="" disabled selected>Sélectionnez un sujet</option>
-              <option value="inscription">Nous rejoindre</option>
-              <option value="renseignement">Demande de renseignement</option>
-              <option value="tournoi">Information sur les tournois</option>
-              <option value="autre">Autre</option>
+              <?php foreach ( rbc68_contact_routes() as $key => $route ) : ?>
+              <option value="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $route['label'] ); ?></option>
+              <?php endforeach; ?>
             </select>
             <span class="error-message" id="subjectError"></span>
           </div>
@@ -484,7 +449,7 @@ $rbc68_club_image_id  = absint( get_theme_mod( 'rbc68_club_image' ) );
           <!-- Champ Message -->
           <div class="form-group">
             <label for="message">Votre message *</label>
-            <textarea id="message" name="message" rows="5" required placeholder="Décrivez votre demande..."></textarea>
+            <textarea id="message" name="message" rows="5" minlength="10" required placeholder="Décrivez votre demande..."></textarea>
             <span class="error-message" id="messageError"></span>
           </div>
           
@@ -523,7 +488,6 @@ $rbc68_club_image_id  = absint( get_theme_mod( 'rbc68_club_image' ) );
   echo $rbc68_section_news; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
   echo $rbc68_section_club; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
   echo $rbc68_section_join; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-  echo $rbc68_section_gallery; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
   echo $rbc68_section_contact; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
   rbc68_render_sponsors();
   ?>
