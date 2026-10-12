@@ -12,6 +12,7 @@ define( 'RBC68_VERSION', '1.7.0' );
 require_once get_template_directory() . '/inc/presentation.php';
 
 require_once get_template_directory() . '/inc/committee.php';
+require_once get_template_directory() . '/inc/join.php';
 
 require_once get_template_directory() . '/inc/calendar.php';
 
@@ -498,7 +499,7 @@ function rbc68_customizer( $customizer ) {
 		'rbc68_essentials',
 		array(
 			'title'       => __( 'Informations pratiques', 'rbc68' ),
-			'description' => __( 'Contenu des quatre cartes affichées sous le bandeau.', 'rbc68' ),
+			'description' => __( 'Contenu des cartes sous le bandeau. Les tarifs et le résumé d’inscription se règlent dans Apparence > Nous rejoindre.', 'rbc68' ),
 			'priority'    => 31,
 		)
 	);
