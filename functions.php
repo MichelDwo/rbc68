@@ -10,6 +10,7 @@ defined( 'ABSPATH' ) || exit;
 define( 'RBC68_VERSION', '1.7.0' );
 
 require_once get_template_directory() . '/inc/presentation.php';
+require_once get_template_directory() . '/inc/home-visuals.php';
 
 require_once get_template_directory() . '/inc/committee.php';
 require_once get_template_directory() . '/inc/join.php';
@@ -474,8 +475,8 @@ function rbc68_customizer( $customizer ) {
 	}
 
 	$image_settings = array(
-		'rbc68_hero_image' => 'Photo horizontale du bandeau d’accueil',
-		'rbc68_club_image' => 'Photo d’illustration de la section « Le club »',
+		'rbc68_hero_image' => 'Photo de fond héritée — début de page',
+		'rbc68_club_image' => 'Photo de fond héritée — suite de page',
 		'rbc68_gallery_1'  => 'Première photo de la galerie',
 		'rbc68_gallery_2'  => 'Seconde photo de la galerie',
 	);

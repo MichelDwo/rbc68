@@ -148,3 +148,11 @@ NOUVEAUTÉS 1.4.2
 - Pastilles de catégorie : Public en vert, Interclub en orange et Interne en rouge.
 - La disponibilité n’affiche plus rien lorsqu’il reste des places ; seule la pastille « Complet » apparaît.
 - Éditeur simplifié des événements : tous les champs pratiques apparaissent directement sous le titre, sans éditeur de blocs.
+
+PHOTOS DE FOND ET INDICATEURS DU MENU
+
+- Apparence > Personnaliser > Photos de fond : jusqu’à trois photos réparties dans le fond de toute la page d’accueil. Les photos du bandeau et du club sont reprises si aucun fond spécifique n’est choisi ; elles ne sont plus affichées dans des cadres séparés. Une case permet de désactiver les fonds.
+- Photos décoratives responsive, voile sombre/clair fixe et cartes opaques pour la lisibilité. La première photo se charge immédiatement, les suivantes en différé. Préférer des photos horizontales WebP/JPEG compressées d’environ 1920 px de large. Aucun carrousel ni animation.
+- « À venir » : événement non terminé, hors entraînements, dont la date de début est comprise entre aujourd’hui et J+30 inclus (fuseau WordPress).
+- Volant doré près d’Actualités : article public publié depuis strictement moins de 30 jours ; une simple modification d’un ancien article ne réactive pas l’indicateur. Même règle sur mobile.
+- Titres de sections alignés sur « Infos pratiques ». « En ce moment » reprend le style de « L’essentiel en un coup d’œil », sans point décoratif.
