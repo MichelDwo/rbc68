@@ -10,6 +10,7 @@ defined( 'ABSPATH' ) || exit;
 define( 'RBC68_VERSION', '1.7.0' );
 
 require_once get_template_directory() . '/inc/presentation.php';
+require_once get_template_directory() . '/inc/customizer-content.php';
 require_once get_template_directory() . '/inc/home-visuals.php';
 
 require_once get_template_directory() . '/inc/committee.php';
@@ -474,27 +475,6 @@ function rbc68_customizer( $customizer ) {
 		);
 	}
 
-	$image_settings = array(
-		'rbc68_hero_image' => 'Photo de fond héritée — début de page',
-		'rbc68_club_image' => 'Photo de fond héritée — suite de page',
-		'rbc68_gallery_1'  => 'Première photo de la galerie',
-		'rbc68_gallery_2'  => 'Seconde photo de la galerie',
-	);
-
-	foreach ( $image_settings as $setting => $label ) {
-		$customizer->add_setting( $setting, array( 'sanitize_callback' => 'absint' ) );
-		$customizer->add_control(
-			new WP_Customize_Media_Control(
-				$customizer,
-				$setting,
-				array(
-					'label'     => __( $label, 'rbc68' ),
-					'section'   => 'rbc68_homepage',
-					'mime_type' => 'image',
-				)
-			)
-		);
-	}
 
 	$customizer->add_section(
 		'rbc68_essentials',
@@ -570,7 +550,7 @@ function rbc68_contact_redirect( $status ) {
 }
 
 function rbc68_handle_contact() {
-	if ( ! isset( $_POST['rbc68_contact_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['rbc68_contact_nonce'] ) ), 'rbc68_contact' ) ) {
+	if ( ! isset( $_POST['rbc68_contact_nonce'] ) || ! is_string( $_POST['rbc68_contact_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['rbc68_contact_nonce'] ) ), 'rbc68_contact' ) ) {
 		rbc68_contact_redirect( 'error' );
 	}
 
@@ -578,19 +558,14 @@ function rbc68_handle_contact() {
 		rbc68_contact_redirect( 'success' );
 	}
 
-	$name    = isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '';
-	$email   = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
-	$phone   = isset( $_POST['phone'] ) ? sanitize_text_field( wp_unslash( $_POST['phone'] ) ) : '';
-	$subject = isset( $_POST['subject'] ) ? sanitize_key( wp_unslash( $_POST['subject'] ) ) : '';
-	$message = isset( $_POST['message'] ) ? sanitize_textarea_field( wp_unslash( $_POST['message'] ) ) : '';
+	$name    = isset( $_POST['name'] ) && is_string( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '';
+	$email   = isset( $_POST['email'] ) && is_string( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
+	$phone   = isset( $_POST['phone'] ) && is_string( $_POST['phone'] ) ? sanitize_text_field( wp_unslash( $_POST['phone'] ) ) : '';
+	$subject = isset( $_POST['subject'] ) && is_string( $_POST['subject'] ) ? sanitize_key( wp_unslash( $_POST['subject'] ) ) : '';
+	$message = isset( $_POST['message'] ) && is_string( $_POST['message'] ) ? sanitize_textarea_field( wp_unslash( $_POST['message'] ) ) : '';
 	$consent = isset( $_POST['consent'] );
 
-	$subjects = array(
-		'inscription'   => 'Nous rejoindre',
-		'renseignement' => 'Demande de renseignement',
-		'tournoi'       => 'Information sur les tournois',
-		'autre'         => 'Autre',
-	);
+	$subjects = rbc68_contact_routes();
 
 	if ( ! $name || ! is_email( $email ) || ! isset( $subjects[ $subject ] ) || strlen( $message ) < 10 || ! $consent ) {
 		rbc68_contact_redirect( 'error' );
@@ -601,8 +576,10 @@ function rbc68_handle_contact() {
 		$recipient = get_option( 'admin_email' );
 	}
 
-	$mail_subject = sprintf( '[RBC68] %s — %s', $subjects[ $subject ], $name );
-	$mail_body    = "Nom : {$name}\nE-mail : {$email}\nTéléphone : {$phone}\nSujet : {$subjects[$subject]}\n\nMessage :\n{$message}\n";
+	if ( $subjects[ $subject ]['emails'] ) { $recipient = explode( ', ', $subjects[ $subject ]['emails'] ); }
+
+	$mail_subject = sprintf( '[RBC68] %s — %s', $subjects[ $subject ]['label'], $name );
+	$mail_body    = "Nom : {$name}\nE-mail : {$email}\nTéléphone : {$phone}\nSujet : {$subjects[$subject]['label']}\n\nMessage :\n{$message}\n";
 	$headers      = array( 'Reply-To: ' . $name . ' <' . $email . '>' );
 
 	rbc68_contact_redirect( wp_mail( $recipient, $mail_subject, $mail_body, $headers ) ? 'success' : 'error' );

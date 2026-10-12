@@ -151,8 +151,17 @@ NOUVEAUTÉS 1.4.2
 
 PHOTOS DE FOND ET INDICATEURS DU MENU
 
-- Apparence > Personnaliser > Photos de fond : jusqu’à trois photos réparties dans le fond de toute la page d’accueil. Les photos du bandeau et du club sont reprises si aucun fond spécifique n’est choisi ; elles ne sont plus affichées dans des cadres séparés. Une case permet de désactiver les fonds.
+- Apparence > Personnaliser > Photos de fond : jusqu’à quatre photos réparties dans le fond de toute la page d’accueil. Les anciennes photos de fond sont reprises une seule fois dans ce panneau ; les contrôles hérités sont retirés. Une case permet de désactiver les fonds.
 - Photos décoratives responsive, voile sombre/clair fixe et cartes opaques pour la lisibilité. La première photo se charge immédiatement, les suivantes en différé. Préférer des photos horizontales WebP/JPEG compressées d’environ 1920 px de large. Aucun carrousel ni animation.
 - « À venir » : événement non terminé, hors entraînements, dont la date de début est comprise entre aujourd’hui et J+30 inclus (fuseau WordPress).
 - Volant doré près d’Actualités : article public publié depuis strictement moins de 30 jours ; une simple modification d’un ancien article ne réactive pas l’indicateur. Même règle sur mobile.
 - Titres de sections alignés sur « Infos pratiques ». « En ce moment » reprend le style de « L’essentiel en un coup d’œil », sans point décoratif.
+
+Réglages complémentaires — même branche
+- Personnaliser > Sponsors : ajouter/retirer autant de sponsors que nécessaire (nom, image, lien). Les deux anciens sponsors sont conservés.
+- Personnaliser > Nous rejoindre : consignes, saisons, tarifs, groupes et documents. Les données existantes restent dans la même option WordPress.
+- Personnaliser > Contact : sujets et destinataires, plusieurs e-mails séparés par des virgules ; sans destinataire valide, adresse générale du club puis administrateur en secours.
+- Le badge À venir nécessite un événement Tout public dans les 30 prochains jours.
+- La galerie d’accueil est retirée. Les blocs Image et Galerie natifs restent disponibles dans les articles.
+- Validation du formulaire en français avec JavaScript ; contrôle serveur, nonce et champ piège invisible conservés. Aucun destinataire n’est accepté depuis les données du visiteur.
+- Pied de page : lien vers le dépôt du thème.

@@ -10,7 +10,7 @@ function rbc68_event_in_notice_window( $date, DateTimeImmutable $now ) {
 function rbc68_menu_has_events() {
 	$now = new DateTimeImmutable( 'now', wp_timezone() );
 	foreach ( rbc68_get_upcoming_events( PHP_INT_MAX ) as $event ) {
-		if ( ! post_password_required( $event ) && rbc68_event_in_notice_window( get_post_meta( $event->ID, 'rbc68_event_date', true ), $now ) ) { return true; }
+		if ( 'public' === rbc68_event_kind( $event->ID ) && ! post_password_required( $event ) && rbc68_event_in_notice_window( get_post_meta( $event->ID, 'rbc68_event_date', true ), $now ) ) { return true; }
 	}
 	return false;
 }
@@ -33,10 +33,11 @@ function rbc68_news_notice() {
 }
 
 function rbc68_background_customizer( $customizer ) {
-	$customizer->add_section( 'rbc68_backgrounds', array( 'title' => 'Photos de fond', 'description' => 'Une à trois photos dans le fond de toute la page d’accueil. Les photos du bandeau et du club sont reprises si aucun fond spécifique n’est choisi. Le voile et les cartes protègent la lisibilité.', 'priority' => 32 ) );
+	rbc68_migrate_backgrounds();
+	$customizer->add_section( 'rbc68_backgrounds', array( 'title' => 'Photos de fond', 'description' => 'Jusqu’à quatre photos dans le fond de toute la page d’accueil. Le voile et les cartes protègent la lisibilité.', 'priority' => 32 ) );
 	$customizer->add_setting( 'rbc68_background_enabled', array( 'default' => true, 'sanitize_callback' => 'rbc68_sanitize_checkbox' ) );
 	$customizer->add_control( 'rbc68_background_enabled', array( 'section' => 'rbc68_backgrounds', 'type' => 'checkbox', 'label' => 'Afficher les photos de fond' ) );
-	for ( $i = 1; $i <= 3; $i++ ) {
+	for ( $i = 1; $i <= 4; $i++ ) {
 		$key = 'rbc68_background_' . $i;
 		$customizer->add_setting( $key, array( 'default' => 0, 'sanitize_callback' => 'absint' ) );
 		$customizer->add_control( new WP_Customize_Media_Control( $customizer, $key, array( 'section' => 'rbc68_backgrounds', 'label' => 'Photo de fond ' . $i, 'mime_type' => 'image' ) ) );
@@ -44,12 +45,24 @@ function rbc68_background_customizer( $customizer ) {
 }
 add_action( 'customize_register', 'rbc68_background_customizer' );
 
+function rbc68_migrate_backgrounds() {
+	if ( get_theme_mod( 'rbc68_backgrounds_migrated', false ) ) { return; }
+	$ids = array();
+	for ( $i = 1; $i <= 4; $i++ ) { $ids[] = absint( get_theme_mod( 'rbc68_background_' . $i, 0 ) ); }
+	if ( ! array_filter( $ids, 'wp_attachment_is_image' ) ) {
+		set_theme_mod( 'rbc68_background_1', absint( get_theme_mod( 'rbc68_hero_image', 0 ) ) );
+		set_theme_mod( 'rbc68_background_2', absint( get_theme_mod( 'rbc68_club_image', 0 ) ) );
+	}
+	set_theme_mod( 'rbc68_backgrounds_migrated', true );
+}
+add_action( 'admin_init', 'rbc68_migrate_backgrounds' );
+
 function rbc68_home_backgrounds() {
 	if ( ! get_theme_mod( 'rbc68_background_enabled', true ) ) { return array(); }
 	$ids = array();
-	for ( $i = 1; $i <= 3; $i++ ) { $ids[] = absint( get_theme_mod( 'rbc68_background_' . $i, 0 ) ); }
+	for ( $i = 1; $i <= 4; $i++ ) { $ids[] = absint( get_theme_mod( 'rbc68_background_' . $i, 0 ) ); }
 	$ids = array_filter( $ids, 'wp_attachment_is_image' );
-	if ( ! $ids ) {
+	if ( ! $ids && ! get_theme_mod( 'rbc68_backgrounds_migrated', false ) ) {
 		$ids = array_filter( array( absint( get_theme_mod( 'rbc68_hero_image' ) ), absint( get_theme_mod( 'rbc68_club_image' ) ) ), 'wp_attachment_is_image' );
 	}
 	return array_values( array_unique( $ids ) );

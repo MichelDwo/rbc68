@@ -64,14 +64,14 @@ function rbc68_join_sanitize( $input ) {
 		if ( is_array( $default ) || ! isset( $input[$key] ) || ! is_string( $input[$key] ) ) { continue; }
 		$old[$key] = substr( $key, -4 ) === '_url' ? esc_url_raw( $input[$key], array( 'https', 'http' ) ) : sanitize_textarea_field( $input[$key] );
 	}
-	$old['renew_docs'] = rbc68_join_clean_docs( $input['renew_docs'] ?? array() );
+	if ( isset( $input['renew_docs'] ) ) { $old['renew_docs'] = rbc68_join_clean_docs( $input['renew_docs'] ); }
 	foreach ( $old['groups'] as $key => $group ) {
 		foreach ( array( 'label', 'ages', 'price', 'note' ) as $field ) {
 			if ( isset( $input['groups'][$key][$field] ) && is_string( $input['groups'][$key][$field] ) ) {
 				$old['groups'][$key][$field] = sanitize_textarea_field( $input['groups'][$key][$field] );
 			}
 		}
-		$old['groups'][$key]['docs'] = rbc68_join_clean_docs( $input['groups'][$key]['docs'] ?? array() );
+		if ( isset( $input['groups'][$key]['docs'] ) ) { $old['groups'][$key]['docs'] = rbc68_join_clean_docs( $input['groups'][$key]['docs'] ); }
 	}
 	return $old;
 }
@@ -79,7 +79,7 @@ add_action( 'admin_init', function() {
 	register_setting( 'rbc68_join', 'rbc68_join_v2', array( 'sanitize_callback' => 'rbc68_join_sanitize', 'type' => 'array' ) );
 } );
 add_action( 'admin_menu', function() {
-	add_theme_page( 'Nous rejoindre', 'Nous rejoindre', 'manage_options', 'rbc68-join', 'rbc68_join_admin' );
+	// Les réglages sont désormais regroupés dans Personnaliser → Nous rejoindre.
 } );
 add_action( 'admin_enqueue_scripts', function( $hook ) {
 	if ( 'appearance_page_rbc68-join' !== $hook ) { return; }
