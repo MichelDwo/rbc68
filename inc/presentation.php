@@ -22,7 +22,7 @@ function rbc68_render_sponsors() {
 		$items[] = '<li>' . ( $url ? '<a href="' . $url . '" target="_blank" rel="noopener noreferrer">' . $logo . '</a>' : $logo ) . '</li>';
 	}
 	if ( $items ) {
-		echo '<section id="sponsors" aria-labelledby="sponsors-title"><h2 id="sponsors-title" class="section-title">Nos sponsors</h2><ul class="sponsor-logos">' . implode( '', $items ) . '</ul></section>';
+		echo '<section id="sponsors" aria-labelledby="sponsors-title"><h2 id="sponsors-title" class="section-title">Nos Sponsors</h2><ul class="sponsor-logos">' . implode( '', $items ) . '</ul></section>';
 	}
 }
 
