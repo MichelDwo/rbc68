@@ -87,6 +87,43 @@ function rbc68_get_committee() {
 	return $members;
 }
 
+/** Rang du bureau, avec accents, féminins et variantes de tirets acceptés. */
+function rbc68_committee_role_rank( $role ) {
+	$role = strtolower( remove_accents( $role ) );
+	$role = preg_replace( '/[‐‑–—-]+/u', ' ', $role );
+	$role = preg_replace( '/\s+/u', ' ', trim( $role ) );
+	if ( preg_match( '/\bpresident(?:e)?\b/', $role ) ) {
+		return preg_match( '/\bvice president(?:e)?\b/', $role ) ? 5 : 6;
+	}
+	if ( preg_match( '/\btresori(?:er|ere)\b/', $role ) ) {
+		return preg_match( '/\badjoint(?:e)?\b/', $role ) ? 3 : 4;
+	}
+	if ( preg_match( '/\bsecretaire\b/', $role ) ) {
+		return preg_match( '/\badjoint(?:e)?\b/', $role ) ? 1 : 2;
+	}
+	return 0;
+}
+
+/** Deux listes distinctes garantissent une nouvelle ligne pour le bureau. */
+function rbc68_committee_groups( $members ) {
+	$groups = array( 'members' => array(), 'office' => array() );
+	foreach ( $members as $member ) {
+		$rank = rbc68_committee_role_rank( get_post_meta( $member->ID, 'rbc68_member_role', true ) );
+		$groups[ $rank ? 'office' : 'members' ][] = $member;
+	}
+	foreach ( $groups as $key => &$group ) {
+		usort( $group, function( $a, $b ) use ( $key ) {
+			if ( 'office' === $key ) {
+				$rank = rbc68_committee_role_rank( get_post_meta( $a->ID, 'rbc68_member_role', true ) ) <=> rbc68_committee_role_rank( get_post_meta( $b->ID, 'rbc68_member_role', true ) );
+				if ( $rank ) { return $rank; }
+			}
+			return strcasecmp( remove_accents( $a->post_title . ' ' . get_post_meta( $a->ID, 'rbc68_member_first_name', true ) ), remove_accents( $b->post_title . ' ' . get_post_meta( $b->ID, 'rbc68_member_first_name', true ) ) );
+		} );
+	}
+	unset( $group );
+	return $groups;
+}
+
 /** Migration unique : conserve les membres de l'ancien thème, sans fallback à l'affichage. */
 function rbc68_migrate_committee() {
 	if ( ! current_user_can( 'manage_options' ) || get_option( 'rbc68_committee_migrated' ) ) {
