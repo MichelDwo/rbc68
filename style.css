@@ -2292,6 +2292,14 @@ body.admin-bar header {
 .nav-shuttle { display: inline-flex; margin-left: .3rem; color: #cda445; vertical-align: middle; }
 .nav-shuttle svg { display: block; transform: rotate(35deg); }
 
+/* Résultats interclubs : cartes et filtres utilisables sur mobile. */
+.competition-card { background: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color); border-radius: .7rem; padding: 1.4rem; margin: 1rem 0; overflow-wrap: anywhere; }
+.competition-card h3 { color: var(--text-color); }
+.competition-score { font-size: 2rem; font-weight: 700; margin: .5rem 0; }
+.competition-filters { display: flex; flex-wrap: wrap; align-items: end; gap: 1rem; margin: 1.5rem 0; }
+.competition-filters label { display: grid; gap: .4rem; flex: 1 1 180px; min-width: 0; }
+.competition-filters select { width: 100%; min-height: 44px; padding: .6rem; background: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color); border-radius: .4rem; }
+.competition-results { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 1rem; }
 /* Icônes de même taille, centrées sur la première ligne des titres. */
 .essential-icon svg { display: block; width: 1.75rem; height: 1.75rem; }
 .essential-card h3 { display: flex; align-items: center; min-height: 2.6rem; margin-top: 0; }

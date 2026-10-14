@@ -489,6 +489,7 @@ $rbc68_backgrounds = rbc68_home_backgrounds();
   echo $rbc68_section_schedule; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
   echo $rbc68_section_calendar; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
   echo $rbc68_section_news; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+  rbc68_comp_home();
   echo $rbc68_section_club; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
   echo $rbc68_section_join; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
   echo $rbc68_section_contact; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
