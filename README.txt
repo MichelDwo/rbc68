@@ -172,3 +172,5 @@ Compétition
 - La page Résultats des Interclubs est créée lors de la première visite de l’administration avec les droits administrateur. Elle utilise le modèle dédié ; filtres combinables saison/équipe/adversaire et pagination de 20 résultats.
 - L’accueil affiche la dernière rencontre publiée, par date de rencontre. Le bouton ouvre les résultats dans un nouvel onglet. Les événements du calendrier restent distincts des résultats.
 - Les noms et la saison sont conservés dans chaque résultat pour préserver les archives.
+Cadrage des illustrations d’actualités
+Dans l’éditeur de chaque article, le panneau « Cadrage de l’illustration » propose Gauche, Centre (par défaut) ou Droite. Le choix s’applique à l’image à la une dans les tuiles et en tête d’article. Aperçu disponible après enregistrement de l’image à la une. Recadrage visuel automatique, espace intérieur de 1 px, original conservé. Les images et galeries insérées dans le corps de l’article gardent leurs réglages WordPress.

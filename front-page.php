@@ -30,12 +30,12 @@ $rbc68_backgrounds = rbc68_home_backgrounds();
     <div class="section-heading-inline">
       <div>
         <p class="eyebrow">L’essentiel en un coup d’œil</p>
-        <h2 id="essentiel-title">Infos pratiques</h2>
+        <h2 id="essentiel-title">Infos Pratiques</h2>
       </div>
     </div>
     <div class="essentials-grid">
       <article class="essential-card essential-location">
-        <span class="essential-icon" aria-hidden="true">⌖</span>
+        <span class="essential-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
         <div>
           <h3>Où jouer ?</h3>
           <p><?php echo esc_html( rbc68_mod( 'rbc68_address', 'Complexe sportif C.M.C.A.S, chemin de Brunstatt, 68170 Rixheim' ) ); ?></p>
@@ -49,15 +49,15 @@ $rbc68_backgrounds = rbc68_home_backgrounds();
         </div>
       </article>
       <article class="essential-card">
-        <span class="essential-icon" aria-hidden="true">◷</span>
+        <span class="essential-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg></span>
         <div><h3>Quand ?</h3><dl class="essential-groups"><div><dt>Adultes <?php if ( rbc68_availability_label( 'adults' ) ) : ?><span class="availability availability-full">Complet</span><?php endif; ?></dt><dd><?php echo esc_html( rbc68_mod( 'rbc68_when_adults', 'Mardi, mercredi, vendredi et dimanche' ) ); ?></dd></div><div><dt>Jeunes <?php if ( rbc68_availability_label( 'youth' ) ) : ?><span class="availability availability-full">Complet</span><?php endif; ?></dt><dd><?php echo esc_html( rbc68_mod( 'rbc68_when_youth', 'Mardi, vendredi et dimanche' ) ); ?></dd></div><div><dt>Mini-bad <?php if ( rbc68_availability_label( 'mini' ) ) : ?><span class="availability availability-full">Complet</span><?php endif; ?></dt><dd><?php echo esc_html( rbc68_mod( 'rbc68_when_mini', 'Vendredi et dimanche' ) ); ?></dd></div></dl><a href="#horaires">Tous les horaires</a></div>
       </article>
       <article class="essential-card">
-        <span class="essential-icon" aria-hidden="true">€</span>
+        <span class="essential-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M18 5a8 8 0 1 0 0 14M4 10h11M4 14h10"/></svg></span>
         <div><h3>Combien ?</h3><dl class="essential-prices"><div><dt>Mini-bad</dt><dd><?php echo esc_html( rbc68_join_price( 'mini' ) ); ?></dd></div><div><dt>Jeunes</dt><dd><?php echo esc_html( rbc68_join_price( 'youth' ) ); ?></dd></div><div><dt>Adultes</dt><dd><?php echo esc_html( rbc68_join_price( 'adults' ) ); ?></dd></div></dl><a href="#inscription">Tarifs et documents</a></div>
       </article>
       <article class="essential-card essential-card-accent">
-        <span class="essential-icon" aria-hidden="true">✓</span>
+        <span class="essential-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m5 12 4 4L19 6"/></svg></span>
         <div><h3>Envie de jouer ?</h3><p><?php echo esc_html( rbc68_mod( 'rbc68_join_text', 'Venez essayer nos créneaux adultes, raquettes mises à disposition.' ) ); ?></p><a href="#inscription">Nous rejoindre</a></div>
       </article>
     </div>
@@ -132,8 +132,10 @@ $rbc68_backgrounds = rbc68_home_backgrounds();
       <?php if ( $rbc68_members ) : ?>
       <div class="club-committee">
         <h3>Comité</h3>
-        <ul class="club-committee-grid">
-          <?php foreach ( $rbc68_members as $rbc68_member ) : ?>
+        <?php foreach ( rbc68_committee_groups( $rbc68_members ) as $rbc68_group_key => $rbc68_group_members ) : ?>
+        <?php if ( ! $rbc68_group_members ) { continue; } ?>
+        <ul class="club-committee-grid" aria-label="<?php echo 'office' === $rbc68_group_key ? 'Bureau du comité' : 'Autres membres du comité'; ?>">
+          <?php foreach ( $rbc68_group_members as $rbc68_member ) : ?>
             <?php $rbc68_member_role = get_post_meta( $rbc68_member->ID, 'rbc68_member_role', true ); ?>
             <li class="committee-card">
               <strong><?php echo esc_html( trim( get_post_meta( $rbc68_member->ID, 'rbc68_member_first_name', true ) . ' ' . $rbc68_member->post_title ) ); ?></strong>
@@ -143,6 +145,7 @@ $rbc68_backgrounds = rbc68_home_backgrounds();
             </li>
           <?php endforeach; ?>
         </ul>
+        <?php endforeach; ?>
       </div>
       <?php endif; ?>
     </div>
@@ -157,9 +160,9 @@ $rbc68_backgrounds = rbc68_home_backgrounds();
   <section id="horaires">
     <h2 class="section-title">Nos Horaires</h2>
     <div class="tabs">
-      <button class="tab-button active" data-tab="adulte" aria-controls="adulte" aria-selected="true">Adulte</button>
-      <button class="tab-button" data-tab="jeune" aria-controls="jeune" aria-selected="false">Jeune</button>
-      <button class="tab-button" data-tab="mini" aria-controls="mini" aria-selected="false">Mini-Bad</button>
+      <button class="tab-button active" data-tab="adulte" aria-controls="adulte" aria-selected="true">Adultes (&gt; 16 ans)</button>
+      <button class="tab-button" data-tab="jeune" aria-controls="jeune" aria-selected="false">Jeunes (12–16 ans)</button>
+      <button class="tab-button" data-tab="mini" aria-controls="mini" aria-selected="false">Minibad (7–11 ans)</button>
     </div>
     <div class="schedule">
       <table class="schedule-table" id="adulte">
@@ -174,22 +177,22 @@ $rbc68_backgrounds = rbc68_home_backgrounds();
           <tr>
             <td>Mardi</td>
             <td>20h00 - 22h30</td>
-            <td>C.M.C.A.S Rixheim</td>
+            <td>C.M.C.A.S Rixheim - Grande salle</td>
           </tr>
           <tr>
             <td>Mercredi</td>
             <td>20h00 - 22h30</td>
-            <td>C.M.C.A.S Rixheim</td>
+            <td>C.M.C.A.S Rixheim - Grande salle</td>
           </tr>
           <tr>
             <td>Vendredi</td>
             <td>20h00 - 22h30</td>
-            <td>C.M.C.A.S Rixheim</td>
+            <td>C.M.C.A.S Rixheim - Grande salle</td>
           </tr>
           <tr>
             <td>Dimanche</td>
             <td>09h00 - 12h00</td>
-            <td>C.M.C.A.S Rixheim</td>
+            <td>C.M.C.A.S Rixheim - Grande salle</td>
           </tr>
         </tbody>
       </table>
@@ -205,17 +208,17 @@ $rbc68_backgrounds = rbc68_home_backgrounds();
           <tr>
             <td>Mardi</td>
             <td>18h00 - 20h00</td>
-            <td>C.M.C.A.S Rixheim</td>
+            <td>C.M.C.A.S Rixheim - Grande salle</td>
           </tr>
           <tr>
             <td>Vendredi</td>
             <td>18h00 - 20h00</td>
-            <td>C.M.C.A.S Rixheim</td>
+            <td>C.M.C.A.S Rixheim - Grande salle</td>
           </tr>
           <tr>
             <td>Dimanche</td>
             <td>09h00 - 12h00</td>
-            <td>C.M.C.A.S Rixheim</td>
+            <td>C.M.C.A.S Rixheim - Grande salle</td>
           </tr>
         </tbody>
       </table>
@@ -231,12 +234,12 @@ $rbc68_backgrounds = rbc68_home_backgrounds();
           <tr>
             <td>Vendredi</td>
             <td>17h30 - 19h30</td>
-            <td>C.M.C.A.S Rixheim</td>
+            <td>C.M.C.A.S Rixheim - Grande salle</td>
           </tr>
           <tr>
             <td>Dimanche</td>
             <td>09h00 - 12h00</td>
-            <td>C.M.C.A.S Rixheim</td>
+            <td>C.M.C.A.S Rixheim - Grande salle</td>
           </tr>
         </tbody>
       </table>
@@ -341,7 +344,7 @@ $rbc68_backgrounds = rbc68_home_backgrounds();
           <article <?php post_class( 'blog-card' ); ?>>
             <a href="<?php the_permalink(); ?>" aria-label="<?php echo esc_attr( get_the_title() ); ?>">
               <?php if ( has_post_thumbnail() ) : ?>
-                <?php the_post_thumbnail( 'large', array( 'class' => 'blog-img' ) ); ?>
+                <?php rbc68_news_image(); ?>
               <?php else : ?>
                 <img src="<?php echo esc_attr( rbc68_placeholder_image( get_the_title(), '#182d52', '#fefefe', 400, 200 ) ); ?>" alt="" class="blog-img">
               <?php endif; ?>

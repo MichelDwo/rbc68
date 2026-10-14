@@ -1363,9 +1363,9 @@ body.admin-bar header {
 
 .essential-icon {
   display: grid;
-  flex: 0 0 2rem;
-  width: 2rem;
-  height: 2rem;
+  flex: 0 0 2.6rem;
+  width: 2.6rem;
+  height: 2.6rem;
   place-items: center;
   border-radius: .5rem;
   color: var(--white);
@@ -2300,3 +2300,7 @@ body.admin-bar header {
 .competition-filters label { display: grid; gap: .4rem; flex: 1 1 180px; min-width: 0; }
 .competition-filters select { width: 100%; min-height: 44px; padding: .6rem; background: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color); border-radius: .4rem; }
 .competition-results { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 1rem; }
+/* Icônes de même taille, centrées sur la première ligne des titres. */
+.essential-icon svg { display: block; width: 1.75rem; height: 1.75rem; }
+.essential-card h3 { display: flex; align-items: center; min-height: 2.6rem; margin-top: 0; }
+.club-committee-grid + .club-committee-grid { margin-top: 1.5rem; }

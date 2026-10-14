@@ -14,7 +14,7 @@ get_header();
 				<?php while ( have_posts() ) : the_post(); ?>
 					<article <?php post_class( 'blog-card' ); ?>>
 						<?php if ( has_post_thumbnail() ) : ?>
-							<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail( 'large', array( 'class' => 'blog-img' ) ); ?></a>
+							<a href="<?php the_permalink(); ?>"><?php rbc68_news_image(); ?></a>
 						<?php endif; ?>
 						<div class="blog-content">
 							<div class="blog-date"><?php echo esc_html( get_the_date() ); ?></div>
