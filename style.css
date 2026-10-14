@@ -2317,3 +2317,7 @@ body.admin-bar header {
 .rbc68-article-content :is(img, video, iframe) { max-width: 100%; }
 .rbc68-article-content :is(figure, .wp-caption) { max-width: 100%; box-sizing: border-box; }
 .blog-card > .blog-img { display: block; width: calc(100% - 16px); margin: 8px; border-radius: .5rem; }
+
+/* Image entière : la hauteur suit les proportions, sans découpe ni déformation. */
+.rbc68-news-photo.rbc68-news-photo-full { height: auto; aspect-ratio: auto; }
+.rbc68-news-photo-full .rbc68-news-image { height: auto; object-fit: contain; object-position: center; }

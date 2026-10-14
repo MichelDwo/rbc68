@@ -178,3 +178,6 @@ Dans l’éditeur de chaque article, le panneau « Cadrage de l’illustration �
 Correctif images et sponsors
 - Rétablissement des styles de cadrage perdus lors de la fusion ; espace de 8 px et arrondis autour des illustrations.
 - Les listes Personnaliser (sponsors, documents, sujets) utilisent directement les réglages WordPress structurés : les éléments existants sont à nouveau modifiables et supprimables. Publier pour enregistrer les changements, y compris la suppression de tous les sponsors.
+
+Image entière dans les actualités
+Le panneau « Cadrage de l’illustration » propose aussi « Image entière, sans recadrage ». L’image conserve ses proportions et s’adapte à la largeur de la tuile ou de l’article ; la hauteur varie selon la photo. Les marges de 8 px et les arrondis sont conservés. Les choix de cadrage déjà enregistrés restent inchangés.
