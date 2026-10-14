@@ -12,6 +12,7 @@ define( 'RBC68_VERSION', '1.7.0' );
 require_once get_template_directory() . '/inc/presentation.php';
 require_once get_template_directory() . '/inc/customizer-content.php';
 require_once get_template_directory() . '/inc/home-visuals.php';
+require_once get_template_directory() . '/inc/news-image.php';
 
 require_once get_template_directory() . '/inc/committee.php';
 require_once get_template_directory() . '/inc/join.php';

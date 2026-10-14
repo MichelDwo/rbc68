@@ -165,3 +165,6 @@ Réglages complémentaires — même branche
 - La galerie d’accueil est retirée. Les blocs Image et Galerie natifs restent disponibles dans les articles.
 - Validation du formulaire en français avec JavaScript ; contrôle serveur, nonce et champ piège invisible conservés. Aucun destinataire n’est accepté depuis les données du visiteur.
 - Pied de page : lien vers le dépôt du thème.
+
+Cadrage des illustrations d’actualités
+Dans l’éditeur de chaque article, le panneau « Cadrage de l’illustration » propose Gauche, Centre (par défaut) ou Droite. Le choix s’applique à l’image à la une dans les tuiles et en tête d’article. Aperçu disponible après enregistrement de l’image à la une. Recadrage visuel automatique, espace intérieur de 1 px, original conservé. Les images et galeries insérées dans le corps de l’article gardent leurs réglages WordPress.
