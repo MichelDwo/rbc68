@@ -174,3 +174,7 @@ Compétition
 - Les noms et la saison sont conservés dans chaque résultat pour préserver les archives.
 Cadrage des illustrations d’actualités
 Dans l’éditeur de chaque article, le panneau « Cadrage de l’illustration » propose Gauche, Centre (par défaut) ou Droite. Le choix s’applique à l’image à la une dans les tuiles et en tête d’article. Aperçu disponible après enregistrement de l’image à la une. Recadrage visuel automatique, espace intérieur de 1 px, original conservé. Les images et galeries insérées dans le corps de l’article gardent leurs réglages WordPress.
+
+Correctif images et sponsors
+- Rétablissement des styles de cadrage perdus lors de la fusion ; espace de 8 px et arrondis autour des illustrations.
+- Les listes Personnaliser (sponsors, documents, sujets) utilisent directement les réglages WordPress structurés : les éléments existants sont à nouveau modifiables et supprimables. Publier pour enregistrer les changements, y compris la suppression de tous les sponsors.

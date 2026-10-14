@@ -47,11 +47,10 @@ function rbc68_sanitize_documents( $value ) { return rbc68_join_clean_docs( rbc6
 add_action( 'customize_register', function( $c ) {
 	class RBC68_List_Control extends WP_Customize_Control {
 		public $fields = array();
+		public $type = 'rbc68-list';
 		public function render_content() {
 			echo '<span class="customize-control-title">' . esc_html( $this->label ) . '</span><p>' . esc_html( $this->description ) . '</p>';
-			echo '<div class="rbc68-list-control" data-fields="' . esc_attr( wp_json_encode( $this->fields ) ) . '"><input type="hidden" class="rbc68-list-value" value="' . esc_attr( wp_json_encode( $this->value() ) ) . '" ';
-			$this->link();
-			echo '><div class="rbc68-list-rows"></div><button type="button" class="button rbc68-list-add">Ajouter</button></div>';
+			echo '<div class="rbc68-list-control" data-fields="' . esc_attr( wp_json_encode( $this->fields ) ) . '"><div class="rbc68-list-rows"></div><button type="button" class="button rbc68-list-add">Ajouter</button></div>';
 		}
 	}
 	$c->add_setting( 'rbc68_sponsors_list', array( 'default' => rbc68_sponsors(), 'sanitize_callback' => 'rbc68_sanitize_sponsors' ) );

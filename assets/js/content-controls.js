@@ -1,14 +1,20 @@
 (function ($) {
   'use strict';
-  wp.customize.bind('ready', function () {
-    document.querySelectorAll('.rbc68-list-control').forEach(function (root) {
-      const hidden = root.querySelector('.rbc68-list-value');
+  // Read structured settings directly: a hidden input converts arrays to strings.
+  wp.customize.controlConstructor['rbc68-list'] = wp.customize.Control.extend({
+    ready: function () {
+      const control = this;
+      const root = control.container[0].querySelector('.rbc68-list-control');
       const fields = JSON.parse(root.dataset.fields);
       const rows = root.querySelector('.rbc68-list-rows');
-      let items;
-      try { items = JSON.parse(hidden.value); } catch (_) { items = []; }
-      if (!Array.isArray(items)) items = [];
-      function save() { hidden.value = JSON.stringify(items); $(hidden).trigger('change'); }
+      function decode(value) {
+        if (typeof value === 'string') {
+          try { value = JSON.parse(value); } catch (_) { value = []; }
+        }
+        return Array.isArray(value) ? JSON.parse(JSON.stringify(value)) : [];
+      }
+      let items = decode(control.setting.get());
+      function save() { control.setting.set(JSON.parse(JSON.stringify(items))); }
       function render() {
         rows.replaceChildren();
         items.forEach(function (item, index) {
@@ -25,7 +31,7 @@
               function previewImage() {
                 if (!item.logo) { preview.removeAttribute('src'); preview.hidden = true; return; }
                 const attachment = wp.media.attachment(item.logo);
-                attachment.fetch().then(function () { preview.src = attachment.get('url'); preview.alt = item.name || 'Logo'; preview.hidden = false; });
+                attachment.fetch().then(function () { preview.src = attachment.get('url'); preview.alt = item.name || 'Logo'; preview.hidden = false; }, function () { preview.hidden = true; });
               }
               previewImage();
               const button = document.createElement('button');
@@ -50,8 +56,12 @@
           box.append(remove); rows.append(box);
         });
       }
-      root.querySelector('.rbc68-list-add').onclick = function () { items.push({}); render(); };
+      root.querySelector('.rbc68-list-add').onclick = function () { items.push({}); save(); render(); };
+      control.setting.bind(function (value) {
+        const next = decode(value);
+        if (JSON.stringify(next) !== JSON.stringify(items)) { items = next; render(); }
+      });
       render();
-    });
+    }
   });
 })(jQuery);
