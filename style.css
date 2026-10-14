@@ -2321,3 +2321,10 @@ body.admin-bar header {
 /* Image entière : la hauteur suit les proportions, sans découpe ni déformation. */
 .rbc68-news-photo.rbc68-news-photo-full { height: auto; aspect-ratio: auto; }
 .rbc68-news-photo-full .rbc68-news-image { height: auto; object-fit: contain; object-position: center; }
+
+/* Résultats : domicile, score, extérieur, sur une ligne par rencontre. */
+.competition-results { display: block; }
+.competition-line { display: grid; grid-template-columns: 6rem minmax(0,1fr) auto minmax(0,1fr); align-items: center; gap: .8rem; padding: 1rem; margin: .5rem 0; border-radius: .5rem; background: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color); overflow-wrap: anywhere; }
+.competition-line-score { white-space: nowrap; font-size: 1.2rem; }
+.competition-line small { grid-column: 1/-1; }
+@media(max-width:600px) { .competition-line { grid-template-columns: minmax(0,1fr) auto minmax(0,1fr); gap: .5rem; padding: .7rem; } .competition-line time { grid-column: 1/-1; } }

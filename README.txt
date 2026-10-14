@@ -181,3 +181,15 @@ Correctif images et sponsors
 
 Image entière dans les actualités
 Le panneau « Cadrage de l’illustration » propose aussi « Image entière, sans recadrage ». L’image conserve ses proportions et s’adapte à la largeur de la tuile ou de l’article ; la hauteur varie selon la photo. Les marges de 8 px et les arrondis sont conservés. Les choix de cadrage déjà enregistrés restent inchangés.
+
+Compétition — interface refondue
+- Menu Compétition : ajouter une saison, puis renseigner les adversaires de RBC 1, 2 et 3 (une équipe adverse par ligne).
+- Saisie manuelle : choisir la saison, la date, l’équipe qui accueille et son score, puis l’équipe visiteuse et son score. L’une doit être une équipe RBC et l’autre un adversaire déclaré pour cette équipe.
+- Accueil : dernière semaine ISO ayant un résultat, du lundi au dimanche ; dernière rencontre de chaque équipe dans cette semaine, trois lignes au maximum.
+- Page dédiée : domicile en premier ; filtres combinables par saison et adversaire.
+- Import ICBaD : choisir saison et numéro RBC, coller l’URL /equipe/… ; « Préparer l’import en lot » affiche un aperçu à cocher, « Import différentiel » ajoute directement les absentes. Aucun mode ne réécrit une rencontre existante. Un résultat corrigé sur ICBaD doit donc être corrigé manuellement sur le site.
+- Déduplication par identifiant ICBaD et rapprochement avec les saisies manuelles. Par prudence, une rencontre de la même équipe RBC à la même date bloque l’ajout automatique d’une seconde : vérifier et utiliser la saisie manuelle si nécessaire.
+- Dates complètes vérifiées sur chaque fiche ICBaD ; saison septembre-août. Dates futures, résultats sans score et 0–0 ne sont pas importés. Les erreurs sont signalées ligne par ligne. L’import ajoute aussi les adversaires rencontrés.
+- Requêtes séquentielles uniquement depuis l’administration, sans tâche de fond ni chargement ICBaD sur le site public. PHP DOM requis.
+- Données précédentes conservées. L’ancien modèle ne stockait pas le domicile : ces résultats portent « Ordre domicile/extérieur à confirmer » jusqu’à leur correction. Les noms d’anciennes équipes RBC doivent comporter leur numéro pour une reprise automatique fiable.
+- Validation : tests d’extraction à partir du tableau ICBaD fourni, dates/saisons, URL autorisées, scores domicile/extérieur, semaine ISO, filtres et pagination. Essai dans WordPress requis avant fusion.
