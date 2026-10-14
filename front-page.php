@@ -344,7 +344,7 @@ $rbc68_backgrounds = rbc68_home_backgrounds();
           <article <?php post_class( 'blog-card' ); ?>>
             <a href="<?php the_permalink(); ?>" aria-label="<?php echo esc_attr( get_the_title() ); ?>">
               <?php if ( has_post_thumbnail() ) : ?>
-                <?php the_post_thumbnail( 'large', array( 'class' => 'blog-img' ) ); ?>
+                <?php rbc68_news_image(); ?>
               <?php else : ?>
                 <img src="<?php echo esc_attr( rbc68_placeholder_image( get_the_title(), '#182d52', '#fefefe', 400, 200 ) ); ?>" alt="" class="blog-img">
               <?php endif; ?>
