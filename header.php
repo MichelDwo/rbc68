@@ -25,6 +25,7 @@
 			<li><a href="<?php echo esc_url( home_url( '/#horaires' ) ); ?>">Horaires</a></li>
 			<li><a href="<?php echo esc_url( home_url( '/#calendrier' ) ); ?>">Évènements<?php if ( $rbc68_header_events ) : ?> <span class="nav-notice">À venir</span><?php endif; ?></a></li>
 			<li><a href="<?php echo esc_url( home_url( '/#actualites' ) ); ?>">Actualités<?php if ( $rbc68_header_news ) { rbc68_news_notice(); } ?></a></li>
+			<li><a href="<?php echo esc_url( home_url( '/#competition' ) ); ?>">Compétition</a></li>
 			<li><a href="<?php echo esc_url( home_url( '/#club' ) ); ?>">Le club</a></li>
 			<li><a href="<?php echo esc_url( home_url( '/#inscription' ) ); ?>" class="nav-cta">Nous rejoindre</a></li>
 		</ul>
@@ -37,6 +38,7 @@
 			<li><a href="<?php echo esc_url( home_url( '/#horaires' ) ); ?>">Horaires</a></li>
 			<li><a href="<?php echo esc_url( home_url( '/#calendrier' ) ); ?>">Évènements<?php echo $rbc68_header_events ? ' — à venir' : ''; ?></a></li>
 			<li><a href="<?php echo esc_url( home_url( '/#actualites' ) ); ?>">Actualités<?php if ( $rbc68_header_news ) { rbc68_news_notice(); } ?></a></li>
+			<li><a href="<?php echo esc_url( home_url( '/#competition' ) ); ?>">Compétition</a></li>
 			<li><a href="<?php echo esc_url( home_url( '/#club' ) ); ?>">Le club</a></li>
 			<li><a href="<?php echo esc_url( home_url( '/#inscription' ) ); ?>">Nous rejoindre</a></li>
 		</ul>

@@ -14,6 +14,7 @@ require_once get_template_directory() . '/inc/customizer-content.php';
 require_once get_template_directory() . '/inc/home-visuals.php';
 
 require_once get_template_directory() . '/inc/committee.php';
+require_once get_template_directory() . '/inc/competition.php';
 require_once get_template_directory() . '/inc/join.php';
 
 require_once get_template_directory() . '/inc/calendar.php';

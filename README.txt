@@ -165,3 +165,10 @@ Réglages complémentaires — même branche
 - La galerie d’accueil est retirée. Les blocs Image et Galerie natifs restent disponibles dans les articles.
 - Validation du formulaire en français avec JavaScript ; contrôle serveur, nonce et champ piège invisible conservés. Aucun destinataire n’est accepté depuis les données du visiteur.
 - Pied de page : lien vers le dépôt du thème.
+
+Compétition
+- Administration > Compétition > Équipes par saison : créer une fiche par équipe et saison (2026-2027), avec un adversaire par ligne, puis publier.
+- Compétition > Ajouter un résultat : choisir équipe/saison, adversaire, date, score RBC68 et score adverse, lieu facultatif, puis publier. Les rencontres futures ne sont pas des résultats.
+- La page Résultats des Interclubs est créée lors de la première visite de l’administration avec les droits administrateur. Elle utilise le modèle dédié ; filtres combinables saison/équipe/adversaire et pagination de 20 résultats.
+- L’accueil affiche la dernière rencontre publiée, par date de rencontre. Le bouton ouvre les résultats dans un nouvel onglet. Les événements du calendrier restent distincts des résultats.
+- Les noms et la saison sont conservés dans chaque résultat pour préserver les archives.
